@@ -20,7 +20,7 @@ namespace Orcamentos.Infrastructure
 
         public DbSet<BusinessUnit> businessUnits { get; set; }
 
-        public DbSet<Models.Orcamentos> orcamentos { get; set; }
+        public DbSet<Orcamento> orcamentos { get; set; }
 
 
     }

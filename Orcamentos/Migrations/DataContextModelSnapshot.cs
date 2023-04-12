@@ -22,7 +22,7 @@ namespace Orcamentos.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("Orcamentos.Models.BuManager", b =>
+            modelBuilder.Entity("BuManager", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -37,7 +37,7 @@ namespace Orcamentos.Migrations
                     b.ToTable("buManagers");
                 });
 
-            modelBuilder.Entity("Orcamentos.Models.BusinessUnit", b =>
+            modelBuilder.Entity("BusinessUnit", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -64,7 +64,7 @@ namespace Orcamentos.Migrations
                     b.ToTable("businessUnits");
                 });
 
-            modelBuilder.Entity("Orcamentos.Models.Orcamentos", b =>
+            modelBuilder.Entity("Orcamentos", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -119,7 +119,7 @@ namespace Orcamentos.Migrations
                     b.ToTable("orcamentos");
                 });
 
-            modelBuilder.Entity("Orcamentos.Models.Profile", b =>
+            modelBuilder.Entity("Profile", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -142,7 +142,7 @@ namespace Orcamentos.Migrations
                     b.ToTable("profiles");
                 });
 
-            modelBuilder.Entity("Orcamentos.Models.ProfileLevel", b =>
+            modelBuilder.Entity("ProfileLevel", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -160,7 +160,7 @@ namespace Orcamentos.Migrations
                     b.ToTable("profileLevels");
                 });
 
-            modelBuilder.Entity("Orcamentos.Models.RevenueType", b =>
+            modelBuilder.Entity("RevenueType", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -183,9 +183,9 @@ namespace Orcamentos.Migrations
                     b.ToTable("revenueTypes");
                 });
 
-            modelBuilder.Entity("Orcamentos.Models.BusinessUnit", b =>
+            modelBuilder.Entity("BusinessUnit", b =>
                 {
-                    b.HasOne("Orcamentos.Models.BuManager", "BuManager")
+                    b.HasOne("BuManager", "BuManager")
                         .WithMany()
                         .HasForeignKey("BuManagerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -194,21 +194,21 @@ namespace Orcamentos.Migrations
                     b.Navigation("BuManager");
                 });
 
-            modelBuilder.Entity("Orcamentos.Models.Orcamentos", b =>
+            modelBuilder.Entity("Orcamentos", b =>
                 {
-                    b.HasOne("Orcamentos.Models.BuManager", "BuManager")
+                    b.HasOne("BuManager", "BuManager")
                         .WithMany()
                         .HasForeignKey("BuManagerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Orcamentos.Models.Profile", "Profile")
+                    b.HasOne("Profile", "Profile")
                         .WithMany()
                         .HasForeignKey("ProfileId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Orcamentos.Models.RevenueType", "RevenueType")
+                    b.HasOne("RevenueType", "RevenueType")
                         .WithMany()
                         .HasForeignKey("RevenueTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -221,9 +221,9 @@ namespace Orcamentos.Migrations
                     b.Navigation("RevenueType");
                 });
 
-            modelBuilder.Entity("Orcamentos.Models.Profile", b =>
+            modelBuilder.Entity("Profile", b =>
                 {
-                    b.HasOne("Orcamentos.Models.ProfileLevel", "ProfileLevel")
+                    b.HasOne("ProfileLevel", "ProfileLevel")
                         .WithMany()
                         .HasForeignKey("ProfileLevelId")
                         .OnDelete(DeleteBehavior.Cascade)
