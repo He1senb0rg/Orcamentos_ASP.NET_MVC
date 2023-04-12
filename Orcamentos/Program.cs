@@ -1,4 +1,20 @@
+using Microsoft.EntityFrameworkCore;
+using Orcamentos.Infrastructure;
+using Orcamentos.Models;
+
 var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<DataContext>(options =>
+    options.UseSqlServer(connectionString));
+
+
+builder.Services.AddDbContext<DataContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration["ConnectionStrings:DbConnection"]);
+});
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
