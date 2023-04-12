@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Orcamentos.Infrastructure;
 using Orcamentos.Models;
+using Orcamentos.Helpers;
 
 namespace Orcamentos.Controllers
 {
@@ -48,7 +49,9 @@ namespace Orcamentos.Controllers
         // GET: BusinessUnits/Create
         public IActionResult Create()
         {
-            ViewData["BumId"] = new SelectList(_context.buManagers, "Id", "Id");
+            IEnumerable<SelectListItem> bumList = DBHelper.FillBuManagers(_context);
+            ViewBag.bumList = bumList;
+
             return View();
         }
 
