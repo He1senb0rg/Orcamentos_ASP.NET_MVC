@@ -1,9 +1,5 @@
-# O
-##
-# Miguel
-##
-#é
-##
-#feio
-##
-#:)
+O
+Miguel
+é
+feio
+:)
