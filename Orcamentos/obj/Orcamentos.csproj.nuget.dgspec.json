@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\2005h\\Desktop\\Bravantic\\Orcamentos\\Orcamentos.csproj": {}
+    "C:\\Users\\2005h\\Desktop\\Git_Projects\\Orcamentos_ASP.NET_MVC\\Orcamentos\\Orcamentos.csproj": {}
   },
   "projects": {
-    "C:\\Users\\2005h\\Desktop\\Bravantic\\Orcamentos\\Orcamentos.csproj": {
+    "C:\\Users\\2005h\\Desktop\\Git_Projects\\Orcamentos_ASP.NET_MVC\\Orcamentos\\Orcamentos.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\2005h\\Desktop\\Bravantic\\Orcamentos\\Orcamentos.csproj",
+        "projectUniqueName": "C:\\Users\\2005h\\Desktop\\Git_Projects\\Orcamentos_ASP.NET_MVC\\Orcamentos\\Orcamentos.csproj",
         "projectName": "Orcamentos",
-        "projectPath": "C:\\Users\\2005h\\Desktop\\Bravantic\\Orcamentos\\Orcamentos.csproj",
+        "projectPath": "C:\\Users\\2005h\\Desktop\\Git_Projects\\Orcamentos_ASP.NET_MVC\\Orcamentos\\Orcamentos.csproj",
         "packagesPath": "C:\\Users\\2005h\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\2005h\\Desktop\\Bravantic\\Orcamentos\\obj\\",
+        "outputPath": "C:\\Users\\2005h\\Desktop\\Git_Projects\\Orcamentos_ASP.NET_MVC\\Orcamentos\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
