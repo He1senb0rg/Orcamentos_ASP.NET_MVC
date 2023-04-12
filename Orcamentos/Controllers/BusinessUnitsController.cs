@@ -48,6 +48,7 @@ namespace Orcamentos.Controllers
         // GET: BusinessUnits/Create
         public IActionResult Create()
         {
+            ViewData["BumId"] = new SelectList(_context.buManagers, "Id", "Id");
             return View();
         }
 

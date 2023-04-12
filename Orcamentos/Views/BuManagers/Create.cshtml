@@ -1,12 +1,12 @@
 ﻿@model BuManager
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create ";
 }
 
-<h1>Create</h1>
+<h1>Criar</h1>
 
-<h4>BuManager</h4>
+<h4>Gestor de unidades de negócio</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -17,7 +17,7 @@
                 <input asp-for="Nome" class="form-control" />
                 <span asp-validation-for="Nome" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
+            <div class="form-group form-check mb-2">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="Ativo" /> @Html.DisplayNameFor(model => model.Ativo)
                 </label>
