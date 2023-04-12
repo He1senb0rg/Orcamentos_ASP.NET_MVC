@@ -59,7 +59,7 @@ namespace Orcamentos.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ProfileId,RevTypeId,BuManagerId,Marca,TipoUni,Partnumb,modelo,SerialNumb,ProductName,Estado")] Orcamento orcamento)
+        public async Task<IActionResult> Create([Bind("Id,ProfileId,RevTypeId,BuManagerId,Marca,TipoUni,Partnumb,modelo,SerialNumb,ProductName,Ativo")] Orcamento orcamento)
         {
             if (ModelState.IsValid)
             {
@@ -96,7 +96,7 @@ namespace Orcamentos.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,ProfileId,RevTypeId,BuManagerId,Marca,TipoUni,Partnumb,modelo,SerialNumb,ProductName,Estado")] Orcamento orcamento)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,ProfileId,RevTypeId,BuManagerId,Marca,TipoUni,Partnumb,modelo,SerialNumb,ProductName,Ativo")] Orcamento orcamento)
         {
             if (id != orcamento.Id)
             {
@@ -160,7 +160,8 @@ namespace Orcamentos.Controllers
             var orcamento = await _context.orcamentos.FindAsync(id);
             if (orcamento != null)
             {
-                _context.orcamentos.Remove(orcamento);
+                orcamento.Ativo = false;
+                _context.SaveChanges();
             }
             
             await _context.SaveChangesAsync();

@@ -6,7 +6,7 @@
 
         public string ProductName { get; set; }
 
-        public int Quantidade { get; set; }
+        public bool Ativo { get; set; }
 
 
     }

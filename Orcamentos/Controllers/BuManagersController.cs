@@ -56,7 +56,7 @@ namespace Orcamentos.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nome")] BuManager buManager)
+        public async Task<IActionResult> Create([Bind("Id,Nome,Ativo")] BuManager buManager)
         {
             if (ModelState.IsValid)
             {
@@ -89,7 +89,7 @@ namespace Orcamentos.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Nome")] BuManager buManager)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Nome,Ativo")] BuManager buManager)
         {
             if (id != buManager.Id)
             {
@@ -149,7 +149,8 @@ namespace Orcamentos.Controllers
             var buManager = await _context.buManagers.FindAsync(id);
             if (buManager != null)
             {
-                _context.buManagers.Remove(buManager);
+                buManager.Ativo = false;
+                _context.SaveChanges();
             }
             
             await _context.SaveChangesAsync();

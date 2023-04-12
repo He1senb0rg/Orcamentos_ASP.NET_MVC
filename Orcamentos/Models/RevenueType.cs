@@ -8,7 +8,7 @@
 
         public string Tipo { get; set; }
 
-        public string Estado { get; set; }
+        public bool Ativo { get; set; }
 
     }
 }

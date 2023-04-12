@@ -12,8 +12,8 @@ using Orcamentos.Infrastructure;
 namespace Orcamentos.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230412102231_bdcrate")]
-    partial class bdcrate
+    [Migration("20230412132315_first")]
+    partial class first
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,11 +24,14 @@ namespace Orcamentos.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("BuManager", b =>
+            modelBuilder.Entity("Orcamentos.Models.BuManager", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Ativo")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Nome")
                         .IsRequired()
@@ -39,21 +42,20 @@ namespace Orcamentos.Migrations
                     b.ToTable("buManagers");
                 });
 
-            modelBuilder.Entity("BusinessUnit", b =>
+            modelBuilder.Entity("Orcamentos.Models.BusinessUnit", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Ativo")
+                        .HasColumnType("bit");
 
                     b.Property<Guid>("BuManagerId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("BumId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Estado")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -66,18 +68,17 @@ namespace Orcamentos.Migrations
                     b.ToTable("businessUnits");
                 });
 
-            modelBuilder.Entity("Orcamentos", b =>
+            modelBuilder.Entity("Orcamentos.Models.Orcamento", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<bool>("Ativo")
+                        .HasColumnType("bit");
+
                     b.Property<Guid>("BuManagerId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Estado")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Marca")
                         .IsRequired()
@@ -121,11 +122,14 @@ namespace Orcamentos.Migrations
                     b.ToTable("orcamentos");
                 });
 
-            modelBuilder.Entity("Profile", b =>
+            modelBuilder.Entity("Orcamentos.Models.Profile", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Ativo")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -134,9 +138,6 @@ namespace Orcamentos.Migrations
                     b.Property<Guid>("ProfileLevelId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Quantidade")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ProfileLevelId");
@@ -144,33 +145,32 @@ namespace Orcamentos.Migrations
                     b.ToTable("profiles");
                 });
 
-            modelBuilder.Entity("ProfileLevel", b =>
+            modelBuilder.Entity("Orcamentos.Models.ProfileLevel", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<bool>("Ativo")
+                        .HasColumnType("bit");
+
                     b.Property<string>("ProductName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Quantidade")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.ToTable("profileLevels");
                 });
 
-            modelBuilder.Entity("RevenueType", b =>
+            modelBuilder.Entity("Orcamentos.Models.RevenueType", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Estado")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("Ativo")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Nome")
                         .IsRequired()
@@ -185,9 +185,9 @@ namespace Orcamentos.Migrations
                     b.ToTable("revenueTypes");
                 });
 
-            modelBuilder.Entity("BusinessUnit", b =>
+            modelBuilder.Entity("Orcamentos.Models.BusinessUnit", b =>
                 {
-                    b.HasOne("BuManager", "BuManager")
+                    b.HasOne("Orcamentos.Models.BuManager", "BuManager")
                         .WithMany()
                         .HasForeignKey("BuManagerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -196,21 +196,21 @@ namespace Orcamentos.Migrations
                     b.Navigation("BuManager");
                 });
 
-            modelBuilder.Entity("Orcamentos", b =>
+            modelBuilder.Entity("Orcamentos.Models.Orcamento", b =>
                 {
-                    b.HasOne("BuManager", "BuManager")
+                    b.HasOne("Orcamentos.Models.BuManager", "BuManager")
                         .WithMany()
                         .HasForeignKey("BuManagerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Profile", "Profile")
+                    b.HasOne("Orcamentos.Models.Profile", "Profile")
                         .WithMany()
                         .HasForeignKey("ProfileId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RevenueType", "RevenueType")
+                    b.HasOne("Orcamentos.Models.RevenueType", "RevenueType")
                         .WithMany()
                         .HasForeignKey("RevenueTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -223,9 +223,9 @@ namespace Orcamentos.Migrations
                     b.Navigation("RevenueType");
                 });
 
-            modelBuilder.Entity("Profile", b =>
+            modelBuilder.Entity("Orcamentos.Models.Profile", b =>
                 {
-                    b.HasOne("ProfileLevel", "ProfileLevel")
+                    b.HasOne("Orcamentos.Models.ProfileLevel", "ProfileLevel")
                         .WithMany()
                         .HasForeignKey("ProfileLevelId")
                         .OnDelete(DeleteBehavior.Cascade)

@@ -56,7 +56,7 @@ namespace Orcamentos.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,BumId,Estado")] BusinessUnit businessUnit)
+        public async Task<IActionResult> Create([Bind("Id,Name,BumId,Ativo")] BusinessUnit businessUnit)
         {
             if (ModelState.IsValid)
             {
@@ -89,7 +89,7 @@ namespace Orcamentos.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Name,BumId,Estado")] BusinessUnit businessUnit)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Name,BumId,Ativo")] BusinessUnit businessUnit)
         {
             if (id != businessUnit.Id)
             {
@@ -149,7 +149,8 @@ namespace Orcamentos.Controllers
             var businessUnit = await _context.businessUnits.FindAsync(id);
             if (businessUnit != null)
             {
-                _context.businessUnits.Remove(businessUnit);
+                businessUnit.Ativo = false;
+                _context.SaveChanges();
             }
             
             await _context.SaveChangesAsync();

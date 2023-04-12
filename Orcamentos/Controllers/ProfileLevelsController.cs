@@ -56,7 +56,7 @@ namespace Orcamentos.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ProductName,Quantidade")] ProfileLevel profileLevel)
+        public async Task<IActionResult> Create([Bind("Id,ProductName,Ativo")] ProfileLevel profileLevel)
         {
             if (ModelState.IsValid)
             {
@@ -89,7 +89,7 @@ namespace Orcamentos.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,ProductName,Quantidade")] ProfileLevel profileLevel)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,ProductName,Ativo")] ProfileLevel profileLevel)
         {
             if (id != profileLevel.Id)
             {
@@ -149,7 +149,8 @@ namespace Orcamentos.Controllers
             var profileLevel = await _context.profileLevels.FindAsync(id);
             if (profileLevel != null)
             {
-                _context.profileLevels.Remove(profileLevel);
+                profileLevel.Ativo = false;
+                _context.SaveChanges();
             }
             
             await _context.SaveChangesAsync();

@@ -56,7 +56,7 @@ namespace Orcamentos.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nome,Tipo,Estado")] RevenueType revenueType)
+        public async Task<IActionResult> Create([Bind("Id,Nome,Tipo,Ativo")] RevenueType revenueType)
         {
             if (ModelState.IsValid)
             {
@@ -89,7 +89,7 @@ namespace Orcamentos.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Nome,Tipo,Estado")] RevenueType revenueType)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Nome,Tipo,Ativo")] RevenueType revenueType)
         {
             if (id != revenueType.Id)
             {
@@ -146,10 +146,12 @@ namespace Orcamentos.Controllers
             {
                 return Problem("Entity set 'DataContext.revenueTypes'  is null.");
             }
+            //RevenueType revenueType = db.Parts.Where(c => c.id == model.PartId).FirstOrDefault();
             var revenueType = await _context.revenueTypes.FindAsync(id);
             if (revenueType != null)
             {
-                _context.revenueTypes.Remove(revenueType);
+                revenueType.Ativo = false;
+                _context.SaveChanges();
             }
             
             await _context.SaveChangesAsync();
