@@ -9,5 +9,7 @@
         public Guid BumId { get; set;}
 
         public BuManager BuManager { get; set;}
+
+        public string Estado { get; set;}
     }
 }
