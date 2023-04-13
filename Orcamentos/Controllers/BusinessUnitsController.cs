@@ -88,6 +88,10 @@ namespace Orcamentos.Controllers
             {
                 return NotFound();
             }
+
+            IEnumerable<SelectListItem> bumList = DBHelper.FillBuManagers(_context);
+            ViewBag.bumList = bumList;
+
             return View(businessUnit);
         }
 
@@ -96,7 +100,7 @@ namespace Orcamentos.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Name,BumId,Ativo")] BusinessUnit businessUnit)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Name,buManagerId,Ativo")] BusinessUnit businessUnit)
         {
             if (id != businessUnit.Id)
             {

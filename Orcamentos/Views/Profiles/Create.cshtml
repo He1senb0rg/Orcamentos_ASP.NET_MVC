@@ -18,9 +18,17 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             
-            <div class="form-group mb-2">
-                <label asp-for="ProfileLevelId" class="control-label"></label>
-                <select asp-for="ProfileLevelId" class="form-control" asp-items="ViewBag.ProfileLevelId"></select>
+            <div class="form-group">
+                <label asp-for="profileLevelId" class="control-label"></label>
+                <div class="input-group">
+                    <select class="form-control" asp-for="profileLevelId"
+                            asp-items="@(new SelectList(ViewBag.profileLevelsList,"Value","Text"))">
+                        <option>Selecione uma opção</option>
+                    </select>
+
+                </div>
+
+                <span asp-validation-for="profileLevelId" class="text-danger"></span>
             </div>
             <div class="form-group form-check mb-2">
                 <label class="form-check-label">

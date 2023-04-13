@@ -15,18 +15,41 @@
         <div class="row">
             <div class="col-6">
                 <div class="form-group">
-                    <label asp-for="ProfileId" class="control-label"></label>
-                    <select asp-for="ProfileId" class="form-control" asp-items="ViewBag.ProfileId"></select>
+                <label asp-for="profileId" class="control-label"></label>
+                <div class="input-group">
+                    <select class="form-control" asp-for="profileId"
+                            asp-items="@(new SelectList(ViewBag.profilesList,"Value","Text"))">
+                        <option>Selecione uma opção</option>
+                    </select>
+                  
                 </div>
+
+                <span asp-validation-for="profileId" class="text-danger"></span>
+            </div>
                 <div class="form-group">
-                    <label asp-for="RevTypeId" class="control-label"></label>
-                    <input asp-for="RevTypeId" class="form-control" />
-                    <span asp-validation-for="RevTypeId" class="text-danger"></span>
+                <label asp-for="revenueTypeId" class="control-label"></label>
+                <div class="input-group">
+                        <select class="form-control" asp-for="revenueTypeId"
+                            asp-items="@(new SelectList(ViewBag.revenueTypesList,"Value","Text"))">
+                        <option>Selecione uma opção</option>
+                    </select>
+                  
                 </div>
+
+                    <span asp-validation-for="revenueTypeId" class="text-danger"></span>
+            </div>
                 <div class="form-group">
-                    <label asp-for="BuManagerId" class="control-label"></label>
-                    <select asp-for="BuManagerId" class="form-control" asp-items="ViewBag.BuManagerId"></select>
+                    <label asp-for="businessUnitId" class="control-label"></label>
+                <div class="input-group">
+                        <select class="form-control" asp-for="businessUnitId"
+                            asp-items="@(new SelectList(ViewBag.businessUnitsList,"Value","Text"))">
+                        <option>Selecione uma opção</option>
+                    </select>
+                  
                 </div>
+
+                    <span asp-validation-for="businessUnitId" class="text-danger"></span>
+            </div>
                 <div class="form-group">
                     <label asp-for="Marca" class="control-label"></label>
                     <input asp-for="Marca" class="form-control" />

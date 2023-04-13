@@ -56,7 +56,7 @@ namespace Orcamentos.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ProductName,Ativo")] ProfileLevel profileLevel)
+        public async Task<IActionResult> Create([Bind("Id,Name,Ativo")] ProfileLevel profileLevel)
         {
             if (ModelState.IsValid)
             {

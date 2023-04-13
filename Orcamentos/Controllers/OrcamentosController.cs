@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Orcamentos.Helpers;
 using Orcamentos.Infrastructure;
 using Orcamentos.Models;
 
@@ -22,8 +23,8 @@ namespace Orcamentos.Controllers
         // GET: Orcamentos
         public async Task<IActionResult> Index()
         {
-            var dataContext = _context.orcamentos.Include(o => o.BuManager).Include(o => o.Profile);
-            return View(await dataContext.ToListAsync());
+            List<Orcamento> listaOrcamentos = _context.orcamentos.Include(o => o.BusinessUnit).Include(o => o.Profile).ToList();
+            return View(listaOrcamentos);
         }
 
         // GET: Orcamentos/Details/5
@@ -35,7 +36,7 @@ namespace Orcamentos.Controllers
             }
 
             var orcamento = await _context.orcamentos
-                .Include(o => o.BuManager)
+                .Include(o => o.BusinessUnit)
                 .Include(o => o.Profile)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (orcamento == null)
@@ -49,8 +50,15 @@ namespace Orcamentos.Controllers
         // GET: Orcamentos/Create
         public IActionResult Create()
         {
-            ViewData["BuManagerId"] = new SelectList(_context.buManagers, "Id", "Id");
-            ViewData["ProfileId"] = new SelectList(_context.profiles, "Id", "Id");
+            IEnumerable<SelectListItem> profilesList = DBHelper.FillProfiles(_context);
+            ViewBag.profilesList = profilesList;
+
+            IEnumerable<SelectListItem> revenueTypesList = DBHelper.FillRevenueTypes(_context);
+            ViewBag.revenueTypesList = revenueTypesList;
+
+            IEnumerable<SelectListItem> businessUnitsList = DBHelper.FillBu(_context);
+            ViewBag.businessUnitsList = businessUnitsList;
+
             return View();
         }
 
@@ -59,7 +67,7 @@ namespace Orcamentos.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ProfileId,RevTypeId,BuManagerId,Marca,TipoUni,Partnumb,modelo,SerialNumb,ProductName,Ativo")] Orcamento orcamento)
+        public async Task<IActionResult> Create([Bind("Id,profileId,revenueTypeId,businessUnitId,Marca,TipoUni,Partnumb,modelo,SerialNumb,ProductName,Ativo")] Orcamento orcamento)
         {
             if (ModelState.IsValid)
             {
@@ -68,8 +76,8 @@ namespace Orcamentos.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BuManagerId"] = new SelectList(_context.buManagers, "Id", "Id", orcamento.BuManagerId);
-            ViewData["ProfileId"] = new SelectList(_context.profiles, "Id", "Id", orcamento.ProfileId);
+            ViewData["BuManagerId"] = new SelectList(_context.buManagers, "Id", "Id", orcamento.businessUnitId);
+            ViewData["ProfileId"] = new SelectList(_context.profiles, "Id", "Id", orcamento.profileId);
             return View(orcamento);
         }
 
@@ -86,8 +94,14 @@ namespace Orcamentos.Controllers
             {
                 return NotFound();
             }
-            ViewData["BuManagerId"] = new SelectList(_context.buManagers, "Id", "Id", orcamento.BuManagerId);
-            ViewData["ProfileId"] = new SelectList(_context.profiles, "Id", "Id", orcamento.ProfileId);
+            IEnumerable<SelectListItem> profilesList = DBHelper.FillProfiles(_context);
+            ViewBag.profilesList = profilesList;
+
+            IEnumerable<SelectListItem> revenueTypesList = DBHelper.FillRevenueTypes(_context);
+            ViewBag.revenueTypesList = revenueTypesList;
+
+            IEnumerable<SelectListItem> businessUnitsList = DBHelper.FillBu(_context);
+            ViewBag.businessUnitsList = businessUnitsList;
             return View(orcamento);
         }
 
@@ -96,7 +110,7 @@ namespace Orcamentos.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,ProfileId,RevTypeId,BuManagerId,Marca,TipoUni,Partnumb,modelo,SerialNumb,ProductName,Ativo")] Orcamento orcamento)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,profileId,revenueTypeId,businessUnitId,Marca,TipoUni,Partnumb,modelo,SerialNumb,ProductName,Ativo")] Orcamento orcamento)
         {
             if (id != orcamento.Id)
             {
@@ -123,8 +137,8 @@ namespace Orcamentos.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BuManagerId"] = new SelectList(_context.buManagers, "Id", "Id", orcamento.BuManagerId);
-            ViewData["ProfileId"] = new SelectList(_context.profiles, "Id", "Id", orcamento.ProfileId);
+            ViewData["BuManagerId"] = new SelectList(_context.buManagers, "Id", "Id", orcamento.businessUnitId);
+            ViewData["ProfileId"] = new SelectList(_context.profiles, "Id", "Id", orcamento.profileId);
             return View(orcamento);
         }
 
@@ -137,7 +151,7 @@ namespace Orcamentos.Controllers
             }
 
             var orcamento = await _context.orcamentos
-                .Include(o => o.BuManager)
+                .Include(o => o.BusinessUnit)
                 .Include(o => o.Profile)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (orcamento == null)

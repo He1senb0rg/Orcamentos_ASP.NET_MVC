@@ -28,5 +28,73 @@ namespace Orcamentos.Helpers
             
             return listaBuManagers;
         }
+
+        static public IEnumerable<SelectListItem> FillProfileLevels(DataContext context)
+        {
+            //https://www.c-sharpcorner.com/article/different-ways-bind-the-value-to-razor-dropdownlist-in-aspnet-mvc5/
+            // Fill Categorias List
+            IEnumerable<SelectListItem> listaProfileLevels = context.profileLevels
+                .OrderBy(c => c.Name)
+                .Where(d => d.Ativo == true)
+                .Select(c =>
+                    new SelectListItem
+                    {
+                        Value = Convert.ToString(c.Id),
+                        Text = c.Name
+                    }).ToList();
+
+            return listaProfileLevels;
+        }
+
+        static public IEnumerable<SelectListItem> FillProfiles(DataContext context)
+        {
+            //https://www.c-sharpcorner.com/article/different-ways-bind-the-value-to-razor-dropdownlist-in-aspnet-mvc5/
+            // Fill Categorias List
+            IEnumerable<SelectListItem> listaProfiles = context.profiles
+                .OrderBy(c => c.Name)
+                .Where(d => d.Ativo == true)
+                .Select(c =>
+                    new SelectListItem
+                    {
+                        Value = Convert.ToString(c.Id),
+                        Text = c.Name
+                    }).ToList();
+
+            return listaProfiles;
+        }
+
+        static public IEnumerable<SelectListItem> FillBu(DataContext context)
+        {
+            //https://www.c-sharpcorner.com/article/different-ways-bind-the-value-to-razor-dropdownlist-in-aspnet-mvc5/
+            // Fill Categorias List
+            IEnumerable<SelectListItem> listaBu = context.businessUnits
+                .OrderBy(c => c.Name)
+                .Where(d => d.Ativo == true)
+                .Select(c =>
+                    new SelectListItem
+                    {
+                        Value = Convert.ToString(c.Id),
+                        Text = c.Name
+                    }).ToList();
+
+            return listaBu;
+        }
+
+        static public IEnumerable<SelectListItem> FillRevenueTypes(DataContext context)
+        {
+            //https://www.c-sharpcorner.com/article/different-ways-bind-the-value-to-razor-dropdownlist-in-aspnet-mvc5/
+            // Fill Categorias List
+            IEnumerable<SelectListItem> listaRevenueTypes = context.revenueTypes
+                .OrderBy(c => c.Nome)
+                .Where(d => d.Ativo == true)
+                .Select(c =>
+                    new SelectListItem
+                    {
+                        Value = Convert.ToString(c.Id),
+                        Text = c.Nome
+                    }).ToList();
+
+            return listaRevenueTypes;
+        }
     }
 }

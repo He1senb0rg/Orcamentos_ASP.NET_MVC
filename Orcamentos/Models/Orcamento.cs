@@ -15,9 +15,9 @@ namespace Orcamentos.Models
         public Guid revenueTypeId { get; set; }
         public RevenueType? RevenueType { get; set; }
 
-        [ForeignKey("buManagers")]
-        public Guid buManagerId { get; set; }
-        public BuManager? BuManager { get; set; }
+        [ForeignKey("businessUnits")]
+        public Guid businessUnitId { get; set; }
+        public BusinessUnit? BusinessUnit { get; set; }
 
 
         public string Marca { get; set; }

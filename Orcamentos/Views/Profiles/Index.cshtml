@@ -19,7 +19,10 @@
                 @Html.DisplayNameFor(model => model.Ativo)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ProfileLevel)
+                @Html.DisplayNameFor(model => model.profileLevelId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProfileLevel.Name)
             </th>
             <th></th>
         </tr>
@@ -35,7 +38,10 @@
                     @Html.DisplayFor(modelItem => item.Ativo)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ProfileLevel.Id)
+                    @Html.DisplayFor(modelItem => item.profileLevelId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProfileLevel.Name)
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

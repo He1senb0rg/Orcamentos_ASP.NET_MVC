@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Orcamentos.Helpers;
 using Orcamentos.Infrastructure;
 using Orcamentos.Models;
 
@@ -22,8 +23,11 @@ namespace Orcamentos.Controllers
         // GET: Profiles
         public async Task<IActionResult> Index()
         {
-            var dataContext = _context.profiles.Include(p => p.ProfileLevel);
-            return View(await dataContext.ToListAsync());
+            List<Profile> listaProfiles = _context.profiles.Include(p => p.ProfileLevel).ToList();
+
+            return View(listaProfiles);
+            //var dataContext = _context.profiles.Include(p => p.ProfileLevel);
+            //return View(await dataContext.ToListAsync());
         }
 
         // GET: Profiles/Details/5
@@ -48,7 +52,9 @@ namespace Orcamentos.Controllers
         // GET: Profiles/Create
         public IActionResult Create()
         {
-            ViewData["ProfileLevelId"] = new SelectList(_context.profileLevels, "Id", "Id");
+            IEnumerable<SelectListItem> profileLevelsList = DBHelper.FillProfileLevels(_context);
+            ViewBag.profileLevelsList = profileLevelsList;
+
             return View();
         }
 
@@ -57,7 +63,7 @@ namespace Orcamentos.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,ProfileLevelId,Ativo")] Profile profile)
+        public async Task<IActionResult> Create([Bind("Id,Name,profileLevelId,Ativo")] Profile profile)
         {
             if (ModelState.IsValid)
             {
@@ -66,7 +72,7 @@ namespace Orcamentos.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ProfileLevelId"] = new SelectList(_context.profileLevels, "Id", "Id", profile.ProfileLevelId);
+            ViewData["ProfileLevelId"] = new SelectList(_context.profileLevels, "Id", "Id", profile.profileLevelId);
             return View(profile);
         }
 
@@ -83,7 +89,10 @@ namespace Orcamentos.Controllers
             {
                 return NotFound();
             }
-            ViewData["ProfileLevelId"] = new SelectList(_context.profileLevels, "Id", "Id", profile.ProfileLevelId);
+
+            IEnumerable<SelectListItem> profileLevelsList = DBHelper.FillProfileLevels(_context);
+            ViewBag.profileLevelsList = profileLevelsList;
+
             return View(profile);
         }
 
@@ -92,7 +101,7 @@ namespace Orcamentos.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Name,Ativo,ProfileLevelId")] Profile profile)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Name,profileLevelId,Ativo")] Profile profile)
         {
             if (id != profile.Id)
             {
@@ -119,7 +128,7 @@ namespace Orcamentos.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ProfileLevelId"] = new SelectList(_context.profileLevels, "Id", "Id", profile.ProfileLevelId);
+            ViewData["ProfileLevelId"] = new SelectList(_context.profileLevels, "Id", "Id", profile.profileLevelId);
             return View(profile);
         }
 
