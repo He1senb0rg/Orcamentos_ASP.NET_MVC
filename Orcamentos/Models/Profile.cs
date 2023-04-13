@@ -1,4 +1,6 @@
-﻿namespace Orcamentos.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Orcamentos.Models
 {
     public class Profile
     {
@@ -8,8 +10,9 @@
 
         public bool Ativo { get; set; }
 
-        public Guid ProfileLevelId { get; set;}
+        [ForeignKey("profileLevels")]
+        public Guid profileLevelId { get; set;}
 
-        public ProfileLevel ProfileLevel { get; set;}
+        public ProfileLevel? ProfileLevel { get; set;}
     }
 }

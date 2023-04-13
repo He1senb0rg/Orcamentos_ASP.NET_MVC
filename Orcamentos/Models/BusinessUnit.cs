@@ -12,7 +12,7 @@ namespace Orcamentos.Models
         [ForeignKey("buManagers")]
         public Guid buManagerId { get; set;}
 
-        public BuManager BuManager { get; set;}
+        public BuManager? BuManager { get; set;}
 
         public bool Ativo { get; set; }
     }

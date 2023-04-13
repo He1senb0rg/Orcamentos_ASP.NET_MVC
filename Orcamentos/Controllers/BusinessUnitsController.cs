@@ -23,8 +23,8 @@ namespace Orcamentos.Controllers
         // GET: BusinessUnits
         public async Task<IActionResult> Index()
         {
-            List<BusinessUnit> listaBu = new List<BusinessUnit>();
-            listaBu = _context.businessUnits.Include(art => art.BuManager).ToList();
+            List<BusinessUnit> listaBu = _context.businessUnits.Include(p => p.BuManager).ToList();
+            
             return View(listaBu);
             // return _context.businessUnits != null ? 
             //             View(await _context.businessUnits.ToListAsync()) :

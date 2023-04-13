@@ -1,20 +1,23 @@
 ﻿
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace Orcamentos.Models
 {
     public class Orcamento
     {
         public Guid Id { get; set; }
 
-        public Guid ProfileId { get; set; }
-        public Profile Profile { get; set; }
+        [ForeignKey("profiles")]
+        public Guid profileId { get; set; }
+        public Profile? Profile { get; set; }
 
+        [ForeignKey("revenueTypes")]
+        public Guid revenueTypeId { get; set; }
+        public RevenueType? RevenueType { get; set; }
 
-        public Guid RevTypeId { get; set; }
-        public RevenueType RevenueType { get; set; }
-
-
-        public Guid BuManagerId { get; set; }
-        public BuManager BuManager { get; set; }
+        [ForeignKey("buManagers")]
+        public Guid buManagerId { get; set; }
+        public BuManager? BuManager { get; set; }
 
 
         public string Marca { get; set; }
