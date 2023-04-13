@@ -12,7 +12,7 @@ using Orcamentos.Infrastructure;
 namespace Orcamentos.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230412132315_first")]
+    [Migration("20230413084819_first")]
     partial class first
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -51,19 +51,16 @@ namespace Orcamentos.Migrations
                     b.Property<bool>("Ativo")
                         .HasColumnType("bit");
 
-                    b.Property<Guid>("BuManagerId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("BumId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("buManagerId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("BuManagerId");
+                    b.HasIndex("buManagerId");
 
                     b.ToTable("businessUnits");
                 });
@@ -189,7 +186,7 @@ namespace Orcamentos.Migrations
                 {
                     b.HasOne("Orcamentos.Models.BuManager", "BuManager")
                         .WithMany()
-                        .HasForeignKey("BuManagerId")
+                        .HasForeignKey("buManagerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

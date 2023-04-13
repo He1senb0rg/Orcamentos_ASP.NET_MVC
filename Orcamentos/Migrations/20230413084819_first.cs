@@ -55,16 +55,15 @@ namespace Orcamentos.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    BumId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    BuManagerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    buManagerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Ativo = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_businessUnits", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_businessUnits_buManagers_BuManagerId",
-                        column: x => x.BuManagerId,
+                        name: "FK_businessUnits_buManagers_buManagerId",
+                        column: x => x.buManagerId,
                         principalTable: "buManagers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -131,9 +130,9 @@ namespace Orcamentos.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_businessUnits_BuManagerId",
+                name: "IX_businessUnits_buManagerId",
                 table: "businessUnits",
-                column: "BuManagerId");
+                column: "buManagerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_orcamentos_BuManagerId",

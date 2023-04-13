@@ -23,9 +23,12 @@ namespace Orcamentos.Controllers
         // GET: BusinessUnits
         public async Task<IActionResult> Index()
         {
-              return _context.businessUnits != null ? 
-                          View(await _context.businessUnits.ToListAsync()) :
-                          Problem("Entity set 'DataContext.businessUnits'  is null.");
+            List<BusinessUnit> listaBu = new List<BusinessUnit>();
+            listaBu = _context.businessUnits.Include(art => art.BuManager).ToList();
+            return View(listaBu);
+            // return _context.businessUnits != null ? 
+            //             View(await _context.businessUnits.ToListAsync()) :
+            //             Problem("Entity set 'DataContext.businessUnits'  is null.");
         }
 
         // GET: BusinessUnits/Details/5
@@ -60,7 +63,7 @@ namespace Orcamentos.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,BumId,Ativo")] BusinessUnit businessUnit)
+        public async Task<IActionResult> Create([Bind("Id,Name,buManagerId,Ativo")] BusinessUnit businessUnit)
         {
             if (ModelState.IsValid)
             {
