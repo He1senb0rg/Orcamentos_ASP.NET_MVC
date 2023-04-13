@@ -13,34 +13,34 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Profile)
+                Perfil
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.revenueTypeId)
+               Tipo de Rendimento
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BusinessUnit)
+                Unidade de Negocio
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Marca)
+                Marca
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TipoUni)
+                Tipo de Unidade
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Partnumb)
+                Part Number
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.modelo)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SerialNumb)
+                Numero de serie
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ProductName)
+                Nome de produto
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Ativo)
+                Ativo
             </th>
             <th></th>
         </tr>
@@ -50,13 +50,13 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Profile.Id)
+                    @Html.DisplayFor(modelItem => item.Profile.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.revenueTypeId)
+                    @Html.DisplayFor(modelItem => item.RevenueType.Nome)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.BusinessUnit.Id)
+                    @Html.DisplayFor(modelItem => item.BusinessUnit.Name)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Marca)

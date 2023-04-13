@@ -23,7 +23,7 @@ namespace Orcamentos.Controllers
         // GET: Orcamentos
         public async Task<IActionResult> Index()
         {
-            List<Orcamento> listaOrcamentos = _context.orcamentos.Include(o => o.BusinessUnit).Include(o => o.Profile).ToList();
+            List<Orcamento> listaOrcamentos = _context.orcamentos.Include(o => o.BusinessUnit).Include(o => o.Profile).Include(o => o.RevenueType).ToList();
             return View(listaOrcamentos);
         }
 
@@ -38,6 +38,7 @@ namespace Orcamentos.Controllers
             var orcamento = await _context.orcamentos
                 .Include(o => o.BusinessUnit)
                 .Include(o => o.Profile)
+                .Include(o => o.RevenueType)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (orcamento == null)
             {
@@ -153,6 +154,7 @@ namespace Orcamentos.Controllers
             var orcamento = await _context.orcamentos
                 .Include(o => o.BusinessUnit)
                 .Include(o => o.Profile)
+                .Include(o => o.RevenueType)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (orcamento == null)
             {
