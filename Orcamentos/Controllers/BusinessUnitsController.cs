@@ -40,6 +40,7 @@ namespace Orcamentos.Controllers
             }
 
             var businessUnit = await _context.businessUnits
+                .Include(p => p.BuManager)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (businessUnit == null)
             {
@@ -139,6 +140,7 @@ namespace Orcamentos.Controllers
             }
 
             var businessUnit = await _context.businessUnits
+                .Include(p => p.BuManager)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (businessUnit == null)
             {

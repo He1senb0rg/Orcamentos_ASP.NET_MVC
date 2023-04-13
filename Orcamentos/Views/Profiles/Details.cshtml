@@ -16,17 +16,24 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Name)
         </dd>
+        
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.profileLevelId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.profileLevelId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ProfileLevel)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ProfileLevel.Name)
+        </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Ativo)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Ativo)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ProfileLevel)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ProfileLevel.Id)
         </dd>
     </dl>
 </div>

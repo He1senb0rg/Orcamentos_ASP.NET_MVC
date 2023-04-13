@@ -89,7 +89,7 @@ namespace Orcamentos.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,ProductName,Ativo")] ProfileLevel profileLevel)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Name,Ativo")] ProfileLevel profileLevel)
         {
             if (id != profileLevel.Id)
             {
