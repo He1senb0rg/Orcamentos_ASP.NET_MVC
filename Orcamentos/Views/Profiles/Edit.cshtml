@@ -4,9 +4,9 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<h1>Editar</h1>
 
-<h4>Profile</h4>
+<h4>Perfil</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -24,7 +24,7 @@
                 </label>
             </div>
             <div class="form-group">
-                <label asp-for="profileLevelId" class="control-label"></label>
+                <label class="control-label">Nivel de Perfil</label>
                 <div class="input-group">
                     <select class="form-control" asp-for="profileLevelId"
                             asp-items="@(new SelectList(ViewBag.profileLevelsList,"Value","Text"))">
@@ -35,7 +35,7 @@
 
                 <span asp-validation-for="profileLevelId" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group, mt-2">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
@@ -43,7 +43,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Voltar para a lista</a>
 </div>
 
 @section Scripts {

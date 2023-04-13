@@ -4,44 +4,44 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Detalhes</h1>
 
 <div>
-    <h4>Orcamento</h4>
+    <h4>Orçamento</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.profileId)
+           Id do Perfil
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.profileId)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Profile)
+            Nome do Perfil
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Profile.Name)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.revenueTypeId)
+           Id do Tipo de Rendimento
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.revenueTypeId)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.RevenueType.Nome)
+            Tipo de Rendimento
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.RevenueType.Nome)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.businessUnitId)
+            Id da Unidade de Negocios
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.businessUnitId)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.BusinessUnit.Name)
+            Unidade de Negocios
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.BusinessUnit.Name)
@@ -53,31 +53,31 @@
             @Html.DisplayFor(model => model.Marca)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TipoUni)
+            Tipo de Unidade
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.TipoUni)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Partnumb)
+            Part Number
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Partnumb)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.modelo)
+            Modelo
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.modelo)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SerialNumb)
+            Numero de Serie
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.SerialNumb)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ProductName)
+            Nome do Produto
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.ProductName)
@@ -91,6 +91,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Editar</a> |
+    <a asp-action="Index">Voltar para a lista</a>
 </div>

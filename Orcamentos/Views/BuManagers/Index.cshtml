@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<BuManager>
 
 @{
-    ViewData["Title"] = "Gerente de Negocios";
+    ViewData["Title"] = "Gestor de Negocios";
 }
 
 <h1>Menu</h1>
@@ -32,9 +32,9 @@
                     @Html.DisplayFor(modelItem => item.Ativo)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Detalhes</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
                 </td>
             </tr>
         }
