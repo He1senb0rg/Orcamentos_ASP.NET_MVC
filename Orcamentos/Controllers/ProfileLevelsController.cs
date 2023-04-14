@@ -28,7 +28,7 @@ namespace Orcamentos.Controllers
         }
 
         // GET: ProfileLevels/Details/5
-        public async Task<IActionResult> Details(Guid? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.profileLevels == null)
             {
@@ -60,7 +60,6 @@ namespace Orcamentos.Controllers
         {
             if (ModelState.IsValid)
             {
-                profileLevel.Id = Guid.NewGuid();
                 _context.Add(profileLevel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -69,7 +68,7 @@ namespace Orcamentos.Controllers
         }
 
         // GET: ProfileLevels/Edit/5
-        public async Task<IActionResult> Edit(Guid? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.profileLevels == null)
             {
@@ -89,7 +88,7 @@ namespace Orcamentos.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Name,Ativo")] ProfileLevel profileLevel)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Ativo")] ProfileLevel profileLevel)
         {
             if (id != profileLevel.Id)
             {
@@ -120,7 +119,7 @@ namespace Orcamentos.Controllers
         }
 
         // GET: ProfileLevels/Delete/5
-        public async Task<IActionResult> Delete(Guid? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.profileLevels == null)
             {
@@ -140,7 +139,7 @@ namespace Orcamentos.Controllers
         // POST: ProfileLevels/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(Guid id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.profileLevels == null)
             {
@@ -157,7 +156,7 @@ namespace Orcamentos.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ProfileLevelExists(Guid id)
+        private bool ProfileLevelExists(int id)
         {
           return (_context.profileLevels?.Any(e => e.Id == id)).GetValueOrDefault();
         }

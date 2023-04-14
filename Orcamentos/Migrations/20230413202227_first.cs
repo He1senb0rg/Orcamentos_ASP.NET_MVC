@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -13,7 +12,8 @@ namespace Orcamentos.Migrations
                 name: "buManagers",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Nome = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Ativo = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -26,7 +26,8 @@ namespace Orcamentos.Migrations
                 name: "profileLevels",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Ativo = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -39,7 +40,8 @@ namespace Orcamentos.Migrations
                 name: "revenueTypes",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Nome = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Tipo = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Ativo = table.Column<bool>(type: "bit", nullable: false)
@@ -53,9 +55,10 @@ namespace Orcamentos.Migrations
                 name: "businessUnits",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    buManagerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    buManagerId = table.Column<int>(type: "int", nullable: false),
                     Ativo = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -73,10 +76,11 @@ namespace Orcamentos.Migrations
                 name: "profiles",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Ativo = table.Column<bool>(type: "bit", nullable: false),
-                    profileLevelId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    profileLevelId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -93,10 +97,11 @@ namespace Orcamentos.Migrations
                 name: "orcamentos",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    profileId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    revenueTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    businessUnitId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    profileId = table.Column<int>(type: "int", nullable: false),
+                    revenueTypeId = table.Column<int>(type: "int", nullable: false),
+                    businessUnitId = table.Column<int>(type: "int", nullable: false),
                     Marca = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TipoUni = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Partnumb = table.Column<int>(type: "int", nullable: false),

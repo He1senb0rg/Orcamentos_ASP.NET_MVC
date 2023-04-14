@@ -32,7 +32,7 @@ namespace Orcamentos.Controllers
         }
 
         // GET: BusinessUnits/Details/5
-        public async Task<IActionResult> Details(Guid? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.businessUnits == null)
             {
@@ -68,7 +68,6 @@ namespace Orcamentos.Controllers
         {
             if (ModelState.IsValid)
             {
-                businessUnit.Id = Guid.NewGuid();
                 _context.Add(businessUnit);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -77,7 +76,7 @@ namespace Orcamentos.Controllers
         }
 
         // GET: BusinessUnits/Edit/5
-        public async Task<IActionResult> Edit(Guid? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.businessUnits == null)
             {
@@ -101,7 +100,7 @@ namespace Orcamentos.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Name,buManagerId,Ativo")] BusinessUnit businessUnit)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,buManagerId,Ativo")] BusinessUnit businessUnit)
         {
             if (id != businessUnit.Id)
             {
@@ -132,7 +131,7 @@ namespace Orcamentos.Controllers
         }
 
         // GET: BusinessUnits/Delete/5
-        public async Task<IActionResult> Delete(Guid? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.businessUnits == null)
             {
@@ -153,7 +152,7 @@ namespace Orcamentos.Controllers
         // POST: BusinessUnits/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(Guid id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.businessUnits == null)
             {
@@ -170,7 +169,7 @@ namespace Orcamentos.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool BusinessUnitExists(Guid id)
+        private bool BusinessUnitExists(int id)
         {
           return (_context.businessUnits?.Any(e => e.Id == id)).GetValueOrDefault();
         }

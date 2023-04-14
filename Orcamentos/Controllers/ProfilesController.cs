@@ -31,7 +31,7 @@ namespace Orcamentos.Controllers
         }
 
         // GET: Profiles/Details/5
-        public async Task<IActionResult> Details(Guid? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.profiles == null)
             {
@@ -67,7 +67,6 @@ namespace Orcamentos.Controllers
         {
             if (ModelState.IsValid)
             {
-                profile.Id = Guid.NewGuid();
                 _context.Add(profile);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -101,7 +100,7 @@ namespace Orcamentos.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Name,profileLevelId,Ativo")] Profile profile)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,profileLevelId,Ativo")] Profile profile)
         {
             if (id != profile.Id)
             {
@@ -133,7 +132,7 @@ namespace Orcamentos.Controllers
         }
 
         // GET: Profiles/Delete/5
-        public async Task<IActionResult> Delete(Guid? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.profiles == null)
             {
@@ -154,7 +153,7 @@ namespace Orcamentos.Controllers
         // POST: Profiles/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(Guid id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.profiles == null)
             {
@@ -171,7 +170,7 @@ namespace Orcamentos.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ProfileExists(Guid id)
+        private bool ProfileExists(int id)
         {
           return (_context.profiles?.Any(e => e.Id == id)).GetValueOrDefault();
         }

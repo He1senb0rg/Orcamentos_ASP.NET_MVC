@@ -28,7 +28,7 @@ namespace Orcamentos.Controllers
         }
 
         // GET: BuManagers/Details/5
-        public async Task<IActionResult> Details(Guid? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.buManagers == null)
             {
@@ -60,7 +60,6 @@ namespace Orcamentos.Controllers
         {
             if (ModelState.IsValid)
             {
-                buManager.Id = Guid.NewGuid();
                 _context.Add(buManager);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -69,7 +68,7 @@ namespace Orcamentos.Controllers
         }
 
         // GET: BuManagers/Edit/5
-        public async Task<IActionResult> Edit(Guid? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.buManagers == null)
             {
@@ -89,7 +88,7 @@ namespace Orcamentos.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Nome,Ativo")] BuManager buManager)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Ativo")] BuManager buManager)
         {
             if (id != buManager.Id)
             {
@@ -120,7 +119,7 @@ namespace Orcamentos.Controllers
         }
 
         // GET: BuManagers/Delete/5
-        public async Task<IActionResult> Delete(Guid? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.buManagers == null)
             {
@@ -157,7 +156,7 @@ namespace Orcamentos.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool BuManagerExists(Guid id)
+        private bool BuManagerExists(int id)
         {
           return (_context.buManagers?.Any(e => e.Id == id)).GetValueOrDefault();
         }

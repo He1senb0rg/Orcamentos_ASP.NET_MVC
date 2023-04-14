@@ -28,7 +28,7 @@ namespace Orcamentos.Controllers
         }
 
         // GET: RevenueTypes/Details/5
-        public async Task<IActionResult> Details(Guid? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.revenueTypes == null)
             {
@@ -60,7 +60,6 @@ namespace Orcamentos.Controllers
         {
             if (ModelState.IsValid)
             {
-                revenueType.Id = Guid.NewGuid();
                 _context.Add(revenueType);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -69,7 +68,7 @@ namespace Orcamentos.Controllers
         }
 
         // GET: RevenueTypes/Edit/5
-        public async Task<IActionResult> Edit(Guid? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.revenueTypes == null)
             {
@@ -89,7 +88,7 @@ namespace Orcamentos.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Nome,Tipo,Ativo")] RevenueType revenueType)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Tipo,Ativo")] RevenueType revenueType)
         {
             if (id != revenueType.Id)
             {
@@ -120,7 +119,7 @@ namespace Orcamentos.Controllers
         }
 
         // GET: RevenueTypes/Delete/5
-        public async Task<IActionResult> Delete(Guid? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.revenueTypes == null)
             {
@@ -140,7 +139,7 @@ namespace Orcamentos.Controllers
         // POST: RevenueTypes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(Guid id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.revenueTypes == null)
             {
@@ -158,7 +157,7 @@ namespace Orcamentos.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool RevenueTypeExists(Guid id)
+        private bool RevenueTypeExists(int id)
         {
           return (_context.revenueTypes?.Any(e => e.Id == id)).GetValueOrDefault();
         }

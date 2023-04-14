@@ -28,7 +28,7 @@ namespace Orcamentos.Controllers
         }
 
         // GET: Orcamentos/Details/5
-        public async Task<IActionResult> Details(Guid? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.orcamentos == null)
             {
@@ -72,7 +72,6 @@ namespace Orcamentos.Controllers
         {
             if (ModelState.IsValid)
             {
-                orcamento.Id = Guid.NewGuid();
                 _context.Add(orcamento);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -83,7 +82,7 @@ namespace Orcamentos.Controllers
         }
 
         // GET: Orcamentos/Edit/5
-        public async Task<IActionResult> Edit(Guid? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.orcamentos == null)
             {
@@ -111,7 +110,7 @@ namespace Orcamentos.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,profileId,revenueTypeId,businessUnitId,Marca,TipoUni,Partnumb,modelo,SerialNumb,ProductName,Ativo")] Orcamento orcamento)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,profileId,revenueTypeId,businessUnitId,Marca,TipoUni,Partnumb,modelo,SerialNumb,ProductName,Ativo")] Orcamento orcamento)
         {
             if (id != orcamento.Id)
             {
@@ -144,7 +143,7 @@ namespace Orcamentos.Controllers
         }
 
         // GET: Orcamentos/Delete/5
-        public async Task<IActionResult> Delete(Guid? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.orcamentos == null)
             {
@@ -184,7 +183,7 @@ namespace Orcamentos.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool OrcamentoExists(Guid id)
+        private bool OrcamentoExists(int id)
         {
           return (_context.orcamentos?.Any(e => e.Id == id)).GetValueOrDefault();
         }

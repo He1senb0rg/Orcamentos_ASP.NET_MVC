@@ -5,15 +5,19 @@ namespace Orcamentos.Models
 {
     public class BusinessUnit
     {
-        public Guid Id { get; set; }
+        [Key]
+        public int Id { get; set; }
 
+        [Required]
         public string Name { get; set; }
 
+        [Required]
         [ForeignKey("buManagers")]
-        public Guid buManagerId { get; set;}
+        public int buManagerId { get; set;}
 
         public BuManager? BuManager { get; set;}
 
+        [Required]
         public bool Ativo { get; set; }
     }
 }
