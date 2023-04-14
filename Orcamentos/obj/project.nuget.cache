@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "7ZjKYe85KxwWGd/NmqPC0HYzLxu0Rf1pg+ji+G9hbJ2vq8APaoGpT4y4EhQaAJDrXrcZbnxMXdh+OsJLNL3mGw==",
+  "dgSpecHash": "U22OQX6QxBFvmWrs4vHdtDaIwWgwGp+P0WKzpA0c+nC6P7S4sMbo8EEWWXyBZomwGaimIvH7QmdEwhKF+Xd/ww==",
   "success": true,
   "projectFilePath": "C:\\Users\\andre\\Documents\\GitHub\\Orcamentos_ASP.NET_MVC\\Orcamentos\\Orcamentos.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\andre\\.nuget\\packages\\handsontable\\12.3.3\\handsontable.12.3.3.nupkg.sha512",
     "C:\\Users\\andre\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\andre\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",
     "C:\\Users\\andre\\.nuget\\packages\\messagepack.annotations\\2.1.152\\messagepack.annotations.2.1.152.nupkg.sha512",

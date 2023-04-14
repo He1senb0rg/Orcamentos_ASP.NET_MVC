@@ -16,8 +16,8 @@ namespace Orcamentos.Models
 
         [Required]
         [ForeignKey("profileLevels")]
-        public int profileLevelId { get; set;}
+        public int profileLevelId { get; set; }
 
-        public ProfileLevel? ProfileLevel { get; set;}
+        public ProfileLevel? ProfileLevel { get; set; }
     }
 }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Orcamentos.Infrastructure;
 using Orcamentos.Models;
@@ -22,9 +17,9 @@ namespace Orcamentos.Controllers
         // GET: RevenueTypes
         public async Task<IActionResult> Index()
         {
-              return _context.revenueTypes != null ? 
-                          View(await _context.revenueTypes.ToListAsync()) :
-                          Problem("Entity set 'DataContext.revenueTypes'  is null.");
+            return _context.revenueTypes != null ?
+                        View(await _context.revenueTypes.ToListAsync()) :
+                        Problem("Entity set 'DataContext.revenueTypes'  is null.");
         }
 
         // GET: RevenueTypes/Details/5
@@ -152,14 +147,14 @@ namespace Orcamentos.Controllers
                 revenueType.Ativo = false;
                 _context.SaveChanges();
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool RevenueTypeExists(int id)
         {
-          return (_context.revenueTypes?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.revenueTypes?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

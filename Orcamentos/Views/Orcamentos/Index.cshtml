@@ -9,7 +9,7 @@
 <p>
     <a asp-action="Create">Criar Novo</a>
 </p>
-<table class="table">
+<table class="table" id="orcamentosTable">
     <thead>
         <tr>
             <th>
@@ -88,3 +88,93 @@
         }
     </tbody>
 </table>
+
+<div id="excelOrcamentos"></div>
+
+<button id="save-button">Guardar</button>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var data = @Html.Raw(Json.Serialize(Model
+            
+            .Select(o => new {
+            o.Id,
+            ProfileId = o.profileId,
+            ProfileName = o.Profile.Name,
+            RevenueTypeId = o.revenueTypeId,
+            RevenueTypeName = o.RevenueType.Nome,
+            BusinessUnitId = o.businessUnitId,
+            BusinessUnitName = o.BusinessUnit.Name,
+            o.Marca,
+            o.TipoUni,
+            o.Partnumb,
+            o.modelo,
+            o.SerialNumb,
+            o.ProductName,
+            o.Ativo
+            })));
+
+        var colHeaders = [
+            'ID',
+            'Perfil ID',
+            'Perfil', 
+            'Tipo de Rendimento ID',
+            'Tipo de Rendimento',
+            'Unidade de Negócio ID',
+            'Unidade de Negócio', 
+            'Marca', 
+            'Tipo de Unidade', 
+            'Part Number', 
+            'Modelo', 
+            'Número de Série', 
+            'Nome do Produto', 
+            'Ativo'];
+
+    var container = document.getElementById('excelOrcamentos');
+    var hot = new Handsontable(container, {
+        data: data,
+            colHeaders: colHeaders,
+            columns: [
+                { data: 'id', readOnly: true },
+                { data: 'profileId', readOnly: true },
+                { data: 'profile.Name' },
+                { data: 'revenueTypeId', readOnly: true },
+                { data: 'revenueType.nome' },
+                { data: 'businessUnitId', readOnly: true },
+                { data: 'businessUnit.name' },
+                { data: 'marca', type: 'text' },
+                { data: 'tipoUni', type: 'text' },
+                { data: 'partnumb', type: 'numeric' },
+                { data: 'modelo', type: 'text' },
+                { data: 'serialNumb', type: 'numeric' },
+                { data: 'productName', type: 'text' },
+                { data: 'ativo', type: 'checkbox' }
+            ],
+            height: 'auto',
+            licenseKey: 'non-commercial-and-evaluation' // for non-commercial use only
+        });
+
+
+var saveButton = document.getElementById('save-button');
+    saveButton.addEventListener('click', function () {
+        var updatedData = hot.getSourceData();
+        $.ajax({
+            type: 'POST',
+            url: '/Orcamentos/UpdateOrcamentos',
+            data: JSON.stringify(updatedData),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function () {
+                alert('Dados salvos com sucesso!');
+            },
+            error: function (error) {
+                alert('Ocorreu um erro ao salvar os dados.' + error);
+            }
+        });
+    });
+    });
+
+    
+    
+</script>

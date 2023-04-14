@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Orcamentos.Infrastructure;
 using Orcamentos.Models;
@@ -22,9 +17,9 @@ namespace Orcamentos.Controllers
         // GET: ProfileLevels
         public async Task<IActionResult> Index()
         {
-              return _context.profileLevels != null ? 
-                          View(await _context.profileLevels.ToListAsync()) :
-                          Problem("Entity set 'DataContext.profileLevels'  is null.");
+            return _context.profileLevels != null ?
+                        View(await _context.profileLevels.ToListAsync()) :
+                        Problem("Entity set 'DataContext.profileLevels'  is null.");
         }
 
         // GET: ProfileLevels/Details/5
@@ -151,14 +146,14 @@ namespace Orcamentos.Controllers
                 profileLevel.Ativo = false;
                 _context.SaveChanges();
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ProfileLevelExists(int id)
         {
-          return (_context.profileLevels?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.profileLevels?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

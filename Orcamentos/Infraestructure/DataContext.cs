@@ -1,20 +1,20 @@
 ﻿
-using Microsoft.EntityFrameworkCore;    
+using Microsoft.EntityFrameworkCore;
 using Orcamentos.Models;
 
 namespace Orcamentos.Infrastructure
 {
-        public class DataContext : DbContext
-        {
-                public DataContext(DbContextOptions<DataContext> options) : base(options)
-                { }
+    public class DataContext : DbContext
+    {
+        public DataContext(DbContextOptions<DataContext> options) : base(options)
+        { }
 
-	
+
         public DbSet<ProfileLevel> profileLevels { get; set; }
 
         public DbSet<Profile> profiles { get; set; }
 
-        public DbSet<RevenueType> revenueTypes{ get; set; }
+        public DbSet<RevenueType> revenueTypes { get; set; }
 
         public DbSet<BuManager> buManagers { get; set; }
 

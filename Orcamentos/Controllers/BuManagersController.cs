@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Orcamentos.Infrastructure;
 using Orcamentos.Models;
@@ -22,9 +17,9 @@ namespace Orcamentos.Controllers
         // GET: BuManagers
         public async Task<IActionResult> Index()
         {
-              return _context.buManagers != null ? 
-                          View(await _context.buManagers.ToListAsync()) :
-                          Problem("Entity set 'DataContext.buManagers'  is null.");
+            return _context.buManagers != null ?
+                        View(await _context.buManagers.ToListAsync()) :
+                        Problem("Entity set 'DataContext.buManagers'  is null.");
         }
 
         // GET: BuManagers/Details/5
@@ -151,14 +146,14 @@ namespace Orcamentos.Controllers
                 buManager.Ativo = false;
                 _context.SaveChanges();
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool BuManagerExists(int id)
         {
-          return (_context.buManagers?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.buManagers?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

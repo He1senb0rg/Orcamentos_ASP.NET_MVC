@@ -36,13 +36,13 @@ namespace Orcamentos.Models
         public int Partnumb { get; set; }
 
         [Required]
-        public string modelo { get; set;}
+        public string modelo { get; set; }
 
         [Required]
         public int SerialNumb { get; set; }
 
         [Required]
-        public string ProductName  { get; set; }
+        public string ProductName { get; set; }
 
         [Required]
         public bool Ativo { get; set; }

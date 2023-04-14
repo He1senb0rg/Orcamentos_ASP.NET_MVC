@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Orcamentos.Helpers;
 using Orcamentos.Infrastructure;
 using Orcamentos.Models;
-using Orcamentos.Helpers;
 
 namespace Orcamentos.Controllers
 {
@@ -24,7 +20,7 @@ namespace Orcamentos.Controllers
         public async Task<IActionResult> Index()
         {
             List<BusinessUnit> listaBu = _context.businessUnits.Include(p => p.BuManager).ToList();
-            
+
             return View(listaBu);
             // return _context.businessUnits != null ? 
             //             View(await _context.businessUnits.ToListAsync()) :
@@ -164,14 +160,14 @@ namespace Orcamentos.Controllers
                 businessUnit.Ativo = false;
                 _context.SaveChanges();
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool BusinessUnitExists(int id)
         {
-          return (_context.businessUnits?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.businessUnits?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

@@ -1,10 +1,4 @@
-﻿
-using Orcamentos.Models;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using Orcamentos.Infrastructure;
 
 namespace Orcamentos.Helpers
@@ -25,7 +19,7 @@ namespace Orcamentos.Helpers
                         Value = Convert.ToString(c.Id),
                         Text = c.Nome
                     }).ToList();
-            
+
             return listaBuManagers;
         }
 

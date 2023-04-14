@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Orcamentos.Helpers;
@@ -165,14 +161,14 @@ namespace Orcamentos.Controllers
                 profile.Ativo = false;
                 _context.SaveChanges();
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ProfileExists(int id)
         {
-          return (_context.profiles?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.profiles?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

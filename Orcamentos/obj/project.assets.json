@@ -2,6 +2,9 @@
   "version": 3,
   "targets": {
     "net6.0": {
+      "Handsontable/12.3.3": {
+        "type": "package"
+      },
       "Humanizer.Core/2.8.26": {
         "type": "package",
         "compile": {
@@ -3533,6 +3536,25 @@
     }
   },
   "libraries": {
+    "Handsontable/12.3.3": {
+      "sha512": "qizY5ZUVxd5TuDezQ7rEg8WLRuVzHBqNhtS8xVFXlQsZolhK8f3oVwi0U5oND91dvomkPLB+Z4EGcIpSNz/GEg==",
+      "type": "package",
+      "path": "handsontable/12.3.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "content/Content/handsontable/handsontable.css",
+        "content/Content/handsontable/handsontable.full.css",
+        "content/Content/handsontable/handsontable.full.min.css",
+        "content/Content/handsontable/handsontable.min.css",
+        "content/Scripts/handsontable/handsontable.full.js",
+        "content/Scripts/handsontable/handsontable.full.min.js",
+        "content/Scripts/handsontable/handsontable.js",
+        "content/Scripts/handsontable/handsontable.min.js",
+        "handsontable.12.3.3.nupkg.sha512",
+        "handsontable.nuspec"
+      ]
+    },
     "Humanizer.Core/2.8.26": {
       "sha512": "OiKusGL20vby4uDEswj2IgkdchC1yQ6rwbIkZDVBPIR6al2b7n3pC91elBul9q33KaBgRKhbZH3+2Ur4fnWx2A==",
       "type": "package",
@@ -10011,6 +10033,7 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "Handsontable >= 12.3.3",
       "Microsoft.EntityFrameworkCore.SqlServer >= 6.0.16",
       "Microsoft.EntityFrameworkCore.Tools >= 6.0.16",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 6.0.13"
@@ -10055,6 +10078,10 @@
       "net6.0": {
         "targetAlias": "net6.0",
         "dependencies": {
+          "Handsontable": {
+            "target": "Package",
+            "version": "[12.3.3, )"
+          },
           "Microsoft.EntityFrameworkCore.SqlServer": {
             "target": "Package",
             "version": "[6.0.16, )"

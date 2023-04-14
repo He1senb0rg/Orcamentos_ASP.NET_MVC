@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v6.0": {
       "Orcamentos/1.0.0": {
         "dependencies": {
+          "Handsontable": "12.3.3",
           "Microsoft.EntityFrameworkCore.SqlServer": "6.0.16",
           "Microsoft.EntityFrameworkCore.Tools": "6.0.16",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "6.0.13"
@@ -16,6 +17,7 @@
           "Orcamentos.dll": {}
         }
       },
+      "Handsontable/12.3.3": {},
       "Humanizer.Core/2.8.26": {
         "runtime": {
           "lib/netstandard2.0/Humanizer.dll": {
@@ -2262,6 +2264,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "Handsontable/12.3.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-qizY5ZUVxd5TuDezQ7rEg8WLRuVzHBqNhtS8xVFXlQsZolhK8f3oVwi0U5oND91dvomkPLB+Z4EGcIpSNz/GEg==",
+      "path": "handsontable/12.3.3",
+      "hashPath": "handsontable.12.3.3.nupkg.sha512"
     },
     "Humanizer.Core/2.8.26": {
       "type": "package",

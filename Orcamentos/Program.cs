@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using Orcamentos.Infrastructure;
-using Orcamentos.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
