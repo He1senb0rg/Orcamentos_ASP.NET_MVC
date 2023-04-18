@@ -874,3 +874,5 @@ C:\Users\warga\GitHub\Orcamentos_ASP.NET_MVC\Orcamentos\obj\Debug\net6.0\refint\
 C:\Users\warga\GitHub\Orcamentos_ASP.NET_MVC\Orcamentos\obj\Debug\net6.0\Orcamentos.pdb
 C:\Users\warga\GitHub\Orcamentos_ASP.NET_MVC\Orcamentos\obj\Debug\net6.0\Orcamentos.genruntimeconfig.cache
 C:\Users\warga\GitHub\Orcamentos_ASP.NET_MVC\Orcamentos\obj\Debug\net6.0\ref\Orcamentos.dll
+C:\Users\andre\Documents\GitHub\Orcamentos_ASP.NET_MVC\Orcamentos\bin\Debug\net6.0\package-lock.json
+C:\Users\andre\Documents\GitHub\Orcamentos_ASP.NET_MVC\Orcamentos\bin\Debug\net6.0\package.json

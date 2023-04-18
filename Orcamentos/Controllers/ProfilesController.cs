@@ -72,7 +72,7 @@ namespace Orcamentos.Controllers
         }
 
         // GET: Profiles/Edit/5
-        public async Task<IActionResult> Edit(Guid? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.profiles == null)
             {

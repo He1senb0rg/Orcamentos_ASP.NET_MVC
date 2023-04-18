@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Orcamentos.Helpers;
 using Orcamentos.Infrastructure;
 using Orcamentos.Models;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Orcamentos.Controllers
 {
@@ -20,6 +21,16 @@ namespace Orcamentos.Controllers
         public async Task<IActionResult> Index()
         {
             List<Orcamento> listaOrcamentos = _context.orcamentos.Include(o => o.BusinessUnit).Include(o => o.Profile).Include(o => o.RevenueType).ToList();
+
+            IEnumerable<SelectListItem> profilesList = DBHelper.FillProfiles(_context);
+            ViewBag.profilesList = profilesList;
+
+            IEnumerable<SelectListItem> revenueTypesList = DBHelper.FillRevenueTypes(_context);
+            ViewBag.revenueTypesList = revenueTypesList;
+
+            IEnumerable<SelectListItem> businessUnitsList = DBHelper.FillBu(_context);
+            ViewBag.businessUnitsList = businessUnitsList;
+
             return View(listaOrcamentos);
         }
 
@@ -185,8 +196,9 @@ namespace Orcamentos.Controllers
         }
 
         [HttpPost]
-        public IActionResult UpdateOrcamentos(List<Orcamento> orcamentos)
+        public IActionResult UpdateOrcamentos([FromBody] List<Orcamento> orcamentos)
         {
+
             foreach (var orcamento in orcamentos)
             {
                 _context.Update(orcamento);

@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "jsgrid": "^1.5.3",
+    "jspreadsheet-ce": "^4.11.4"
+  }
+}

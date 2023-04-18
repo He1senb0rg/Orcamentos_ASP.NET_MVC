@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Orçamentos";
+    var options = Model.Select(o => o.Profile.Name).Distinct().ToList();
 }
 
 <h1>Menu</h1>
@@ -91,8 +92,9 @@
 
 <div id="excelOrcamentos"></div>
 
-<button id="save-button">Guardar</button>
+<div>@Html.DropDownList("profilesList")</div>
 
+<button id="save-button">Guardar</button>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -132,13 +134,16 @@
             'Ativo'];
 
     var container = document.getElementById('excelOrcamentos');
+        var mList = @Html.Raw(Json.Serialize(ViewBag.profilesList));
     var hot = new Handsontable(container, {
         data: data,
             colHeaders: colHeaders,
             columns: [
                 { data: 'id', readOnly: true },
-                { data: 'profileId', readOnly: true },
-                { data: 'profile.Name' },
+                { data: 'profileId', readOnly: true }, //o id do profile deve coincidir com o profile selecionado
+                //{ data: 'ProfileName', type: 'dropdown', source: ['tete', 'olikuj', 'hngbfv'] },
+                { data: 'ProfileName', type: 'dropdown', source: [ mList ] }, //deve aparecer aqui todos os profiles registados na db
+                @*//{ data: 'ProfileName', type: 'dropdown', source: @Html.DropDownList("Select", new SelectList(ViewBag.profilesList, "Value", "Text"), new { style = "width: 70px;", @class = "form-control" }) },*@
                 { data: 'revenueTypeId', readOnly: true },
                 { data: 'revenueType.nome' },
                 { data: 'businessUnitId', readOnly: true },
@@ -155,24 +160,65 @@
             licenseKey: 'non-commercial-and-evaluation' // for non-commercial use only
         });
 
+        const save = document.querySelector('#save-button');
 
-var saveButton = document.getElementById('save-button');
-    saveButton.addEventListener('click', function () {
-        var updatedData = hot.getSourceData();
-        $.ajax({
-            type: 'POST',
-            url: '/Orcamentos/UpdateOrcamentos',
-            data: JSON.stringify(updatedData),
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            success: function () {
-                alert('Dados salvos com sucesso!');
-            },
-            error: function (error) {
-                alert('Ocorreu um erro ao salvar os dados.' + error);
-            }
+        var tableData = JSON.stringify(hot.getSourceData());
+
+        console.log(tableData);
+
+        $("#save-button").click(function () {
+
+            $.ajax({
+                url: '/Orcamentos/UpdateOrcamentos',
+                data: JSON.stringify(hot.getSourceData()),
+                dataType: 'json',
+                contentType: "application/json",
+                type: 'POST',
+                success: function (result) {
+                    alert("Succes");
+                },
+                error: function (result) {
+                    alert("Failure");
+                }
+            });
         });
-    });
+
+        //save.addEventListener('click', () => {
+        //    // save all cell's data
+        //    fetch('/Orcamentos/UpdateOrcamentos', {
+        //        method: 'POST',
+        //        mode: 'no-cors',
+        //        headers: {
+        //            'Content-Type': 'application/json; charset=utf-8'
+        //        },
+        //        contentType: 'application/json; charset=utf-8',
+        //        //dataType: 'json',
+        //        //data: JSON.stringify(hot.getSourceData()),
+        //        body: JSON.stringify({ data: tableData })
+        //        //body: JSON.stringify({ data: tableData }),
+              
+        //    })
+        //        .then(response => {
+        //            exampleConsole.innerText = 'Data saved';
+        //        });
+        //});
+
+    //saveButton.addEventListener('click', function () {
+    //    var updatedData = hot.getSourceData();
+    //    $.ajax({
+    //        type: 'POST',
+    //        url: '/Orcamentos/UpdateOrcamentos',
+    //        data: JSON.stringify(updatedData),
+    //        contentType: 'application/json; charset=utf-8',
+    //        dataType: 'json',
+    //        success: function () {
+    //            alert('Dados salvos com sucesso!');
+    //        },
+    //        error: function (error) {
+    //            alert('Ocorreu um erro ao salvar os dados.' + error);
+    //        }
+    //    });
+    //});
     });
 
     
