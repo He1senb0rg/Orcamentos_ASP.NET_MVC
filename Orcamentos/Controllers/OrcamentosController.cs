@@ -205,7 +205,14 @@ namespace Orcamentos.Controllers
             }
             _context.SaveChanges();
 
-            return Ok();
+            return Ok(orcamentos);
+        }
+
+        public IActionResult GetTableOrcamentos()
+        {
+            List<Orcamento> listaOrcamentos = _context.orcamentos.Include(o => o.BusinessUnit).Include(o => o.Profile).Include(o => o.RevenueType).ToList();
+
+            return Ok(listaOrcamentos);
         }
     }
 }

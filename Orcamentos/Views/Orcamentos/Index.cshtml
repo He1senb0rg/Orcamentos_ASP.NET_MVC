@@ -10,6 +10,9 @@
 <p>
     <a asp-action="Create">Criar Novo</a>
 </p>
+
+<button class="btn btn-success mb-3" onclick="changeTable()" id="changeTableButton">Mostrar Excel</button>
+
 <table class="table" id="orcamentosTable">
     <thead>
         <tr>
@@ -90,13 +93,37 @@
     </tbody>
 </table>
 
-<div id="excelOrcamentos"></div>
+<div id="excelTable" class="d-none">
+    <div class="mb-3" id="excelOrcamentos"></div>
 
-<div>@Html.DropDownList("profilesList")</div>
+    <button class="btn btn-success" id="save-button">Guardar</button>
+</div>
 
-<button id="save-button">Guardar</button>
+
+@*<div>@Html.DropDownList("profilesList")</div>*@
 
 <script>
+
+    var buttonTable = document.getElementById("changeTableButton")
+
+    function changeTable(){
+
+        var table = document.getElementById("orcamentosTable");
+        var excel = document.getElementById("excelTable")
+
+        if (excel.classList.contains('d-none')){
+            table.classList.add('d-none')
+            excel.classList.remove('d-none')
+            buttonTable.innerHTML = "Mostrar Tabela"
+        }
+        else{
+            table.classList.remove('d-none')
+            excel.classList.add('d-none')
+            buttonTable.innerHTML = "Mostrar Excel"
+        }
+
+    }
+
     document.addEventListener('DOMContentLoaded', function () {
         var data = @Html.Raw(Json.Serialize(Model
             
@@ -156,6 +183,7 @@
                 { data: 'productName', type: 'text' },
                 { data: 'ativo', type: 'checkbox' }
             ],
+            columnSorting: true,
             height: 'auto',
             licenseKey: 'non-commercial-and-evaluation' // for non-commercial use only
         });
@@ -164,7 +192,7 @@
 
         var tableData = JSON.stringify(hot.getSourceData());
 
-        console.log(tableData);
+        //console.log(tableData);
 
         $("#save-button").click(function () {
 
@@ -175,13 +203,34 @@
                 contentType: "application/json",
                 type: 'POST',
                 success: function (result) {
-                    alert("Succes");
+                    alert("Success");
+                    getTable();
+                    //location.reload()
                 },
-                error: function (result) {
-                    alert("Failure");
+                error: function (xhr, status, error) {
+                    alert("Failure: " + error);
                 }
             });
         });
+
+        function getTable(){
+
+            $.ajax({
+                url: '/Orcamentos/GetTableOrcamentos',
+                dataType: 'json',
+                contentType: "application/json",
+                type: 'GET',
+                success: function (result) {
+                    $('#orcamentosTable').html(result)
+
+                    alert("Success");
+                },
+                error: function (xhr, status, error) {
+                    alert("Failure: " + error);
+                }
+            });
+
+        }
 
         //save.addEventListener('click', () => {
         //    // save all cell's data
