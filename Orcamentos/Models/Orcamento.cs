@@ -10,6 +10,12 @@ namespace Orcamentos.Models
         public int Id { get; set; }
 
         [Required]
+        [ForeignKey("OrcamentoNomes")]
+        public int OrcamentoNomeId { get; set; }
+
+        public OrcamentoNome? OrcamentoNome { get; set; }
+
+        [Required]
         [ForeignKey("profiles")]
         public int profileId { get; set; }
 
@@ -25,6 +31,8 @@ namespace Orcamentos.Models
         public int businessUnitId { get; set; }
 
         public BusinessUnit? BusinessUnit { get; set; }
+
+
 
         [Required]
         public string Marca { get; set; }
@@ -45,7 +53,46 @@ namespace Orcamentos.Models
         public string ProductName { get; set; }
 
         [Required]
+        public int UnitPrice { get; set; }
+
+        [Required]
+        public int UnitCost { get; set; }
+
+        [Required]
+        public int DescontoTabela { get; set; }
+        [Required]
+        public int PrecoParcial { get; set; }
+
+        [Required]
+        public int CustoTabela { get; set; }
+
+        [Required]
+        public int CustoDesc1 { get; set; }
+
+        [Required]
+        public int CustoDesc2 { get; set; }
+
+        [Required]
+        public int CustoDesc3 { get; set; }
+
+        [Required]
+        public int TotalCost { get; set; }
+
+        [Required]
+        public int TotalPrice { get; set; }
+
+        [Required]
+        public int Margin { get; set; }
+
+        [Required]
+        public decimal MG { get; set; }
+
+
+        [Required]
         public bool Ativo { get; set; }
+
+
+
 
     }
 }

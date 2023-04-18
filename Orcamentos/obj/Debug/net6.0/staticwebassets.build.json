@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "WSxev6wgwn1e4BNoQB/KcbyNsBxp06M9vL6i4B6oCEA=",
+  "Hash": "h4DWpCLCfeUVgvDfIreaOl2HB9vMkalyPRMLttA8pG8=",
   "Source": "Orcamentos",
   "BasePath": "_content/Orcamentos",
   "Mode": "Default",
@@ -83,6 +83,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\2005h\\Desktop\\Git_Projects\\Orcamentos_ASP.NET_MVC\\Orcamentos\\wwwroot\\img\\logo_brvantic_349x175.2e16d0ba.fill-279x140.png",
+      "SourceId": "Orcamentos",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\2005h\\Desktop\\Git_Projects\\Orcamentos_ASP.NET_MVC\\Orcamentos\\wwwroot\\",
+      "BasePath": "_content/Orcamentos",
+      "RelativePath": "img/logo_brvantic_349x175.2e16d0ba.fill-279x140.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\logo_brvantic_349x175.2e16d0ba.fill-279x140.png"
     },
     {
       "Identity": "C:\\Users\\2005h\\Desktop\\Git_Projects\\Orcamentos_ASP.NET_MVC\\Orcamentos\\wwwroot\\js\\all.js",

@@ -16,6 +16,9 @@
 <table class="table" id="orcamentosTable">
     <thead>
         <tr>
+             <th>
+               Nome do orçamento 
+            </th>
             <th>
                 Perfil
             </th>
@@ -53,6 +56,9 @@
         @foreach (var item in Model)
         {
             <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrcamentoNome.Nome)
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Profile.Name)
                 </td>

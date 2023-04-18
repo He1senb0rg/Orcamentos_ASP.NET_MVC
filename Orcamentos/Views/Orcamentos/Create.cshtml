@@ -14,6 +14,20 @@
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="row">
             <div class="col-6">
+
+                <div class="form-group">
+                    <label class="control-label">Orçamento Nome</label>
+                    <div class="input-group">
+                        <select class="form-control" asp-for="OrcamentoNomeId"
+                                asp-items="@(new SelectList(ViewBag.orcamentoNome.List,"Value","Text"))">
+                            <option>Selecione uma opção</option>
+                        </select>
+
+                    </div>
+
+                    <span asp-validation-for="OrcamentoNomeId" class="text-danger"></span>
+                </div>
+
                 <div class="form-group">
                 <label class="control-label">Perfil</label>
                 <div class="input-group">
