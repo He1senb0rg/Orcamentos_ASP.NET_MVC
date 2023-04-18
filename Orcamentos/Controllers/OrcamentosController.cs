@@ -210,9 +210,9 @@ namespace Orcamentos.Controllers
 
         public IActionResult GetTableOrcamentos()
         {
-            List<Orcamento> listaOrcamentos = _context.orcamentos.Include(o => o.BusinessUnit).Include(o => o.Profile).Include(o => o.RevenueType).ToList();
+            List<Orcamento> data = _context.orcamentos.Include(o => o.BusinessUnit).Include(o => o.Profile).Include(o => o.RevenueType).ToList();
 
-            return Ok(listaOrcamentos);
+            return Ok(data);
         }
     }
 }
