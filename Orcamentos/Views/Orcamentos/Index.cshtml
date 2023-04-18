@@ -195,22 +195,29 @@
         //console.log(tableData);
 
         $("#save-button").click(function () {
-
-            $.ajax({
-                url: '/Orcamentos/UpdateOrcamentos',
-                data: JSON.stringify(hot.getSourceData()),
-                dataType: 'json',
-                contentType: "application/json",
-                type: 'POST',
-                success: function (result) {
-                    alert("Success");
-                    getTable();
-                    //location.reload()
-                },
-                error: function (xhr, status, error) {
-                    alert("Failure: " + error);
+            hot.validateCells((valid) => {
+                if (valid) {
+                    $.ajax({
+                        url: '/Orcamentos/UpdateOrcamentos',
+                        data: JSON.stringify(hot.getSourceData()),
+                        dataType: 'json',
+                        contentType: "application/json",
+                        type: 'POST',
+                        success: function (result) {
+                            alert("Success");
+                            getTable();
+                            //location.reload()
+                        },
+                        error: function (xhr, status, error) {
+                            alert("Failure: " + error);
+                        }
+                    });
                 }
-            });
+                else{
+                    alert("error");
+                }
+            })
+            
         });
 
         function getTable(){
