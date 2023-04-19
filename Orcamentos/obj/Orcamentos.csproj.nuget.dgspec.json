@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\2005h\\Desktop\\Git_Projects\\Orcamentos_ASP.NET_MVC\\Orcamentos\\Orcamentos.csproj": {}
+    "E:\\GitHub Projects\\Orcamentos_ASP.NET_MVC\\Orcamentos\\Orcamentos.csproj": {}
   },
   "projects": {
-    "C:\\Users\\2005h\\Desktop\\Git_Projects\\Orcamentos_ASP.NET_MVC\\Orcamentos\\Orcamentos.csproj": {
+    "E:\\GitHub Projects\\Orcamentos_ASP.NET_MVC\\Orcamentos\\Orcamentos.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\2005h\\Desktop\\Git_Projects\\Orcamentos_ASP.NET_MVC\\Orcamentos\\Orcamentos.csproj",
+        "projectUniqueName": "E:\\GitHub Projects\\Orcamentos_ASP.NET_MVC\\Orcamentos\\Orcamentos.csproj",
         "projectName": "Orcamentos",
-        "projectPath": "C:\\Users\\2005h\\Desktop\\Git_Projects\\Orcamentos_ASP.NET_MVC\\Orcamentos\\Orcamentos.csproj",
-        "packagesPath": "C:\\Users\\2005h\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\2005h\\Desktop\\Git_Projects\\Orcamentos_ASP.NET_MVC\\Orcamentos\\obj\\",
+        "projectPath": "E:\\GitHub Projects\\Orcamentos_ASP.NET_MVC\\Orcamentos\\Orcamentos.csproj",
+        "packagesPath": "C:\\Users\\Big Boss\\.nuget\\packages\\",
+        "outputPath": "E:\\GitHub Projects\\Orcamentos_ASP.NET_MVC\\Orcamentos\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\2005h\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\Big Boss\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -26,7 +22,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -70,8 +65,7 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -83,7 +77,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     }
