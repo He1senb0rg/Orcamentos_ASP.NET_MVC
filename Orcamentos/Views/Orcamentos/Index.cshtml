@@ -1,138 +1,139 @@
 ﻿@model IEnumerable<Orcamentos.Models.Orcamento>
 
 @{
-    ViewData["Title"] = "Orçamentos";
-    //var options = Model.Select(o => o.Profile.Name).Distinct().ToList();
+	ViewData["Title"] = "Orçamentos";
+	//var options = Model.Select(o => o.Profile.Name).Distinct().ToList();
 }
 
 <h1>Menu</h1>
 <h3>Orçamentos</h3>
 <p>
-    <a asp-action="Create">Criar Novo</a>
+	<a asp-action="Create">Criar Novo</a>
 </p>
 
 <button class="btn btn-success mb-3" onclick="changeTable()" id="changeTableButton">Mostrar Excel</button>
 
 <table class="table" id="orcamentosTable">
-    <thead>
-        <tr>
-             <th>
-               Nome do orçamento 
-            </th>
-            <th>
-                Perfil
-            </th>
-            <th>
-               Tipo de Rendimento
-            </th>
-            <th>
-                Unidade de Negocio
-            </th>
-            <th>
-                Marca
-            </th>
-            <th>
-                Tipo de Unidade
-            </th>
-            <th>
-                Part Number
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.modelo)
-            </th>
-            <th>
-                Numero de serie
-            </th>
-            <th>
-                Nome de produto
-            </th>
-            <th>
-                Ativo
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.OrcamentoNome.Nome)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Profile.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RevenueType.Nome)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.BusinessUnit.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Marca)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TipoUni)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Partnumb)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.modelo)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SerialNumb)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProductName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Ativo)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Detalhes</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
-                </td>
-            </tr>
-        }
-    </tbody>
+	<thead>
+		<tr>
+			 <th>
+			   Nome do orçamento 
+			</th>
+			<th>
+				Perfil
+			</th>
+			<th>
+			   Tipo de Rendimento
+			</th>
+			<th>
+				Unidade de Negocio
+			</th>
+			<th>
+				Marca
+			</th>
+			<th>
+				Tipo de Unidade
+			</th>
+			<th>
+				Part Number
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.modelo)
+			</th>
+			<th>
+				Numero de serie
+			</th>
+			<th>
+				Nome de produto
+			</th>
+			<th>
+				Ativo
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+					<tr>
+						<td>
+					@Html.DisplayFor(modelItem => item.OrcamentoNome.Nome)
+						</td>
+						<td>
+					@Html.DisplayFor(modelItem => item.Profile.Name)
+						</td>
+						<td>
+					@Html.DisplayFor(modelItem => item.RevenueType.Nome)
+						</td>
+						<td>
+					@Html.DisplayFor(modelItem => item.BusinessUnit.Name)
+						</td>
+						<td>
+					@Html.DisplayFor(modelItem => item.Marca)
+						</td>
+						<td>
+					@Html.DisplayFor(modelItem => item.TipoUni)
+						</td>
+						<td>
+					@Html.DisplayFor(modelItem => item.Partnumb)
+						</td>
+						<td>
+					@Html.DisplayFor(modelItem => item.modelo)
+						</td>
+						<td>
+					@Html.DisplayFor(modelItem => item.SerialNumb)
+						</td>
+						<td>
+					@Html.DisplayFor(modelItem => item.ProductName)
+						</td>
+						<td>
+					@Html.DisplayFor(modelItem => item.Ativo)
+						</td>
+						<td>
+							<a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+							<a asp-action="Details" asp-route-id="@item.Id">Detalhes</a> |
+							<a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+						</td>
+					</tr>
+		}
+	</tbody>
 </table>
 
 <div id="excelTable" class="d-none">
-    <div class="mb-3" id="excelOrcamentos"></div>
+	<div class="mb-3" id="excelOrcamentos"></div>
 
-    <button class="btn btn-success" id="save-button">Guardar</button>
+	<button class="btn btn-success" id="save-button">Guardar</button>
 </div>
 
 
 @*<div>@Html.DropDownList("profilesList")</div>*@
 
 <script>
-    
-    var buttonTable = document.getElementById("changeTableButton")
 
-    function changeTable(){
+	var buttonTable = document.getElementById("changeTableButton")
 
-        var table = document.getElementById("orcamentosTable");
-        var excel = document.getElementById("excelTable")
+	function changeTable(){
 
-        if (excel.classList.contains('d-none')){
-            table.classList.add('d-none')
-            excel.classList.remove('d-none')
-            buttonTable.innerHTML = "Mostrar Tabela"
-        }
-        else{
-            table.classList.remove('d-none')
-            excel.classList.add('d-none')
-            buttonTable.innerHTML = "Mostrar Excel"
-        }
+		var table = document.getElementById("orcamentosTable");
+		var excel = document.getElementById("excelTable")
 
-    }
+		if (excel.classList.contains('d-none')){
+			table.classList.add('d-none')
+			excel.classList.remove('d-none')
+			buttonTable.innerHTML = "Mostrar Tabela"
+		}
+		else{
+			table.classList.remove('d-none')
+			excel.classList.add('d-none')
+			buttonTable.innerHTML = "Mostrar Excel"
+		}
 
-    document.addEventListener('DOMContentLoaded', function () {
-        var data = @Html.Raw(Json.Serialize(Model
-            
+	}
+
+	document.addEventListener('DOMContentLoaded', function () {
+
+		var data = @Html.Raw(Json.Serialize(Model
+
             .Select(o => new {
             o.Id,
             OrcamentoNomeId = o.orcamentoNomeId,
@@ -152,171 +153,189 @@
             o.Ativo
             })));
 
-        var colHeaders = [
-            'ID',
-            'Orçamento Nome ID',
-            'Orçamento Nome', 
-            'Perfil ID',
-            'Perfil', 
-            'Tipo de Rendimento ID',
-            'Tipo de Rendimento',
-            'Unidade de Negócio ID',
-            'Unidade de Negócio', 
-            'Marca', 
-            'Tipo de Unidade', 
-            'Part Number', 
-            'Modelo', 
-            'Número de Série', 
-            'Nome do Produto', 
-            'Ativo'];
+		var colHeaders = [
+			'ID',
+			'Orçamento Nome ID',
+			'Orçamento Nome', 
+			'Perfil ID',
+			'Perfil', 
+			'Tipo de Rendimento ID',
+			'Tipo de Rendimento',
+			'Unidade de Negócio ID',
+			'Unidade de Negócio', 
+			'Marca', 
+			'Tipo de Unidade', 
+			'Part Number', 
+			'Modelo', 
+			'Número de Série', 
+			'Nome do Produto', 
+			'Ativo'];
 
-    var container = document.getElementById('excelOrcamentos');
-        var mList = @Html.Raw(Json.Serialize(ViewBag.profilesList));
-    var hot = new Handsontable(container, {
-        data: data,
-            colHeaders: colHeaders,
-            columns: [
-                { data: 'id', readOnly: true },
-                { data: 'orcamentoNomeId', readOnly: true },
-                { data: 'orcamentoNome.nome' },
-                { data: 'profileId', readOnly: true }, //o id do profile deve coincidir com o profile selecionado
-                //{ data: 'ProfileName', type: 'dropdown', source: ['tete', 'olikuj', 'hngbfv'] },
-                { data: 'ProfileName', type: 'dropdown', source: [ mList ] }, //deve aparecer aqui todos os profiles registados na db
-                @*//{ data: 'ProfileName', type: 'dropdown', source: @Html.DropDownList("Select", new SelectList(ViewBag.profilesList, "Value", "Text"), new { style = "width: 70px;", @class = "form-control" }) },*@
-                { data: 'revenueTypeId', readOnly: true },
-                { data: 'revenueType.nome' },
-                { data: 'businessUnitId', readOnly: true },
-                { data: 'businessUnit.name' },
-                { data: 'marca', type: 'text' },
-                { data: 'tipoUni', type: 'text' },
-                { data: 'partnumb', type: 'numeric' },
-                { data: 'modelo', type: 'text' },
-                { data: 'serialNumb', type: 'numeric' },
-                { data: 'productName', type: 'text' },
-                { data: 'ativo', type: 'checkbox' }
-            ], 
-            language: 'pt-BR',
-            rowHeaders: true,
-            filters: true,
-            dropdownMenu: ['filter_by_condition', 'filter_action_bar'],
+	var container = document.getElementById('excelOrcamentos');
 
-            columnSorting: true,
-            height: 'auto',
-            licenseKey: 'non-commercial-and-evaluation' // for non-commercial use only
-        });
+		var mList = @Html.Raw(Json.Serialize(ViewBag.profilesList));
+		var result = mList.map((item) => item.text)
+		console.log(result);
 
-        const save = document.querySelector('#save-button');
+	var hot = new Handsontable(container, {
+		data: data,
+			colHeaders: colHeaders,
+			columns: [
+				{ data: 'id', readOnly: true },
+				{ data: 'orcamentoNomeId', readOnly: true },
+				{ data: 'orcamentoName' },
+				{ data: 'profileId', readOnly: true }, //o id do profile deve coincidir com o profile selecionado
+				{ data: 'ProfileName', type: 'dropdown', source: result },
+				{ data: 'revenueTypeId', readOnly: true },
+				{ data: 'revenueType.nome' },
+				{ data: 'businessUnitId', readOnly: true },
+				{ data: 'businessUnit.name' },
+				{ data: 'marca', type: 'text' },
+				{ data: 'tipoUni', type: 'text' },
+				{ data: 'partnumb', type: 'numeric' },
+				{ data: 'modelo', type: 'text' },
+				{ data: 'serialNumb', type: 'numeric' },
+				{ data: 'productName', type: 'text' },
+				{ data: 'ativo', type: 'checkbox' }
+			], 
+			afterChange: function(changes, source) {
+				if (source === 'edit') {
+					changes.forEach(function(change) {
+						var row = change[0];
+						var prop = change[1];
+						var newValue = change[3];
+                
+						if (prop === 'ProfileName') {
+							var profile = mList.find(function(p) { return p.text === newValue; });
+							hot.setDataAtCell(row, hot.propToCol('profileId'), profile.value);
+						}
+					});
+				}
+			},
+			language: 'pt-BR',
+			rowHeaders: true,
+			filters: true,
+			dropdownMenu: ['filter_by_condition', 'filter_action_bar'],
 
-        var tableData = JSON.stringify(hot.getSourceData());
+			columnSorting: true,
+			height: '300px',
+			licenseKey: 'non-commercial-and-evaluation' // for non-commercial use only
+		});
 
-        //console.log(tableData);
+		const save = document.querySelector('#save-button');
 
-        $("#save-button").click(function () {
-            hot.validateCells((valid) => {
-                if (valid) {
-                    $.ajax({
-                        url: '/Orcamentos/UpdateOrcamentos',
-                        data: JSON.stringify(hot.getSourceData()),
-                        dataType: 'json',
-                        contentType: "application/json",
-                        type: 'POST',
-                        success: function (result) {
-                            alert("Success");
-                            getTable();
-                            //location.reload()
-                        },
-                        error: function (xhr, status, error) {
-                            alert("Failure: " + error);
-                        }
-                    });
-                }
-                else{
-                    alert("error");
-                }
-            })
-            
-        });
+		var tableData = JSON.stringify(hot.getSourceData());
 
-        function getTable(){
+		//console.log(tableData);
 
-            $.ajax({
-                url: '/Orcamentos/GetTableOrcamentos',
-                dataType: 'json',
-                contentType: "application/json",
-                type: 'GET',
-                success: function (data) {
-                    var tableBody = $('#orcamentosTable tbody');
-                    tableBody.empty(); // clear existing rows
-                    $.each(data, function (index, item) {
-                        var profileName = item.profile ? item.profile.name : '';
-                        var revenueTypeName = item.revenueType ? item.revenueType.nome : '';
-                        var businessUnitName = item.businessUnit ? item.businessUnit.name : '';
+		$("#save-button").click(function () {
+			hot.validateCells((valid) => {
+				if (valid) {
+					$.ajax({
+						url: '/Orcamentos/UpdateOrcamentos',
+						data: JSON.stringify(hot.getSourceData()),
+						dataType: 'json',
+						contentType: "application/json",
+						type: 'POST',
+						success: function (result) {
+							alert("Success");
+							getTable();
+							//location.reload()
+						},
+						error: function (xhr, status, error) {
+							alert("Failure: " + error);
+						}
+					});
+				}
+				else{
+					alert("error");
+				}
+			})
 
-                        var row = '<tr>' +
-                            '<td>' + profileName + '</td>' +
-                            '<td>' + revenueTypeName + '</td>' +
-                            '<td>' + businessUnitName + '</td>' +
-                            '<td>' + item.marca + '</td>' +
-                            '<td>' + item.tipoUni + '</td>' +
-                            '<td>' + item.partnumb + '</td>' +
-                            '<td>' + item.modelo + '</td>' +
-                            '<td>' + item.serialNumb + '</td>' +
-                            '<td>' + item.productName + '</td>' +
-                            '<td>' + '<input type="checkbox" disabled ' + (item.ativo ? 'checked' : '') + '></td>' +
-                            '<td>' +
-                            '<a href="/orcamentos/edit/' + item.id + '">Editar</a> | ' +
-                            '<a href="/orcamentos/details/' + item.id + '">Detalhes</a> | ' +
-                            '<a href="/orcamentos/delete/' + item.id + '">Eliminar</a>' +
-                            '</td>' +
-                            '</tr>';
-                        tableBody.append(row);
-                    });
-                },
-                error: function (xhr, status, error) {
-                    alert("Failure: " + error);
-                }
-            });
+		});
 
-        }
+		function getTable(){
 
-        //save.addEventListener('click', () => {
-        //    // save all cell's data
-        //    fetch('/Orcamentos/UpdateOrcamentos', {
-        //        method: 'POST',
-        //        mode: 'no-cors',
-        //        headers: {
-        //            'Content-Type': 'application/json; charset=utf-8'
-        //        },
-        //        contentType: 'application/json; charset=utf-8',
-        //        //dataType: 'json',
-        //        //data: JSON.stringify(hot.getSourceData()),
-        //        body: JSON.stringify({ data: tableData })
-        //        //body: JSON.stringify({ data: tableData }),
-              
-        //    })
-        //        .then(response => {
-        //            exampleConsole.innerText = 'Data saved';
-        //        });
-        //});
+			$.ajax({
+				url: '/Orcamentos/GetTableOrcamentos',
+				dataType: 'json',
+				contentType: "application/json",
+				type: 'GET',
+				success: function (data) {
+					var tableBody = $('#orcamentosTable tbody');
+					tableBody.empty(); // clear existing rows
+					$.each(data, function (index, item) {
+						var orcamentoName = item.orcamentoNome ? item.orcamentoNome.nome : '';
+						var profileName = item.profile ? item.profile.name : '';
+						var revenueTypeName = item.revenueType ? item.revenueType.nome : '';
+						var businessUnitName = item.businessUnit ? item.businessUnit.name : '';
 
-    //saveButton.addEventListener('click', function () {
-    //    var updatedData = hot.getSourceData();
-    //    $.ajax({
-    //        type: 'POST',
-    //        url: '/Orcamentos/UpdateOrcamentos',
-    //        data: JSON.stringify(updatedData),
-    //        contentType: 'application/json; charset=utf-8',
-    //        dataType: 'json',
-    //        success: function () {
-    //            alert('Dados salvos com sucesso!');
-    //        },
-    //        error: function (error) {
-    //            alert('Ocorreu um erro ao salvar os dados.' + error);
-    //        }
-    //    });
-    //});
-    });
+						var row = '<tr>' +
+							'<td>' + orcamentoName + '</td>' +
+							'<td>' + profileName + '</td>' +
+							'<td>' + revenueTypeName + '</td>' +
+							'<td>' + businessUnitName + '</td>' +
+							'<td>' + item.marca + '</td>' +
+							'<td>' + item.tipoUni + '</td>' +
+							'<td>' + item.partnumb + '</td>' +
+							'<td>' + item.modelo + '</td>' +
+							'<td>' + item.serialNumb + '</td>' +
+							'<td>' + item.productName + '</td>' +
+							'<td>' + '<input type="checkbox" disabled ' + (item.ativo ? 'checked' : '') + '></td>' +
+							'<td>' +
+							'<a href="/orcamentos/edit/' + item.id + '">Editar</a> | ' +
+							'<a href="/orcamentos/details/' + item.id + '">Detalhes</a> | ' +
+							'<a href="/orcamentos/delete/' + item.id + '">Eliminar</a>' +
+							'</td>' +
+							'</tr>';
+						tableBody.append(row);
+					});
+				},
+				error: function (xhr, status, error) {
+					alert("Failure: " + error);
+				}
+			});
 
-    
-    
+		}
+
+		//save.addEventListener('click', () => {
+		//    // save all cell's data
+		//    fetch('/Orcamentos/UpdateOrcamentos', {
+		//        method: 'POST',
+		//        mode: 'no-cors',
+		//        headers: {
+		//            'Content-Type': 'application/json; charset=utf-8'
+		//        },
+		//        contentType: 'application/json; charset=utf-8',
+		//        //dataType: 'json',
+		//        //data: JSON.stringify(hot.getSourceData()),
+		//        body: JSON.stringify({ data: tableData })
+		//        //body: JSON.stringify({ data: tableData }),
+
+		//    })
+		//        .then(response => {
+		//            exampleConsole.innerText = 'Data saved';
+		//        });
+		//});
+
+	//saveButton.addEventListener('click', function () {
+	//    var updatedData = hot.getSourceData();
+	//    $.ajax({
+	//        type: 'POST',
+	//        url: '/Orcamentos/UpdateOrcamentos',
+	//        data: JSON.stringify(updatedData),
+	//        contentType: 'application/json; charset=utf-8',
+	//        dataType: 'json',
+	//        success: function () {
+	//            alert('Dados salvos com sucesso!');
+	//        },
+	//        error: function (error) {
+	//            alert('Ocorreu um erro ao salvar os dados.' + error);
+	//        }
+	//    });
+	//});
+	});
+
+
+
 </script>
