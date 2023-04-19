@@ -11,7 +11,7 @@ namespace Orcamentos.Models
 
         [Required]
         [ForeignKey("OrcamentoNomes")]
-        public int OrcamentoNomeId { get; set; }
+        public int orcamentoNomeId { get; set; }
 
         public OrcamentoNome? OrcamentoNome { get; set; }
 

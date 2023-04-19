@@ -20,7 +20,7 @@ namespace Orcamentos.Controllers
         // GET: Orcamentos
         public async Task<IActionResult> Index()
         {
-            List<Orcamento> listaOrcamentos = _context.orcamentos.Include(o => o.BusinessUnit).Include(o => o.Profile).Include(o => o.RevenueType).ToList();
+            List<Orcamento> listaOrcamentos = _context.orcamentos.Include(o => o.OrcamentoNome).Include(o => o.BusinessUnit).Include(o => o.Profile).Include(o => o.RevenueType).ToList();
 
             IEnumerable<SelectListItem> profilesList = DBHelper.FillProfiles(_context);
             ViewBag.profilesList = profilesList;
@@ -30,6 +30,9 @@ namespace Orcamentos.Controllers
 
             IEnumerable<SelectListItem> businessUnitsList = DBHelper.FillBu(_context);
             ViewBag.businessUnitsList = businessUnitsList;
+
+            IEnumerable<SelectListItem> orcamentosNomesList = DBHelper.FillOrcamentosNomes(_context);
+            ViewBag.orcamentosNomesList = orcamentosNomesList;
 
             return View(listaOrcamentos);
         }
@@ -43,6 +46,7 @@ namespace Orcamentos.Controllers
             }
 
             var orcamento = await _context.orcamentos
+                .Include(o => o.OrcamentoNome)
                 .Include(o => o.BusinessUnit)
                 .Include(o => o.Profile)
                 .Include(o => o.RevenueType)
@@ -67,6 +71,9 @@ namespace Orcamentos.Controllers
             IEnumerable<SelectListItem> businessUnitsList = DBHelper.FillBu(_context);
             ViewBag.businessUnitsList = businessUnitsList;
 
+            IEnumerable<SelectListItem> orcamentosNomesList = DBHelper.FillOrcamentosNomes(_context);
+            ViewBag.orcamentosNomesList = orcamentosNomesList;
+
             return View();
         }
 
@@ -75,7 +82,7 @@ namespace Orcamentos.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,profileId,revenueTypeId,businessUnitId,Marca,TipoUni,Partnumb,modelo,SerialNumb,ProductName,Ativo")] Orcamento orcamento)
+        public async Task<IActionResult> Create([Bind("Id,orcamentoNomeId,profileId,revenueTypeId,businessUnitId,Marca,TipoUni,Partnumb,modelo,SerialNumb,ProductName,UnitPrice,UnitCost,DescontoTabela,PrecoParcial,CustoTabela,CustoDesc1,CustoDesc2,CustoDesc3,TotalCost,TotalPrice,Margin,MG,Ativo")] Orcamento orcamento)
         {
             if (ModelState.IsValid)
             {
@@ -109,6 +116,10 @@ namespace Orcamentos.Controllers
 
             IEnumerable<SelectListItem> businessUnitsList = DBHelper.FillBu(_context);
             ViewBag.businessUnitsList = businessUnitsList;
+
+            IEnumerable<SelectListItem> orcamentosNomesList = DBHelper.FillOrcamentosNomes(_context);
+            ViewBag.orcamentosNomesList = orcamentosNomesList;
+
             return View(orcamento);
         }
 
@@ -117,7 +128,7 @@ namespace Orcamentos.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,profileId,revenueTypeId,businessUnitId,Marca,TipoUni,Partnumb,modelo,SerialNumb,ProductName,Ativo")] Orcamento orcamento)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,orcamentoNomeId,profileId,revenueTypeId,businessUnitId,Marca,TipoUni,Partnumb,modelo,SerialNumb,ProductName,UnitPrice,UnitCost,DescontoTabela,PrecoParcial,CustoTabela,CustoDesc1,CustoDesc2,CustoDesc3,TotalCost,TotalPrice,Margin,MG,Ativo")] Orcamento orcamento)
         {
             if (id != orcamento.Id)
             {
@@ -158,6 +169,7 @@ namespace Orcamentos.Controllers
             }
 
             var orcamento = await _context.orcamentos
+                .Include(o => o.OrcamentoNome)
                 .Include(o => o.BusinessUnit)
                 .Include(o => o.Profile)
                 .Include(o => o.RevenueType)
@@ -210,7 +222,7 @@ namespace Orcamentos.Controllers
 
         public IActionResult GetTableOrcamentos()
         {
-            List<Orcamento> data = _context.orcamentos.Include(o => o.BusinessUnit).Include(o => o.Profile).Include(o => o.RevenueType).ToList();
+            List<Orcamento> data = _context.orcamentos.Include(o => o.OrcamentoNome).Include(o => o.BusinessUnit).Include(o => o.Profile).Include(o => o.RevenueType).ToList();
 
             return Ok(data);
         }

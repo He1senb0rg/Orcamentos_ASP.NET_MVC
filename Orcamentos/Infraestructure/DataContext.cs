@@ -22,6 +22,8 @@ namespace Orcamentos.Infrastructure
 
         public DbSet<Orcamento> orcamentos { get; set; }
 
+        public DbSet<OrcamentoNome> orcamentoNomes { get; set; }
+
 
     }
 }

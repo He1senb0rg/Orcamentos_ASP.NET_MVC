@@ -23,6 +23,21 @@ namespace Orcamentos.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "orcamentoNomes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Ativo = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_orcamentoNomes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "profileLevels",
                 columns: table => new
                 {
@@ -99,6 +114,7 @@ namespace Orcamentos.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    orcamentoNomeId = table.Column<int>(type: "int", nullable: false),
                     profileId = table.Column<int>(type: "int", nullable: false),
                     revenueTypeId = table.Column<int>(type: "int", nullable: false),
                     businessUnitId = table.Column<int>(type: "int", nullable: false),
@@ -108,6 +124,18 @@ namespace Orcamentos.Migrations
                     modelo = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     SerialNumb = table.Column<int>(type: "int", nullable: false),
                     ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UnitPrice = table.Column<int>(type: "int", nullable: false),
+                    UnitCost = table.Column<int>(type: "int", nullable: false),
+                    DescontoTabela = table.Column<int>(type: "int", nullable: false),
+                    PrecoParcial = table.Column<int>(type: "int", nullable: false),
+                    CustoTabela = table.Column<int>(type: "int", nullable: false),
+                    CustoDesc1 = table.Column<int>(type: "int", nullable: false),
+                    CustoDesc2 = table.Column<int>(type: "int", nullable: false),
+                    CustoDesc3 = table.Column<int>(type: "int", nullable: false),
+                    TotalCost = table.Column<int>(type: "int", nullable: false),
+                    TotalPrice = table.Column<int>(type: "int", nullable: false),
+                    Margin = table.Column<int>(type: "int", nullable: false),
+                    MG = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Ativo = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -117,6 +145,12 @@ namespace Orcamentos.Migrations
                         name: "FK_orcamentos_businessUnits_businessUnitId",
                         column: x => x.businessUnitId,
                         principalTable: "businessUnits",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_orcamentos_orcamentoNomes_orcamentoNomeId",
+                        column: x => x.orcamentoNomeId,
+                        principalTable: "orcamentoNomes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -144,6 +178,11 @@ namespace Orcamentos.Migrations
                 column: "businessUnitId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_orcamentos_orcamentoNomeId",
+                table: "orcamentos",
+                column: "orcamentoNomeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_orcamentos_profileId",
                 table: "orcamentos",
                 column: "profileId");
@@ -166,6 +205,9 @@ namespace Orcamentos.Migrations
 
             migrationBuilder.DropTable(
                 name: "businessUnits");
+
+            migrationBuilder.DropTable(
+                name: "orcamentoNomes");
 
             migrationBuilder.DropTable(
                 name: "profiles");

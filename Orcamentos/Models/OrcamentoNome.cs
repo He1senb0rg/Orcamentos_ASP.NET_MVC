@@ -14,6 +14,9 @@ namespace Orcamentos.Models
         [Required]
         public string CreatedBy { get; set; }
 
-    
+        [Required]
+        public bool Ativo { get; set; }
+
+
     }
 }

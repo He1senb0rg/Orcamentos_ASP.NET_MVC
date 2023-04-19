@@ -77,11 +77,35 @@ namespace Orcamentos.Migrations
                     b.Property<bool>("Ativo")
                         .HasColumnType("bit");
 
+                    b.Property<int>("CustoDesc1")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CustoDesc2")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CustoDesc3")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CustoTabela")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DescontoTabela")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("MG")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("Marca")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Margin")
+                        .HasColumnType("int");
+
                     b.Property<int>("Partnumb")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PrecoParcial")
                         .HasColumnType("int");
 
                     b.Property<string>("ProductName")
@@ -95,12 +119,27 @@ namespace Orcamentos.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("TotalCost")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotalPrice")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UnitCost")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UnitPrice")
+                        .HasColumnType("int");
+
                     b.Property<int>("businessUnitId")
                         .HasColumnType("int");
 
                     b.Property<string>("modelo")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("orcamentoNomeId")
+                        .HasColumnType("int");
 
                     b.Property<int>("profileId")
                         .HasColumnType("int");
@@ -112,11 +151,37 @@ namespace Orcamentos.Migrations
 
                     b.HasIndex("businessUnitId");
 
+                    b.HasIndex("orcamentoNomeId");
+
                     b.HasIndex("profileId");
 
                     b.HasIndex("revenueTypeId");
 
                     b.ToTable("orcamentos");
+                });
+
+            modelBuilder.Entity("Orcamentos.Models.OrcamentoNome", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<bool>("Ativo")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("orcamentoNomes");
                 });
 
             modelBuilder.Entity("Orcamentos.Models.Profile", b =>
@@ -207,6 +272,12 @@ namespace Orcamentos.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Orcamentos.Models.OrcamentoNome", "OrcamentoNome")
+                        .WithMany()
+                        .HasForeignKey("orcamentoNomeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Orcamentos.Models.Profile", "Profile")
                         .WithMany()
                         .HasForeignKey("profileId")
@@ -220,6 +291,8 @@ namespace Orcamentos.Migrations
                         .IsRequired();
 
                     b.Navigation("BusinessUnit");
+
+                    b.Navigation("OrcamentoNome");
 
                     b.Navigation("Profile");
 

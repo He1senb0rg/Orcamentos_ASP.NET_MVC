@@ -135,6 +135,8 @@
             
             .Select(o => new {
             o.Id,
+            OrcamentoNomeId = o.orcamentoNomeId,
+            OrcamentoName = o.OrcamentoNome.Nome,
             ProfileId = o.profileId,
             ProfileName = o.Profile.Name,
             RevenueTypeId = o.revenueTypeId,
@@ -152,6 +154,8 @@
 
         var colHeaders = [
             'ID',
+            'Orçamento Nome ID',
+            'Orçamento Nome', 
             'Perfil ID',
             'Perfil', 
             'Tipo de Rendimento ID',
@@ -173,6 +177,8 @@
             colHeaders: colHeaders,
             columns: [
                 { data: 'id', readOnly: true },
+                { data: 'orcamentoNomeId', readOnly: true },
+                { data: 'orcamentoNome.nome' },
                 { data: 'profileId', readOnly: true }, //o id do profile deve coincidir com o profile selecionado
                 //{ data: 'ProfileName', type: 'dropdown', source: ['tete', 'olikuj', 'hngbfv'] },
                 { data: 'ProfileName', type: 'dropdown', source: [ mList ] }, //deve aparecer aqui todos os profiles registados na db

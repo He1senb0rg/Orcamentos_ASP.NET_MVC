@@ -90,5 +90,22 @@ namespace Orcamentos.Helpers
 
             return listaRevenueTypes;
         }
+
+        static public IEnumerable<SelectListItem> FillOrcamentosNomes(DataContext context)
+        {
+            //https://www.c-sharpcorner.com/article/different-ways-bind-the-value-to-razor-dropdownlist-in-aspnet-mvc5/
+            // Fill Categorias List
+            IEnumerable<SelectListItem> listaOrcamentosNomes = context.orcamentoNomes
+                .OrderBy(c => c.Nome)
+                .Where(d => d.Ativo == true)
+                .Select(c =>
+                    new SelectListItem
+                    {
+                        Value = Convert.ToString(c.Id),
+                        Text = c.Nome
+                    }).ToList();
+
+            return listaOrcamentosNomes;
+        }
     }
 }
