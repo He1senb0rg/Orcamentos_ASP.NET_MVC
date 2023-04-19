@@ -45,4 +45,118 @@
             </tr>
         }
     </tbody>
+
+
 </table>
+
+ <div id="excelTable" class="d-none">
+        <div class="mb-3" id="excelRevenueTypes"></div>
+
+        <button class="btn btn-success" id="save-button">Guardar</button>
+    </div>
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var data = @Html.Raw(Json.Serialize(Model
+
+            .Select(o => new {
+            o.Id,
+            o.Nome,
+            o.Tipo,
+            o.Ativo
+            })));
+
+        var colHeaders = [
+            'ID',
+            'Nome',
+            'Tipo',
+            'Ativo'
+        ];
+
+        var container = document.getElementById('excelRevenueTypes');
+        var hot = new Handsontable(container, {
+            data: data,
+            colHeaders: colHeaders,
+            columns: [
+                { data: 'Id', readOnly: true },
+                { data: 'Nome', type: 'text' },
+                { data: 'Tipo', type: 'text' },
+                { data: 'Ativo', type: 'checkbox' }
+            ],
+            language: 'pt-BR',
+            rowHeaders: true,
+            filters: true,
+            dropdownMenu: ['filter_by_condition', 'filter_action_bar'],
+            columnSorting: true,
+            height: 'auto',
+            licenseKey: 'non-commercial-and-evaluation' // for non-commercial use only
+        });
+
+        const save = document.querySelector('#save-button');
+
+        var tableData = JSON.stringify(hot.getSourceData());
+
+        console.log(tableData);
+
+        $("#save-button").click(function () {
+            hot.validateCells((valid) => {
+                if (valid) {
+                    $.ajax({
+                        url: '/RevenueTypes/UpdateRevenueTypes',
+                        data: JSON.stringify(hot.getSourceData()),
+                        dataType: 'json',
+                        contentType: "application/json",
+                        type: 'POST',
+                        success: function (result) {
+                            alert("Success");
+                            getTable();
+                            location.reload()
+                        },
+                        error: function (xhr, status, error) {
+                            alert("Failure: " + error);
+                        }
+                    });
+                }
+                else {
+                    alert("error");
+                }
+            })
+
+        });
+
+        function getTable() {
+
+            $.ajax({
+                url: '/RevenueTypes/GetTableRevenueTypes',
+                dataType: 'json',
+                contentType: "application/json",
+                type: 'GET',
+                success: function (data) {
+                    var tableBody = $('#revenueTypesTable tbody');
+                    tableBody.empty();  //clear existing rows
+                    $.each(data, function (index, item) {
+
+                        var row = '<tr>' +
+                            '<td>' + item.id + '</td>' +
+                            '<td>' + item.Nome + '</td>' +
+                            '<td>' + item.tipo + '</td>' +
+                            '<td>' + '<input type="checkbox" disabled ' + (item.ativo ? 'checked' : '') + '></td>' +
+                            '<td>' +
+                            '<a href="/revenueTypes/edit/' + item.id + '">Editar</a> | ' +
+                            '<a href="/revenueTypes/details/' + item.id + '">Detalhes</a> | ' +
+                            '<a href="/revenueTypes/delete/' + item.id + '">Eliminar</a>' +
+                            '</td>' +
+                            '</tr>';
+                        tableBody.append(row);
+                    });
+                },
+                error: function (xhr, status, error) {
+                    alert("Failure: " + error);
+                }
+            });
+        }
+    });
+
+
+</script>

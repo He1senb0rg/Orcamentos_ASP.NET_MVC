@@ -11,8 +11,8 @@ using Orcamentos.Infrastructure;
 namespace Orcamentos.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230419081616_first")]
-    partial class first
+    [Migration("20230419085633_anna")]
+    partial class anna
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

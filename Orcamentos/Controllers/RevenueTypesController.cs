@@ -17,9 +17,9 @@ namespace Orcamentos.Controllers
         // GET: RevenueTypes
         public async Task<IActionResult> Index()
         {
-            return _context.revenueTypes != null ?
-                        View(await _context.revenueTypes.ToListAsync()) :
-                        Problem("Entity set 'DataContext.revenueTypes'  is null.");
+            List<RevenueType> revenueTypes = _context.revenueTypes.ToList();
+
+           return View(revenueTypes);
         }
 
         // GET: RevenueTypes/Details/5
@@ -156,5 +156,27 @@ namespace Orcamentos.Controllers
         {
             return (_context.revenueTypes?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+
+
+        [HttpPost]
+        public IActionResult UpdateRevenueTypes([FromBody] List<RevenueType> revenueTypes)
+        {
+
+            foreach (var revenueType in revenueTypes)
+            {
+                _context.Update(revenueType);
+            }
+            _context.SaveChanges();
+
+            return Ok(revenueTypes);
+        }
+
+        public IActionResult GetTableRevenueTypes()
+        {
+            List<RevenueType> data = _context.revenueTypes.ToList();
+
+            return Ok(data);
+        }
+
     }
 }
