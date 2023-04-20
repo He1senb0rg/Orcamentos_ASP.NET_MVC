@@ -59,7 +59,6 @@
 
     document.addEventListener('DOMContentLoaded', function () {
         var data = @Html.Raw(Json.Serialize(Model
-
             .Select(o => new {
             o.Id,
             o.Nome,
