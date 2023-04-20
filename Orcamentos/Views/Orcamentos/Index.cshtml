@@ -175,7 +175,12 @@
 
 		var mList = @Html.Raw(Json.Serialize(ViewBag.profilesList));
 		var result = mList.map((item) => item.text)
-		console.log(result);
+		var mList2 = @Html.Raw(Json.Serialize(ViewBag.revenueTypesList));
+		var result2 = mList2.map((item) => item.text)
+		var mList3 = @Html.Raw(Json.Serialize(ViewBag.businessUnitsList));
+		var result3 = mList3.map((item) => item.text)
+		var mList4 = @Html.Raw(Json.Serialize(ViewBag.orcamentosNomesList));
+		var result4 = mList4.map((item) => item.text)
 
 	var hot = new Handsontable(container, {
 		data: data,
@@ -185,11 +190,11 @@
 				{ data: 'orcamentoNomeId', readOnly: true },
 				{ data: 'orcamentoName' },
 				{ data: 'profileId', readOnly: true }, //o id do profile deve coincidir com o profile selecionado
-				{ data: 'ProfileName', type: 'dropdown', source: result },
+				{ data: 'profileName', type: 'dropdown', source: result },
 				{ data: 'revenueTypeId', readOnly: true },
-				{ data: 'revenueType.nome' },
+				{ data: 'revenueTypeName' },
 				{ data: 'businessUnitId', readOnly: true },
-				{ data: 'businessUnit.name' },
+				{ data: 'businessUnitName' },
 				{ data: 'marca', type: 'text' },
 				{ data: 'tipoUni', type: 'text' },
 				{ data: 'partnumb', type: 'numeric' },
