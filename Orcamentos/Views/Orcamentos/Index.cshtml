@@ -188,13 +188,13 @@
 			columns: [
 				{ data: 'id', readOnly: true },
 				{ data: 'orcamentoNomeId', readOnly: true },
-				{ data: 'orcamentoName' },
+				{ data: 'orcamentoName', type: 'dropdown', source: result4},
 				{ data: 'profileId', readOnly: true }, //o id do profile deve coincidir com o profile selecionado
 				{ data: 'profileName', type: 'dropdown', source: result },
 				{ data: 'revenueTypeId', readOnly: true },
-				{ data: 'revenueTypeName' },
+				{ data: 'revenueTypeName', type: 'dropdown', source: result2 },
 				{ data: 'businessUnitId', readOnly: true },
-				{ data: 'businessUnitName' },
+				{ data: 'businessUnitName', type: 'dropdown', source: result3 },
 				{ data: 'marca', type: 'text' },
 				{ data: 'tipoUni', type: 'text' },
 				{ data: 'partnumb', type: 'numeric' },
@@ -203,6 +203,7 @@
 				{ data: 'productName', type: 'text' },
 				{ data: 'ativo', type: 'checkbox' }
 			], 
+			
 			afterChange: function(changes, source) {
 				if (source === 'edit') {
 					changes.forEach(function(change) {
@@ -210,13 +211,54 @@
 						var prop = change[1];
 						var newValue = change[3];
                 
-						if (prop === 'ProfileName') {
+						if (prop === 'profileName') {
 							var profile = mList.find(function(p) { return p.text === newValue; });
 							hot.setDataAtCell(row, hot.propToCol('profileId'), profile.value);
 						}
 					});
 				}
+
+				if (source === 'edit') {
+					changes.forEach(function (change) {
+						var row = change[0];
+						var prop = change[1];
+						var newValue = change[3];
+
+						if (prop === 'orcamentoName') {
+							var profile2 = mList4.find(function (p) { return p.text === newValue; });
+							hot.setDataAtCell(row, hot.propToCol('orcamentoNomeId'), profile2.value);
+						}
+					});
+				}
+
+				if (source === 'edit') {
+					changes.forEach(function (change) {
+						var row = change[0];
+						var prop = change[1];
+						var newValue = change[3];
+
+						if (prop === 'revenueTypeName') {
+							var profile3 = mList2.find(function (p) { return p.text === newValue; });
+							hot.setDataAtCell(row, hot.propToCol('revenueTypeId'), profile3.value);
+						}
+					});
+				}
+				if (source === 'edit') {
+					changes.forEach(function (change) {
+						var row = change[0];
+						var prop = change[1];
+						var newValue = change[3];
+
+						if (prop === 'businessUnitName') {
+							var profile4 = mList3.find(function (p) { return p.text === newValue; });
+							hot.setDataAtCell(row, hot.propToCol('businessUnitId'), profile4.value);
+						}
+					});
+				}
 			},
+			
+
+
 			language: 'pt-BR',
 			rowHeaders: true,
 			filters: true,

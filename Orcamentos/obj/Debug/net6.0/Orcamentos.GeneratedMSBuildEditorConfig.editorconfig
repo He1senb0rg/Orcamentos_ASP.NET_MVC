@@ -5,180 +5,181 @@ build_property.UsingMicrosoftNETSdkWeb = true
 build_property.ProjectTypeGuids = 
 build_property.InvariantGlobalization = 
 build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Orcamentos
 build_property.RootNamespace = Orcamentos
-build_property.ProjectDir = C:\Users\andre\Documents\GitHub\Orcamentos_ASP.NET_MVC\Orcamentos\
+build_property.ProjectDir = C:\Users\warga\OneDrive\Documentos\GitHub\Orcamentos_ASP.NET_MVC\Orcamentos\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\andre\Documents\GitHub\Orcamentos_ASP.NET_MVC\Orcamentos
+build_property.MSBuildProjectDirectory = C:\Users\warga\OneDrive\Documentos\GitHub\Orcamentos_ASP.NET_MVC\Orcamentos
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/andre/Documents/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/BuManagers/Create.cshtml]
+[C:/Users/warga/OneDrive/Documentos/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/BuManagers/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQnVNYW5hZ2Vyc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andre/Documents/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/BuManagers/Delete.cshtml]
+[C:/Users/warga/OneDrive/Documentos/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/BuManagers/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQnVNYW5hZ2Vyc1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andre/Documents/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/BuManagers/Details.cshtml]
+[C:/Users/warga/OneDrive/Documentos/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/BuManagers/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQnVNYW5hZ2Vyc1xEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andre/Documents/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/BuManagers/Edit.cshtml]
+[C:/Users/warga/OneDrive/Documentos/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/BuManagers/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQnVNYW5hZ2Vyc1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andre/Documents/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/BuManagers/Index.cshtml]
+[C:/Users/warga/OneDrive/Documentos/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/BuManagers/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQnVNYW5hZ2Vyc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andre/Documents/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/BusinessUnits/Create.cshtml]
+[C:/Users/warga/OneDrive/Documentos/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/BusinessUnits/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQnVzaW5lc3NVbml0c1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andre/Documents/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/BusinessUnits/Delete.cshtml]
+[C:/Users/warga/OneDrive/Documentos/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/BusinessUnits/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQnVzaW5lc3NVbml0c1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andre/Documents/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/BusinessUnits/Details.cshtml]
+[C:/Users/warga/OneDrive/Documentos/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/BusinessUnits/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQnVzaW5lc3NVbml0c1xEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andre/Documents/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/BusinessUnits/Edit.cshtml]
+[C:/Users/warga/OneDrive/Documentos/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/BusinessUnits/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQnVzaW5lc3NVbml0c1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andre/Documents/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/BusinessUnits/Index.cshtml]
+[C:/Users/warga/OneDrive/Documentos/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/BusinessUnits/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQnVzaW5lc3NVbml0c1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andre/Documents/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/Home/Index.cshtml]
+[C:/Users/warga/OneDrive/Documentos/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andre/Documents/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/Home/Privacy.cshtml]
+[C:/Users/warga/OneDrive/Documentos/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andre/Documents/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/OrcamentoNomes/Create.cshtml]
+[C:/Users/warga/OneDrive/Documentos/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/OrcamentoNomes/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JjYW1lbnRvTm9tZXNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andre/Documents/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/OrcamentoNomes/Delete.cshtml]
+[C:/Users/warga/OneDrive/Documentos/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/OrcamentoNomes/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JjYW1lbnRvTm9tZXNcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andre/Documents/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/OrcamentoNomes/Details.cshtml]
+[C:/Users/warga/OneDrive/Documentos/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/OrcamentoNomes/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JjYW1lbnRvTm9tZXNcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andre/Documents/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/OrcamentoNomes/Edit.cshtml]
+[C:/Users/warga/OneDrive/Documentos/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/OrcamentoNomes/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JjYW1lbnRvTm9tZXNcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andre/Documents/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/OrcamentoNomes/Index.cshtml]
+[C:/Users/warga/OneDrive/Documentos/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/OrcamentoNomes/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JjYW1lbnRvTm9tZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andre/Documents/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/Orcamentos/Create.cshtml]
+[C:/Users/warga/OneDrive/Documentos/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/Orcamentos/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JjYW1lbnRvc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andre/Documents/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/Orcamentos/Delete.cshtml]
+[C:/Users/warga/OneDrive/Documentos/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/Orcamentos/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JjYW1lbnRvc1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andre/Documents/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/Orcamentos/Details.cshtml]
+[C:/Users/warga/OneDrive/Documentos/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/Orcamentos/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JjYW1lbnRvc1xEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andre/Documents/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/Orcamentos/Edit.cshtml]
+[C:/Users/warga/OneDrive/Documentos/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/Orcamentos/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JjYW1lbnRvc1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andre/Documents/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/Orcamentos/Index.cshtml]
+[C:/Users/warga/OneDrive/Documentos/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/Orcamentos/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JjYW1lbnRvc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andre/Documents/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/ProfileLevels/Create.cshtml]
+[C:/Users/warga/OneDrive/Documentos/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/ProfileLevels/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmlsZUxldmVsc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andre/Documents/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/ProfileLevels/Delete.cshtml]
+[C:/Users/warga/OneDrive/Documentos/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/ProfileLevels/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmlsZUxldmVsc1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andre/Documents/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/ProfileLevels/Details.cshtml]
+[C:/Users/warga/OneDrive/Documentos/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/ProfileLevels/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmlsZUxldmVsc1xEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andre/Documents/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/ProfileLevels/Edit.cshtml]
+[C:/Users/warga/OneDrive/Documentos/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/ProfileLevels/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmlsZUxldmVsc1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andre/Documents/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/ProfileLevels/Index.cshtml]
+[C:/Users/warga/OneDrive/Documentos/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/ProfileLevels/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmlsZUxldmVsc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andre/Documents/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/Profiles/Create.cshtml]
+[C:/Users/warga/OneDrive/Documentos/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/Profiles/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmlsZXNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andre/Documents/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/Profiles/Delete.cshtml]
+[C:/Users/warga/OneDrive/Documentos/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/Profiles/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmlsZXNcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andre/Documents/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/Profiles/Details.cshtml]
+[C:/Users/warga/OneDrive/Documentos/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/Profiles/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmlsZXNcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andre/Documents/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/Profiles/Edit.cshtml]
+[C:/Users/warga/OneDrive/Documentos/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/Profiles/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmlsZXNcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andre/Documents/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/Profiles/Index.cshtml]
+[C:/Users/warga/OneDrive/Documentos/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/Profiles/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmlsZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andre/Documents/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/RevenueTypes/Create.cshtml]
+[C:/Users/warga/OneDrive/Documentos/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/RevenueTypes/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmV2ZW51ZVR5cGVzXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andre/Documents/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/RevenueTypes/Delete.cshtml]
+[C:/Users/warga/OneDrive/Documentos/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/RevenueTypes/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmV2ZW51ZVR5cGVzXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andre/Documents/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/RevenueTypes/Details.cshtml]
+[C:/Users/warga/OneDrive/Documentos/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/RevenueTypes/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmV2ZW51ZVR5cGVzXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andre/Documents/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/RevenueTypes/Edit.cshtml]
+[C:/Users/warga/OneDrive/Documentos/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/RevenueTypes/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmV2ZW51ZVR5cGVzXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andre/Documents/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/RevenueTypes/Index.cshtml]
+[C:/Users/warga/OneDrive/Documentos/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/RevenueTypes/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmV2ZW51ZVR5cGVzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andre/Documents/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/Shared/Error.cshtml]
+[C:/Users/warga/OneDrive/Documentos/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andre/Documents/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/warga/OneDrive/Documentos/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andre/Documents/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/_ViewImports.cshtml]
+[C:/Users/warga/OneDrive/Documentos/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andre/Documents/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/_ViewStart.cshtml]
+[C:/Users/warga/OneDrive/Documentos/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andre/Documents/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/Shared/_Layout.cshtml]
+[C:/Users/warga/OneDrive/Documentos/GitHub/Orcamentos_ASP.NET_MVC/Orcamentos/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-suedu6tjl7
