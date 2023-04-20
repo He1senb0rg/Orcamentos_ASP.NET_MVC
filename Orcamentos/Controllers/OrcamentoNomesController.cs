@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Orcamentos.Helpers;
 using Orcamentos.Infrastructure;
 using Orcamentos.Models;
 
@@ -41,6 +42,29 @@ namespace Orcamentos.Controllers
             {
                 return NotFound();
             }
+
+            List<Orcamento> listaOrcamentos = 
+                _context.orcamentos
+                .Include(o => o.OrcamentoNome)
+                .Include(o => o.BusinessUnit)
+                .Include(o => o.Profile)
+                .Include(o => o.RevenueType)
+                .Where(d => d.orcamentoNomeId == orcamentoNome.Id)
+                .ToList();
+
+            IEnumerable<SelectListItem> profilesList = DBHelper.FillProfiles(_context);
+            ViewBag.profilesList = profilesList;
+
+            IEnumerable<SelectListItem> revenueTypesList = DBHelper.FillRevenueTypes(_context);
+            ViewBag.revenueTypesList = revenueTypesList;
+
+            IEnumerable<SelectListItem> businessUnitsList = DBHelper.FillBu(_context);
+            ViewBag.businessUnitsList = businessUnitsList;
+
+            IEnumerable<SelectListItem> orcamentosNomesList = DBHelper.FillOrcamentosNomes(_context);
+            ViewBag.orcamentosNomesList = orcamentosNomesList;
+
+            TempData["listaOrcamentos"] = listaOrcamentos;
 
             return View(orcamentoNome);
         }
@@ -145,10 +169,30 @@ namespace Orcamentos.Controllers
             {
                 return Problem("Entity set 'DataContext.orcamentoNomes'  is null.");
             }
+
             var orcamentoNome = await _context.orcamentoNomes.FindAsync(id);
+
             if (orcamentoNome != null)
             {
-                _context.orcamentoNomes.Remove(orcamentoNome);
+                orcamentoNome.Ativo = false;
+
+                List<Orcamento> listaOrcamentos =
+                _context.orcamentos
+                .Include(o => o.OrcamentoNome)
+                .Include(o => o.BusinessUnit)
+                .Include(o => o.Profile)
+                .Include(o => o.RevenueType)
+                .Where(d => d.orcamentoNomeId == orcamentoNome.Id)
+                .ToList();
+
+                foreach(var orcamento in listaOrcamentos)
+                {
+                    orcamento.Ativo = false;
+                }
+
+
+                _context.SaveChanges();
+                //_context.orcamentoNomes.Remove(orcamentoNome);
             }
             
             await _context.SaveChangesAsync();
@@ -158,6 +202,21 @@ namespace Orcamentos.Controllers
         private bool OrcamentoNomeExists(int id)
         {
           return (_context.orcamentoNomes?.Any(e => e.Id == id)).GetValueOrDefault();
+        }
+
+        public async Task<IActionResult> GetTableOrcamentosAsync(int id)
+        {
+            var orcamentoNome = await _context.orcamentoNomes.FindAsync(id);
+
+            List<Orcamento> data = _context.orcamentos
+                .Include(o => o.OrcamentoNome)
+                .Include(o => o.BusinessUnit)
+                .Include(o => o.Profile)
+                .Include(o => o.RevenueType)
+                .Where(o => o.orcamentoNomeId == orcamentoNome.Id)
+                .ToList();
+
+            return Ok(data);
         }
     }
 }

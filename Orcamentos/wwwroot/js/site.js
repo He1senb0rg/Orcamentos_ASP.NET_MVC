@@ -19,3 +19,8 @@ var hot = new Handsontable(container, {
     licenseKey: 'non-commercial-and-evaluation' // for non-commercial use only
 });*/
 
+
+//import numbro from 'numbro';
+//import ptLanguage from 'numbro/languages/pt-PT';
+//numbro.registerLanguage(ptLanguage);
+//numbro.setLanguage('pt-PT');

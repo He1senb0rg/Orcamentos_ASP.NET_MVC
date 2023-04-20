@@ -185,7 +185,7 @@ namespace Orcamentos.Controllers
         // POST: Orcamentos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(Guid id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.orcamentos == null)
             {

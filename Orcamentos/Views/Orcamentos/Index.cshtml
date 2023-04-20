@@ -220,6 +220,18 @@
 			o.modelo,
 			o.SerialNumb,
 			o.ProductName,
+			o.UnitPrice,
+			o.UnitCost,
+			o.DescontoTabela,
+			o.PrecoParcial,
+			o.CustoTabela,
+			o.CustoDesc1,
+			o.CustoDesc2,
+			o.CustoDesc3,
+			o.TotalCost,
+			o.TotalPrice,
+			o.Margin,
+			o.MG,
 			o.Ativo
 			})));
 
@@ -239,6 +251,18 @@
 			'Modelo',
 			'Número de Série',
 			'Nome do Produto',
+			'Unit Price',
+			'Unit Cost',
+			'Desconto Tabela',
+			'Preço Parcial',
+			'Custo Tabela',
+			'Custo Desconto 1',
+			'Custo Desconto 2',
+			'Custo Desconto 3',
+			'Custo Total',
+			'Preço Total',
+			'Margem',
+			'MG',
 			'Ativo'];
 
 		var container = document.getElementById('excelOrcamentos');
@@ -251,6 +275,11 @@
 		var result3 = mList3.map((item) => item.text)
 		var mList4 = @Html.Raw(Json.Serialize(ViewBag.orcamentosNomesList));
 		var result4 = mList4.map((item) => item.text)
+
+		const formatEUR = {
+			pattern: '0,0.00 $',
+			culture: 'pt-PT',
+		};
 
 		var hot = new Handsontable(container, {
 			data: data,
@@ -271,6 +300,18 @@
 				{ data: 'modelo', type: 'text' },
 				{ data: 'serialNumb', type: 'numeric' },
 				{ data: 'productName', type: 'text' },
+				{ data: 'unitPrice', type: 'numeric', numericFormat: formatEUR },
+				{ data: 'unitCost', type: 'numeric', numericFormat: formatEUR },
+				{ data: 'descontoTabela', type: 'numeric', numericFormat: formatEUR },
+				{ data: 'precoParcial', type: 'numeric', numericFormat: formatEUR },
+				{ data: 'custoTabela', type: 'numeric', numericFormat: formatEUR },
+				{ data: 'custoDesc1', type: 'numeric', numericFormat: formatEUR },
+				{ data: 'custoDesc2', type: 'numeric', numericFormat: formatEUR },
+				{ data: 'custoDesc3', type: 'numeric', numericFormat: formatEUR },
+				{ data: 'totalCost', type: 'numeric', numericFormat: formatEUR },
+				{ data: 'totalPrice', type: 'numeric', numericFormat: formatEUR },
+				{ data: 'margin', type: 'numeric', numericFormat: formatEUR },
+				{ data: 'mg', type: 'numeric', numericFormat: formatEUR },
 				{ data: 'ativo', type: 'checkbox' }
 			],
 
@@ -326,14 +367,10 @@
 					});
 				}
 			},
-
-
-
 			language: 'pt-BR',
 			rowHeaders: true,
 			filters: true,
 			dropdownMenu: ['filter_by_condition', 'filter_action_bar'],
-
 			columnSorting: true,
 			height: '300px',
 			licenseKey: 'non-commercial-and-evaluation' // for non-commercial use only
@@ -398,6 +435,17 @@
 							'<td>' + item.modelo + '</td>' +
 							'<td>' + item.serialNumb + '</td>' +
 							'<td>' + item.productName + '</td>' +
+							'<td>' + item.unitPrice + '</td>' +
+							'<td>' + item.unitCost + '</td>' +
+							'<td>' + item.descontoTabela + '</td>' +
+							'<td>' + item.precoParcial + '</td>' +
+							'<td>' + item.custoTabela + '</td>' +
+							'<td>' + item.custoDesc1 + '</td>' +
+							'<td>' + item.custoDesc2 + '</td>' +
+							'<td>' + item.custoDesc3 + '</td>' +
+							'<td>' + item.totalCost + '</td>' +
+							'<td>' + item.totalPrice + '</td>' +
+							'<td>' + item.margin + '</td>' +
 							'<td>' + '<input type="checkbox" disabled ' + (item.ativo ? 'checked' : '') + '></td>' +
 							'<td>' +
 							'<a href="/orcamentos/edit/' + item.id + '">Editar</a> | ' +
