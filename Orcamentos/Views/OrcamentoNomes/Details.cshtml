@@ -2,13 +2,13 @@
 
 @{
 	var listaOrcamentos = (IEnumerable<Orcamento>)TempData["listaOrcamentos"];
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalhes";
 }
 
-<h1>Details</h1>
+<h1>Detalhes</h1>
 
 <div class="mb-5">
-    <h4>OrcamentoNome</h4>
+    <h4>Nome dos Orçamentos</h4>
     <hr />
     <dl class="row">
 		<dd class="d-none" id="orcamentoNomeId">
@@ -21,7 +21,7 @@
             @Html.DisplayFor(model => model.Nome)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedBy)
+            Criado por:
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.CreatedBy)
@@ -70,10 +70,10 @@
 					Nome de produto
 				</th>
 				<th>
-					Unit Price
+					Preço da Unidade
 				</th>
 				<th>
-					Unit cost
+					Custo da Unidade
 				</th>
 				<th>
 					Desconto tabela
@@ -196,8 +196,8 @@
 
 <button class="btn btn-success" id="save-button">Guardar</button>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+	<a asp-action="Edit" , class="btn btn-primary" , asp-route-id="@Model?.Id">Editar</a> |
+	<a asp-action="Index" , class="btn btn-primary">Voltar para a lista</a>
 </div>
 
 <script>
