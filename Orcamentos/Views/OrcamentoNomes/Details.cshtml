@@ -83,7 +83,7 @@
 		</thead>
 		<tbody>
 			@{
-				int i = 1;
+				int i = 0;
 			}
 			@foreach (var item in listaOrcamentos)
 			{
@@ -154,12 +154,12 @@
     });
 
 	function setEuro(){
-		var model = @Html.Raw(Json.Serialize(Model));
+		var model = @Html.Raw(Json.Serialize(listaOrcamentos));
     var totalCosts = model.map((item) => item.totalCost);
     var totalPrices = model.map((item) => item.totalPrice);
 
 
-    for (let i = 0; i < model.Count(); i++) {
+    for (let i = 0; i < @listaOrcamentos.Count(); i++) {
 
         var totalCost = document.getElementById("TotalCost" + i);
         totalCost.innerHTML = euro.format(totalCosts[i]);
