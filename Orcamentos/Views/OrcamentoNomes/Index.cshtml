@@ -1,61 +1,62 @@
 ﻿@model IEnumerable<Orcamentos.Models.OrcamentoNome>
 
 @{
-    ViewData["Title"] = "Nome dos Orçamentos";
+	ViewData["Title"] = "Nome dos Orçamentos";
 }
 
 <h1>Menu</h1>
 <h3>Nome dos Orçamentos</h3>
 
 <p>
-    <a asp-action="Create">Criar Novo</a>
+	<a asp-action="Create">Criar Novo</a>
 </p>
-<table class="table" id="orcamentosNomesTable">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Nome)
-            </th>
-            <th>
-                Criado por:
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Ativo)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ativo)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Detalhes</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
-            </td>
-        </tr>
-}
-    </tbody>
+
+<button class="btn btn-success mb-3" onclick="changeTable()" id="changeTableButton">Mostrar Excel</button>
+
+<table class="table" id="orcamentoNomesTable">
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.Nome)
+			</th>
+			<th>
+				Criado por:
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Ativo)
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.Nome)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.CreatedBy)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Ativo)
+				</td>
+				<td>
+					<a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+					<a asp-action="Details" asp-route-id="@item.Id">Detalhes</a> |
+					<a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+				</td>
+			</tr>
+		}
+	</tbody>
 </table>
 
 <div id="excelTable" class="d-none">
-	<div class="mb-3" id="excelOrcamentos"></div>
+	<div class="mb-3" id="excelOrcamentoNomes"></div>
 
 	<button class="btn btn-success" id="save-button">Guardar</button>
 	<button class="btn btn-success" id="addRowButton">Adicionar linha</button>
 </div>
-
-
-@*<div>@Html.DropDownList("profilesList")</div>*@
 
 <script>
 
@@ -63,7 +64,7 @@
 
 	function changeTable() {
 
-		var table = document.getElementById("orcamentosTable");
+		var table = document.getElementById("orcamentoNomesTable");
 		var excel = document.getElementById("excelTable")
 
 		if (excel.classList.contains('d-none')) {
@@ -82,7 +83,6 @@
 	document.addEventListener('DOMContentLoaded', function () {
 
 		var data = @Html.Raw(Json.Serialize(Model
-
 			.Select(o => new {
 			o.Id,
 			o.Nome,
@@ -96,7 +96,7 @@
 			'Criado Por:',
 			'Ativo'];
 
-		var container = document.getElementById('orcamentosNomesTable');
+		var container = document.getElementById('excelOrcamentoNomes');
 
 		var hot = new Handsontable(container, {
 			data: data,
@@ -156,7 +156,7 @@
 				contentType: "application/json",
 				type: 'GET',
 				success: function (data) {
-					var tableBody = $('#orcamentosNomesTable tbody');
+					var tableBody = $('#orcamentoNomesTable tbody');
 					tableBody.empty(); // clear existing rows
 					$.each(data, function (index, item) {
 
@@ -210,11 +210,7 @@
 
 		var buttonNewRow = document.getElementById("addRowButton")
 		buttonNewRow.addEventListener("click", addNewRow)
-
-
 	});
-
-
 
 </script>
 

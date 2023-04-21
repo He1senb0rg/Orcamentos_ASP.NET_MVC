@@ -38,7 +38,7 @@
 				Part Number
 			</th>
 			<th>
-				@Html.DisplayNameFor(model => model.modelo)
+				Modelo
 			</th>
 			<th>
 				Numero de serie
@@ -47,37 +47,10 @@
 				Nome de produto
 			</th>
 			<th>
-				Unit Price
-			</th>
-			<th>
-				Unit cost
-			</th>
-			<th>
-				Desconto tabela
-			</th>
-			<th>
-				Preço parcial
-			</th>
-			<th>
-				Custo tabela
-			</th>
-			<th>
-				CustoDesc1
-			</th>
-			<th>
-				CustoDesc2
-			</th>
-			<th>
-				CustoDesc3
-			</th>
-			<th>
 				Custo total
 			</th>
 			<th>
 				Preço total
-			</th>
-			<th>
-				Margem
 			</th>
 			<th>
 				Ativo
@@ -87,7 +60,7 @@
 	</thead>
 	<tbody>
 		@{
-			int i = 1;
+			int i = 0;
 		}
 		@foreach (var item in Model)
 		{
@@ -122,39 +95,12 @@
 					<td>
 					@Html.DisplayFor(modelItem => item.ProductName)
 					</td>
-					<td id="@("UnitPrice"+i)">
-					@Html.DisplayFor(modelItem => item.UnitPrice)
-					</td>
-					<td>
-					@Html.DisplayFor(modelItem => item.UnitCost)
-					</td>
-					<td id="feuiwe">
-					@Html.DisplayFor(modelItem => item.DescontoTabela)
-					</td>
-					<td>
-					@Html.DisplayFor(modelItem => item.PrecoParcial)
-					</td>
-					<td>
-					@Html.DisplayFor(modelItem => item.CustoTabela)
-					</td>
-					<td>
-					@Html.DisplayFor(modelItem => item.CustoDesc1)
-					</td>
-					<td>
-					@Html.DisplayFor(modelItem => item.CustoDesc2)
-					</td>
-					<td>
-					@Html.DisplayFor(modelItem => item.CustoDesc3)
-					</td>
-					<td>
-					@Html.DisplayFor(modelItem => item.TotalCost)
-					</td>
-					<td>
-					@Html.DisplayFor(modelItem => item.TotalPrice)
-					</td>
-					<td>
-					@Html.DisplayFor(modelItem => item.Margin)
-					</td>
+					<td id="@("TotalCost"+i)">
+                    @Html.DisplayFor(modelItem => item.TotalCost)
+                    </td>
+                    <td id="@("TotalPrice"+i)">
+                    @Html.DisplayFor(modelItem => item.TotalPrice)
+                    </td>
 					<td>
 					@Html.DisplayFor(modelItem => item.Ativo)
 					</td>
@@ -181,6 +127,30 @@
 
 <script>
 
+	let euro = new Intl.NumberFormat('pt-PT', {
+        style: 'currency',
+        currency: 'EUR',
+    });
+
+	function setEuro(){
+		var model = @Html.Raw(Json.Serialize(Model));
+    var totalCosts = model.map((item) => item.totalCost);
+    var totalPrices = model.map((item) => item.totalPrice);
+
+
+    for (let i = 0; i < @Model.Count(); i++) {
+
+        var totalCost = document.getElementById("TotalCost" + i);
+        totalCost.innerHTML = euro.format(totalCosts[i]);
+
+        var totalPrice = document.getElementById("TotalPrice" + i);
+        totalPrice.innerHTML = euro.format(totalPrices[i]);
+
+    }
+	}
+
+	setEuro();
+
 	var buttonTable = document.getElementById("changeTableButton")
 
 	function changeTable() {
@@ -204,7 +174,6 @@
 	document.addEventListener('DOMContentLoaded', function () {
 
 		var data = @Html.Raw(Json.Serialize(Model
-
 			.Select(o => new {
 			o.Id,
 			OrcamentoNomeId = o.orcamentoNomeId,
@@ -264,7 +233,7 @@
 			'Preço Total',
 			'Margem',
 			'MG',
-			'Ativo'];
+            'Ativo'];
 
 		var container = document.getElementById('excelOrcamentos');
 
@@ -416,45 +385,40 @@
 				contentType: "application/json",
 				type: 'GET',
 				success: function (data) {
+					var i = 0;
 					var tableBody = $('#orcamentosTable tbody');
 					tableBody.empty(); // clear existing rows
 					$.each(data, function (index, item) {
+						
 						var orcamentoName = item.orcamentoNome ? item.orcamentoNome.nome : '';
 						var profileName = item.profile ? item.profile.name : '';
 						var revenueTypeName = item.revenueType ? item.revenueType.nome : '';
 						var businessUnitName = item.businessUnit ? item.businessUnit.name : '';
 
 						var row = '<tr>' +
-							'<td>' + orcamentoName + '</td>' +
-							'<td>' + profileName + '</td>' +
-							'<td>' + revenueTypeName + '</td>' +
-							'<td>' + businessUnitName + '</td>' +
-							'<td>' + item.marca + '</td>' +
-							'<td>' + item.tipoUni + '</td>' +
-							'<td>' + item.partnumb + '</td>' +
-							'<td>' + item.modelo + '</td>' +
-							'<td>' + item.serialNumb + '</td>' +
-							'<td>' + item.productName + '</td>' +
-							'<td>' + item.unitPrice + '</td>' +
-							'<td>' + item.unitCost + '</td>' +
-							'<td>' + item.descontoTabela + '</td>' +
-							'<td>' + item.precoParcial + '</td>' +
-							'<td>' + item.custoTabela + '</td>' +
-							'<td>' + item.custoDesc1 + '</td>' +
-							'<td>' + item.custoDesc2 + '</td>' +
-							'<td>' + item.custoDesc3 + '</td>' +
-							'<td>' + item.totalCost + '</td>' +
-							'<td>' + item.totalPrice + '</td>' +
-							'<td>' + item.margin + '</td>' +
-							'<td>' + '<input type="checkbox" disabled ' + (item.ativo ? 'checked' : '') + '></td>' +
-							'<td>' +
-							'<a href="/orcamentos/edit/' + item.id + '">Editar</a> | ' +
-							'<a href="/orcamentos/details/' + item.id + '">Detalhes</a> | ' +
-							'<a href="/orcamentos/delete/' + item.id + '">Eliminar</a>' +
-							'</td>' +
-							'</tr>';
+                            '<td>' + orcamentoName + '</td>' +
+                            '<td>' + profileName + '</td>' +
+                            '<td>' + revenueTypeName + '</td>' +
+                            '<td>' + businessUnitName + '</td>' +
+                            '<td>' + item.marca + '</td>' +
+                            '<td>' + item.tipoUni + '</td>' +
+                            '<td>' + item.partnumb + '</td>' +
+                            '<td>' + item.modelo + '</td>' +
+                            '<td>' + item.serialNumb + '</td>' +
+                            '<td>' + item.productName + '</td>' +
+                            '<td id="TotalCost'+i+'">' + item.totalCost + '</td>' +
+                            '<td id="TotalPrice'+i+'">' + item.totalPrice + '</td>' +
+                            '<td>' + '<input type="checkbox" disabled ' + (item.ativo ? 'checked' : '') + '></td>' +
+                            '<td>' +
+                            '<a href="/orcamentos/edit/' + item.id + '">Editar</a> | ' +
+                            '<a href="/orcamentos/details/' + item.id + '">Detalhes</a> | ' +
+                            '<a href="/orcamentos/delete/' + item.id + '">Eliminar</a>' +
+                            '</td>' +
+                            '</tr>';
 						tableBody.append(row);
+						i += 1;
 					});
+					setEuro();
 				},
 				error: function (xhr, status, error) {
 					alert("Failure: " + error);
@@ -588,58 +552,5 @@
 	});
 
 
-
-</script>
-
-<script>
-
-	let euro = new Intl.NumberFormat('pt-PT', {
-		style: 'currency',
-		currency: 'EUR',
-	});
-
-	@*var unitPrice = document.getElementById("unitPrice")
-
-	unitPrice.innerHTML = euro.format(@Html.Raw(Json.Serialize(Model.UnitPrice)));
-
-	var unitCost = document.getElementById("unitCost")
-
-	unitCost.innerHTML = euro.format(@Html.Raw(Json.Serialize(Model.UnitCost)));
-
-	var DescontoTabela = document.getElementById("DescontoTabela")
-
-	DescontoTabela.innerHTML = euro.format(@Html.Raw(Json.Serialize(Model.DescontoTabela)));
-
-	var PrecoParcial = document.getElementById("PrecoParcial")
-
-	PrecoParcial.innerHTML = euro.format(@Html.Raw(Json.Serialize(Model.PrecoParcial)));
-
-	var CustoTabela = document.getElementById("CustoTabela")
-
-	CustoTabela.innerHTML = euro.format(@Html.Raw(Json.Serialize(Model.CustoTabela)));
-
-	var CustoDesc1 = document.getElementById("CustoDesc1")
-
-	CustoDesc1.innerHTML = euro.format(@Html.Raw(Json.Serialize(Model.CustoDesc1)));
-
-	var CustoDesc2 = document.getElementById("CustoDesc2")
-
-	CustoDesc2.innerHTML = euro.format(@Html.Raw(Json.Serialize(Model.CustoDesc2)));
-
-	var CustoDesc3 = document.getElementById("CustoDesc3")
-
-	CustoDesc3.innerHTML = euro.format(@Html.Raw(Json.Serialize(Model.CustoDesc3)));
-
-	var TotalCost = document.getElementById("TotalCost")
-
-	TotalCost.innerHTML = euro.format(@Html.Raw(Json.Serialize(Model.TotalCost)));
-
-	varTotalPrice = document.getElementById("TotalPrice")
-
-	TotalPrice.innerHTML = euro.format(@Html.Raw(Json.Serialize(Model.TotalPrice)));
-
-	var Margin = document.getElementById("Margin")
-
-	Margin.innerHTML = euro.format(@Html.Raw(Json.Serialize(Model.Margin)));*@
 
 </script>
