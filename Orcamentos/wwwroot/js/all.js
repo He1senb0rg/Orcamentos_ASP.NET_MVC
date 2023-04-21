@@ -630,7 +630,7 @@ exports.default = _default;
 /******/ ])["___"];
 });
 
-import numbro from 'numbro';
-import ptLanguage from 'numbro/languages/pt-PT';
-numbro.registerLanguage(ptLanguage);
-numbro.setLanguage('pt-PT');
+//import numbro from 'numbro';
+//import ptLanguage from 'numbro/languages/pt-PT';
+//numbro.registerLanguage(ptLanguage);
+//numbro.setLanguage('pt-PT');
