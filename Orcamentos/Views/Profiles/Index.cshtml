@@ -9,19 +9,22 @@
 <p>
     <a asp-action="Create">Criar Novo</a>
 </p>
-<table class="table" id="orcamentosProfileTable">
+
+<button class="btn btn-success mb-3" onclick="changeTable()" id="changeTableButton">Mostrar Excel</button>
+
+<table class="table" id="profileTable">
     <thead>
         <tr>
             <th>
                 Nome
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Ativo)
-            </th>
+            
             <th>
                 Nivel de Perfil
             </th>
-            
+            <th>
+                @Html.DisplayNameFor(model => model.Ativo)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -32,12 +35,13 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
+				<td>
+                    @Html.DisplayFor(modelItem => item.ProfileLevel.Name)
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Ativo)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProfileLevel.Name)
-                </td>
+             
                 
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
@@ -50,7 +54,7 @@
 </table>
 
 <div id="excelTable" class="d-none">
-	<div class="mb-3" id="excelOrcamentos"></div>
+	<div class="mb-3" id="excelProfiles"></div>
 
 	<button class="btn btn-success" id="save-button">Guardar</button>
 	<button class="btn btn-success" id="addRowButton">Adicionar linha</button>
@@ -65,7 +69,7 @@
 
 	function changeTable() {
 
-		var table = document.getElementById("orcamentosTable");
+		var table = document.getElementById("profileTable");
 		var excel = document.getElementById("excelTable")
 
 		if (excel.classList.contains('d-none')) {
@@ -84,12 +88,11 @@
 	document.addEventListener('DOMContentLoaded', function () {
 
 		var data = @Html.Raw(Json.Serialize(Model
-
 			.Select(o => new {
 			o.Id,
 			o.Name,
-			ProfileId = o.ProfileLevel.Id,
-			ProfileName = o.ProfileLevel.Name,
+			ProfileLevelId = o.profileLevelId,
+			ProfileLevelName = o.ProfileLevel.Name,
 			o.Ativo
 			})));
 
@@ -100,9 +103,9 @@
 			'Nivel de Perfil',
 			'Ativo'];
 
-		var container = document.getElementById('orcamentosProfileTable');
+		var container = document.getElementById('excelProfiles');
 
-		var mList = @Html.Raw(Json.Serialize(ViewBag.profilesList));
+		var mList = @Html.Raw(Json.Serialize(ViewBag.profileLevelsList));
 		var result = mList.map((item) => item.text)
 
 		var hot = new Handsontable(container, {
@@ -110,9 +113,9 @@
 			colHeaders: colHeaders,
 			columns: [
 				{ data: 'id', readOnly: true },
-				{ data: 'nome', type: 'text' },
-				{ data: 'nivelDePerfilId', readOnly: true },
-				{ data: 'nivelDePerfil', type: 'dropdown', source: result },
+				{ data: 'name', type: 'text' },
+				{ data: 'profileLevelId', readOnly: true },
+				{ data: 'profileLevelName', type: 'dropdown', source: result },
 				{ data: 'ativo', type: 'checkbox' }
 			],
 
@@ -123,9 +126,9 @@
 						var prop = change[1];
 						var newValue = change[3];
 
-						if (prop === 'nivelDePerfil') {
+						if (prop === 'profileLevelName') {
 							var niveldeperfil = mList.find(function (p) { return p.text === newValue; });
-							hot.setDataAtCell(row, hot.propToCol('nivelDePerfilId'), niveldeperfil.value);
+							hot.setDataAtCell(row, hot.propToCol('profileLevelId'), niveldeperfil.value);
 						}
 					});
 				}
@@ -150,7 +153,7 @@
 			hot.validateCells((valid) => {
 				if (valid) {
 					$.ajax({
-						url: '/Orcamentos/UpdateOrcamentos',
+						url: '/Profiles/UpdateProfiles',
 						data: JSON.stringify(hot.getSourceData()),
 						dataType: 'json',
 						contentType: "application/json",
@@ -174,23 +177,24 @@
 		function getTable() {
 
 			$.ajax({
-				url: '/Orcamentos/GetTableOrcamentos',
+				url: '/Profiles/GetTableProfiles',
 				dataType: 'json',
 				contentType: "application/json",
 				type: 'GET',
 				success: function (data) {
-					var tableBody = $('#orcamentosProfileTable tbody');
+					var tableBody = $('#profileTable tbody');
 					tableBody.empty(); // clear existing rows
 					$.each(data, function (index, item) {
+						var profileLevelName = item.profileLevel ? item.profileLevel.name : '';
 
 						var row = '<tr>' +
 							'<td>' + item.name + '</td>' +
-							'<td>' + item.profileLevel.Name + '</td>' +
-							'<td>' + '<input type="checkbox" disabled ' + (item.ativo ? 'checked' : '') + '></td>' +
+							'<td>' + profileLevelName + '</td>' +
+                            '<td>' + '<input type="checkbox" disabled ' + (item.ativo ? 'checked' : '') + '></td>' +
 							'<td>' +
-							'<a href="/orcamentos/edit/' + item.id + '">Editar</a> | ' +
-							'<a href="/orcamentos/details/' + item.id + '">Detalhes</a> | ' +
-							'<a href="/orcamentos/delete/' + item.id + '">Eliminar</a>' +
+							'<a href="/profiles/edit/' + item.id + '">Editar</a> | ' +
+							'<a href="/profiles/details/' + item.id + '">Detalhes</a> | ' +
+							'<a href="/profiles/delete/' + item.id + '">Eliminar</a>' +
 							'</td>' +
 							'</tr>';
 						tableBody.append(row);
@@ -206,16 +210,16 @@
 		function addNewRow() {
 
 			var novaLinha = {
-				Nome: "Não defendo",
+				Name: "Não definido",
 				ProfileLevelId: 1,
-				ProfileLevelName: "Não defendo",
+				ProfileLevelName: "Não definido",
 				Ativo: false
 			};
 
 
 			$.ajax({
 				type: "POST",
-				url: "/Orcamentos/AddNewRow",
+				url: "/Profiles/AddNewRow",
 				data: novaLinha,
 				dataType: "json",
 				success: function (dataModel) {

@@ -127,7 +127,7 @@
 			hot.validateCells((valid) => {
 				if (valid) {
 					$.ajax({
-						url: '/Orcamentos/UpdateOrcamentos',
+						url: '/OrcamentoNomes/UpdateOrcamentoNomes',
 						data: JSON.stringify(hot.getSourceData()),
 						dataType: 'json',
 						contentType: "application/json",
@@ -151,7 +151,7 @@
 		function getTable() {
 
 			$.ajax({
-				url: '/Orcamentos/GetTableOrcamentos',
+				url: '/OrcamentoNomes/GetTableOrcamentoNomes',
 				dataType: 'json',
 				contentType: "application/json",
 				type: 'GET',
@@ -165,9 +165,9 @@
 							'<td>' + item.createdBy + '</td>' +
 							'<td>' + '<input type="checkbox" disabled ' + (item.ativo ? 'checked' : '') + '></td>' +
 							'<td>' +
-							'<a href="/orcamentos/edit/' + item.id + '">Editar</a> | ' +
-							'<a href="/orcamentos/details/' + item.id + '">Detalhes</a> | ' +
-							'<a href="/orcamentos/delete/' + item.id + '">Eliminar</a>' +
+							'<a href="/orcamentoNomes/edit/' + item.id + '">Editar</a> | ' +
+							'<a href="/orcamentoNomes/details/' + item.id + '">Detalhes</a> | ' +
+							'<a href="/orcamentoNomes/delete/' + item.id + '">Eliminar</a>' +
 							'</td>' +
 							'</tr>';
 						tableBody.append(row);
@@ -183,15 +183,15 @@
 		function addNewRow() {
 
 			var novaLinha = {
-				Nome: "Não defendo",
-				CreatedBy: "Não defenido",
+				Nome: "Não defindo",
+				CreatedBy: "Não definido",
 				Ativo: false
 			};
 
 
 			$.ajax({
 				type: "POST",
-				url: "/Orcamentos/AddNewRow",
+				url: "/OrcamentoNomes/AddNewRow",
 				data: novaLinha,
 				dataType: "json",
 				success: function (dataModel) {

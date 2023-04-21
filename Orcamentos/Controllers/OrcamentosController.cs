@@ -236,8 +236,6 @@ namespace Orcamentos.Controllers
 
             var linhas = _context.orcamentos.ToList();
 
-            ViewBag.myData = linhas;
-
             return Json(linhas);
         }
     }

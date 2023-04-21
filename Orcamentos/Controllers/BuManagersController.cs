@@ -17,9 +17,9 @@ namespace Orcamentos.Controllers
         // GET: BuManagers
         public async Task<IActionResult> Index()
         {
-            return _context.buManagers != null ?
-                        View(await _context.buManagers.ToListAsync()) :
-                        Problem("Entity set 'DataContext.buManagers'  is null.");
+            List<BuManager> listaBuManagers = _context.buManagers.ToList();
+
+            return View(listaBuManagers);
         }
 
         // GET: BuManagers/Details/5
@@ -154,6 +154,38 @@ namespace Orcamentos.Controllers
         private bool BuManagerExists(int id)
         {
             return (_context.buManagers?.Any(e => e.Id == id)).GetValueOrDefault();
+        }
+
+        [HttpPost]
+        public IActionResult UpdateBuManagers([FromBody] List<BuManager> buManagers)
+        {
+
+            foreach (var buManager in buManagers)
+            {
+                _context.Update(buManager);
+            }
+            _context.SaveChanges();
+
+            return Ok(buManagers);
+        }
+
+        public IActionResult GetTableBuManagers()
+        {
+            List<BuManager> data = _context.buManagers.ToList();
+
+            return Ok(data);
+        }
+
+        [HttpPost]
+        public JsonResult AddNewRow(BuManager novaLinha)
+        {
+
+            _context.buManagers.Add(novaLinha);
+            _context.SaveChanges();
+
+            var linhas = _context.buManagers.ToList();
+
+            return Json(linhas);
         }
     }
 }

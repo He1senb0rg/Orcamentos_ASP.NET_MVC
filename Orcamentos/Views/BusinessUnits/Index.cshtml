@@ -9,7 +9,10 @@
 <p>
     <a asp-action="Create">Criar Novo</a>
 </p>
-<table class="table" id="orcamentosBuUTable">
+
+<button class="btn btn-success mb-3" onclick="changeTable()" id="changeTableButton">Mostrar Excel</button>
+
+<table class="table" id="businessUnitsTable">
     <thead>
         <tr>
             <th>
@@ -47,7 +50,7 @@
 </table>
 
 <div id="excelTable" class="d-none">
-	<div class="mb-3" id="excelOrcamentos"></div>
+	<div class="mb-3" id="excelBusinessUnits"></div>
 
 	<button class="btn btn-success" id="save-button">Guardar</button>
 	<button class="btn btn-success" id="addRowButton">Adicionar linha</button>
@@ -62,7 +65,7 @@
 
 	function changeTable() {
 
-		var table = document.getElementById("orcamentosTable");
+		var table = document.getElementById("businessUnitsTable");
 		var excel = document.getElementById("excelTable")
 
 		if (excel.classList.contains('d-none')) {
@@ -81,11 +84,10 @@
 	document.addEventListener('DOMContentLoaded', function () {
 
 		var data = @Html.Raw(Json.Serialize(Model
-
 			.Select(o => new {
 			o.Id,
 			o.Name,
-			BuManagerId = o.BuManager.Id,
+			BuManagerId = o.buManagerId,
 			BuManagerName = o.BuManager.Nome,
 			o.Ativo
 			})));
@@ -93,13 +95,13 @@
 		var colHeaders = [
 			'ID',
 			'Nome',
-			'Gestor de Negocios ID',
-			'Gestor de Negocios',
+			'Gestor de Negócios ID',
+			'Gestor de Negócios',
 			'Ativo'];
 
-		var container = document.getElementById('orcamentosBuUTable');
+		var container = document.getElementById('excelBusinessUnits');
 
-		var mList = @Html.Raw(Json.Serialize(ViewBag.profilesList));
+		var mList = @Html.Raw(Json.Serialize(ViewBag.buManagersList));
 		var result = mList.map((item) => item.text)
 
 		var hot = new Handsontable(container, {
@@ -107,9 +109,9 @@
 			colHeaders: colHeaders,
 			columns: [
 				{ data: 'id', readOnly: true },
-				{ data: 'nome', type: 'text' },
-				{ data: 'buId', readOnly: true },
-				{ data: 'gestorDeNegocios', type: 'dropdown', source: result },
+				{ data: 'name', type: 'text' },
+				{ data: 'buManagerId', readOnly: true },
+				{ data: 'buManagerName', type: 'dropdown', source: result },
 				{ data: 'ativo', type: 'checkbox' }
 			],
 
@@ -120,15 +122,13 @@
 						var prop = change[1];
 						var newValue = change[3];
 
-						if (prop === 'gestorDeNegocios') {
+						if (prop === 'buManagerName') {
 							var gestor = mList.find(function (p) { return p.text === newValue; });
-							hot.setDataAtCell(row, hot.propToCol('buId'), gestor.value);
+							hot.setDataAtCell(row, hot.propToCol('buManagerId'), gestor.value);
 						}
 					});
 				}
 			},
-
-
 			language: 'pt-BR',
 			rowHeaders: true,
 			filters: true,
@@ -148,7 +148,7 @@
 			hot.validateCells((valid) => {
 				if (valid) {
 					$.ajax({
-						url: '/Orcamentos/UpdateOrcamentos',
+						url: '/BusinessUnits/UpdateBusinessUnits',
 						data: JSON.stringify(hot.getSourceData()),
 						dataType: 'json',
 						contentType: "application/json",
@@ -172,23 +172,24 @@
 		function getTable() {
 
 			$.ajax({
-				url: '/Orcamentos/GetTableOrcamentos',
+				url: '/BusinessUnits/GetTableBusinessUnits',
 				dataType: 'json',
 				contentType: "application/json",
 				type: 'GET',
 				success: function (data) {
-					var tableBody = $('#orcamentosBuUTable tbody');
+					var tableBody = $('#businessUnitsTable tbody');
 					tableBody.empty(); // clear existing rows
 					$.each(data, function (index, item) {
+						var businessManagerName = item.buManager ? item.buManager.nome : '';
 
 						var row = '<tr>' +
 							'<td>' + item.name + '</td>' +
-							'<td>' + item.buManager.Nome + '</td>' +
+							'<td>' + businessManagerName + '</td>' +
 							'<td>' + '<input type="checkbox" disabled ' + (item.ativo ? 'checked' : '') + '></td>' +
 							'<td>' +
-							'<a href="/orcamentos/edit/' + item.id + '">Editar</a> | ' +
-							'<a href="/orcamentos/details/' + item.id + '">Detalhes</a> | ' +
-							'<a href="/orcamentos/delete/' + item.id + '">Eliminar</a>' +
+							'<a href="/businessUnits/edit/' + item.id + '">Editar</a> | ' +
+							'<a href="/businessUnits/details/' + item.id + '">Detalhes</a> | ' +
+							'<a href="/businessUnits/delete/' + item.id + '">Eliminar</a>' +
 							'</td>' +
 							'</tr>';
 						tableBody.append(row);
@@ -204,16 +205,16 @@
 		function addNewRow() {
 
 			var novaLinha = {
-				Nome: "Não defendo",
+				Name: "Não definido",
 				BuManagerId: 1,
-				BuManager.Nome: "Não defendo",
+				BuManagerName: "Não definido",
 				Ativo: false
 			};
 
 
 			$.ajax({
 				type: "POST",
-				url: "/Orcamentos/AddNewRow",
+				url: "/BusinessUnits/AddNewRow",
 				data: novaLinha,
 				dataType: "json",
 				success: function (dataModel) {

@@ -19,7 +19,10 @@ namespace Orcamentos.Controllers
         // GET: Profiles
         public async Task<IActionResult> Index()
         {
-            List<Profile> listaProfiles = _context.profiles.Include(p => p.ProfileLevel).ToList();
+            List<Profile> listaProfiles = _context.profiles.Include(o => o.ProfileLevel).ToList();
+
+            IEnumerable<SelectListItem> profileLevelsList = DBHelper.FillProfileLevels(_context);
+            ViewBag.profileLevelsList = profileLevelsList;
 
             return View(listaProfiles);
             //var dataContext = _context.profiles.Include(p => p.ProfileLevel);
@@ -169,6 +172,38 @@ namespace Orcamentos.Controllers
         private bool ProfileExists(int id)
         {
             return (_context.profiles?.Any(e => e.Id == id)).GetValueOrDefault();
+        }
+
+        [HttpPost]
+        public IActionResult UpdateProfiles([FromBody] List<Profile> profiles)
+        {
+
+            foreach (var profile in profiles)
+            {
+                _context.Update(profile);
+            }
+            _context.SaveChanges();
+
+            return Ok(profiles);
+        }
+
+        public IActionResult GetTableProfiles()
+        {
+            List<Profile> data = _context.profiles.Include(o => o.ProfileLevel).ToList();
+
+            return Ok(data);
+        }
+
+        [HttpPost]
+        public JsonResult AddNewRow(Profile novaLinha)
+        {
+
+            _context.profiles.Add(novaLinha);
+            _context.SaveChanges();
+
+            var linhas = _context.profiles.ToList();
+
+            return Json(linhas);
         }
     }
 }

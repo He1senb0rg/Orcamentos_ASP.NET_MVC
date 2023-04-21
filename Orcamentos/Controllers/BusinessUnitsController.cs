@@ -21,6 +21,9 @@ namespace Orcamentos.Controllers
         {
             List<BusinessUnit> listaBu = _context.businessUnits.Include(p => p.BuManager).ToList();
 
+            IEnumerable<SelectListItem> buManagersList = DBHelper.FillBuManagers(_context);
+            ViewBag.buManagersList = buManagersList;
+
             return View(listaBu);
             // return _context.businessUnits != null ? 
             //             View(await _context.businessUnits.ToListAsync()) :
@@ -168,6 +171,38 @@ namespace Orcamentos.Controllers
         private bool BusinessUnitExists(int id)
         {
             return (_context.businessUnits?.Any(e => e.Id == id)).GetValueOrDefault();
+        }
+
+        [HttpPost]
+        public IActionResult UpdateBusinessUnits([FromBody] List<BusinessUnit> businessUnits)
+        {
+
+            foreach (var businessUnit in businessUnits)
+            {
+                _context.Update(businessUnit);
+            }
+            _context.SaveChanges();
+
+            return Ok(businessUnits);
+        }
+
+        public IActionResult GetTableBusinessUnits()
+        {
+            List<BusinessUnit> data = _context.businessUnits.Include(o => o.BuManager).ToList();
+
+            return Ok(data);
+        }
+
+        [HttpPost]
+        public JsonResult AddNewRow(BusinessUnit novaLinha)
+        {
+
+            _context.businessUnits.Add(novaLinha);
+            _context.SaveChanges();
+
+            var linhas = _context.businessUnits.ToList();
+
+            return Json(linhas);
         }
     }
 }

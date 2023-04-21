@@ -17,9 +17,9 @@ namespace Orcamentos.Controllers
         // GET: ProfileLevels
         public async Task<IActionResult> Index()
         {
-            return _context.profileLevels != null ?
-                        View(await _context.profileLevels.ToListAsync()) :
-                        Problem("Entity set 'DataContext.profileLevels'  is null.");
+            List<ProfileLevel> listaProfileLevels = _context.profileLevels.ToList();
+
+            return View(listaProfileLevels);
         }
 
         // GET: ProfileLevels/Details/5
@@ -154,6 +154,38 @@ namespace Orcamentos.Controllers
         private bool ProfileLevelExists(int id)
         {
             return (_context.profileLevels?.Any(e => e.Id == id)).GetValueOrDefault();
+        }
+
+        [HttpPost]
+        public IActionResult UpdateProfileLevels([FromBody] List<ProfileLevel> profileLevels)
+        {
+
+            foreach (var profileLevel in profileLevels)
+            {
+                _context.Update(profileLevel);
+            }
+            _context.SaveChanges();
+
+            return Ok(profileLevels);
+        }
+
+        public IActionResult GetTableProfileLevels()
+        {
+            List<ProfileLevel> data = _context.profileLevels.ToList();
+
+            return Ok(data);
+        }
+
+        [HttpPost]
+        public JsonResult AddNewRow(ProfileLevel novaLinha)
+        {
+
+            _context.profileLevels.Add(novaLinha);
+            _context.SaveChanges();
+
+            var linhas = _context.profileLevels.ToList();
+
+            return Json(linhas);
         }
     }
 }

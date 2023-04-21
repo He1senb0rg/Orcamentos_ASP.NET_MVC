@@ -157,7 +157,6 @@ namespace Orcamentos.Controllers
             return (_context.revenueTypes?.Any(e => e.Id == id)).GetValueOrDefault();
         }
 
-
         [HttpPost]
         public IActionResult UpdateRevenueTypes([FromBody] List<RevenueType> revenueTypes)
         {
@@ -176,6 +175,18 @@ namespace Orcamentos.Controllers
             List<RevenueType> data = _context.revenueTypes.ToList();
 
             return Ok(data);
+        }
+
+        [HttpPost]
+        public JsonResult AddNewRow(RevenueType novaLinha)
+        {
+
+            _context.revenueTypes.Add(novaLinha);
+            _context.SaveChanges();
+
+            var linhas = _context.revenueTypes.ToList();
+
+            return Json(linhas);
         }
 
     }

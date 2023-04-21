@@ -9,7 +9,10 @@
 <p>
     <a asp-action="Create">Criar Novo</a>
 </p>
-<table class="table" id="orcamentosBuMTable">
+
+<button class="btn btn-success mb-3" onclick="changeTable()" id="changeTableButton">Mostrar Excel</button>
+
+<table class="table" id="buManagersTable">
     <thead>
         <tr>
             <th>
@@ -57,7 +60,7 @@
 
 	function changeTable() {
 
-		var table = document.getElementById("orcamentosTable");
+		var table = document.getElementById("buManagersTable");
 		var excel = document.getElementById("excelTable")
 
 		if (excel.classList.contains('d-none')) {
@@ -88,7 +91,7 @@
 			'Nome',
 			'Ativo'];
 
-		var container = document.getElementById('orcamentosBuMTable');
+		var container = document.getElementById('excelOrcamentos');
 
 		var hot = new Handsontable(container, {
 			data: data,
@@ -118,7 +121,7 @@
 			hot.validateCells((valid) => {
 				if (valid) {
 					$.ajax({
-						url: '/Orcamentos/UpdateOrcamentos',
+						url: '/BuManagers/UpdateBuManagers',
 						data: JSON.stringify(hot.getSourceData()),
 						dataType: 'json',
 						contentType: "application/json",
@@ -142,12 +145,12 @@
 		function getTable() {
 
 			$.ajax({
-				url: '/Orcamentos/GetTableOrcamentos',
+				url: '/BuManagers/GetTableBuManagers',
 				dataType: 'json',
 				contentType: "application/json",
 				type: 'GET',
 				success: function (data) {
-					var tableBody = $('#orcamentosBuMTable tbody');
+					var tableBody = $('#buManagersTable tbody');
 					tableBody.empty(); // clear existing rows
 					$.each(data, function (index, item) {
 
@@ -155,9 +158,9 @@
 							'<td>' + item.nome + '</td>' +
 							'<td>' + '<input type="checkbox" disabled ' + (item.ativo ? 'checked' : '') + '></td>' +
 							'<td>' +
-							'<a href="/orcamentos/edit/' + item.id + '">Editar</a> | ' +
-							'<a href="/orcamentos/details/' + item.id + '">Detalhes</a> | ' +
-							'<a href="/orcamentos/delete/' + item.id + '">Eliminar</a>' +
+							'<a href="/buManagers/edit/' + item.id + '">Editar</a> | ' +
+							'<a href="/buManagers/details/' + item.id + '">Detalhes</a> | ' +
+							'<a href="/buManagers/delete/' + item.id + '">Eliminar</a>' +
 							'</td>' +
 							'</tr>';
 						tableBody.append(row);
@@ -173,14 +176,14 @@
 		function addNewRow() {
 
 			var novaLinha = {
-				Nome: "Não defendo",
+				Nome: "Não definido",
 				Ativo: false
 			};
 
 
 			$.ajax({
 				type: "POST",
-				url: "/Orcamentos/AddNewRow",
+				url: "/BuManagers/AddNewRow",
 				data: novaLinha,
 				dataType: "json",
 				success: function (dataModel) {

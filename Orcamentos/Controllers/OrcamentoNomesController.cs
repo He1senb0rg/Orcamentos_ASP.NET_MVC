@@ -218,5 +218,37 @@ namespace Orcamentos.Controllers
 
             return Ok(data);
         }
+
+        [HttpPost]
+        public IActionResult UpdateOrcamentoNomes([FromBody] List<OrcamentoNome> orcamentoNomes)
+        {
+
+            foreach (var orcamento in orcamentoNomes)
+            {
+                _context.Update(orcamento);
+            }
+            _context.SaveChanges();
+
+            return Ok(orcamentoNomes);
+        }
+
+        public IActionResult GetTableOrcamentoNomes()
+        {
+            List<OrcamentoNome> data = _context.orcamentoNomes.ToList();
+
+            return Ok(data);
+        }
+
+        [HttpPost]
+        public JsonResult AddNewRow(OrcamentoNome novaLinha)
+        {
+
+            _context.orcamentoNomes.Add(novaLinha);
+            _context.SaveChanges();
+
+            var linhas = _context.orcamentoNomes.ToList();
+
+            return Json(linhas);
+        }
     }
 }

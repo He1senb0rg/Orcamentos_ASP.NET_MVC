@@ -9,7 +9,10 @@
 <p>
     <a asp-action="Create">Criar Novo</a>
 </p>
-<table class="table" id="orcamentosProfileLTable">
+
+<button class="btn btn-success mb-3" onclick="changeTable()" id="changeTableButton">Mostrar Excel</button>
+
+<table class="table" id="profileLevelsTable">
     <thead>
         <tr>
             <th>
@@ -42,7 +45,7 @@
 </table>
 
 <div id="excelTable" class="d-none">
-	<div class="mb-3" id="excelOrcamentos"></div>
+	<div class="mb-3" id="excelProfileLevels"></div>
 
 	<button class="btn btn-success" id="save-button">Guardar</button>
 	<button class="btn btn-success" id="addRowButton">Adicionar linha</button>
@@ -57,7 +60,7 @@
 
 	function changeTable() {
 
-		var table = document.getElementById("orcamentosTable");
+		var table = document.getElementById("profileLevelsTable");
 		var excel = document.getElementById("excelTable")
 
 		if (excel.classList.contains('d-none')) {
@@ -88,14 +91,14 @@
 			'Nome',
 			'Ativo'];
 
-		var container = document.getElementById('orcamentosProfileLTable');
+		var container = document.getElementById('excelProfileLevels');
 
 		var hot = new Handsontable(container, {
 			data: data,
 			colHeaders: colHeaders,
 			columns: [
 				{ data: 'id', readOnly: true },
-				{ data: 'nome', type: 'text' },
+				{ data: 'name', type: 'text' },
 				{ data: 'ativo', type: 'checkbox' }
 			],
 
@@ -118,7 +121,7 @@
 			hot.validateCells((valid) => {
 				if (valid) {
 					$.ajax({
-						url: '/Orcamentos/UpdateOrcamentos',
+						url: '/ProfileLevels/UpdateProfileLevels',
 						data: JSON.stringify(hot.getSourceData()),
 						dataType: 'json',
 						contentType: "application/json",
@@ -142,12 +145,12 @@
 		function getTable() {
 
 			$.ajax({
-				url: '/Orcamentos/GetTableOrcamentos',
+				url: '/ProfileLevels/GetTableProfileLevels',
 				dataType: 'json',
 				contentType: "application/json",
 				type: 'GET',
 				success: function (data) {
-					var tableBody = $('#orcamentosProfileLTable tbody');
+					var tableBody = $('#profileLevelsTable tbody');
 					tableBody.empty(); // clear existing rows
 					$.each(data, function (index, item) {
 
@@ -155,9 +158,9 @@
 							'<td>' + item.name + '</td>' +
 							'<td>' + '<input type="checkbox" disabled ' + (item.ativo ? 'checked' : '') + '></td>' +
 							'<td>' +
-							'<a href="/orcamentos/edit/' + item.id + '">Editar</a> | ' +
-							'<a href="/orcamentos/details/' + item.id + '">Detalhes</a> | ' +
-							'<a href="/orcamentos/delete/' + item.id + '">Eliminar</a>' +
+							'<a href="/profileLevels/edit/' + item.id + '">Editar</a> | ' +
+							'<a href="/profileLevels/details/' + item.id + '">Detalhes</a> | ' +
+							'<a href="/profileLevels/delete/' + item.id + '">Eliminar</a>' +
 							'</td>' +
 							'</tr>';
 						tableBody.append(row);
@@ -173,14 +176,14 @@
 		function addNewRow() {
 
 			var novaLinha = {
-				Nome: "Não defendo",
+				Name: "Não definido",
 				Ativo: false
 			};
 
 
 			$.ajax({
 				type: "POST",
-				url: "/Orcamentos/AddNewRow",
+				url: "/ProfileLevels/AddNewRow",
 				data: novaLinha,
 				dataType: "json",
 				success: function (dataModel) {

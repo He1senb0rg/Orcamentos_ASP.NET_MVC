@@ -9,7 +9,10 @@
 <p>
     <a asp-action="Create">Criar Novo</a>
 </p>
-<table class="table" id="orcamentosRTTable">
+
+<button class="btn btn-success mb-3" onclick="changeTable()" id="changeTableButton">Mostrar Excel</button>
+
+<table class="table" id="revenueTypesTable">
     <thead>
         <tr>
             <th>
@@ -50,7 +53,7 @@
 </table>
 
 <div id="excelTable" class="d-none">
-	<div class="mb-3" id="excelOrcamentos"></div>
+	<div class="mb-3" id="excelRevenueTypes"></div>
 
 	<button class="btn btn-success" id="save-button">Guardar</button>
 	<button class="btn btn-success" id="addRowButton">Adicionar linha</button>
@@ -65,7 +68,7 @@
 
 	function changeTable() {
 
-		var table = document.getElementById("orcamentosTable");
+		var table = document.getElementById("revenueTypesTable");
 		var excel = document.getElementById("excelTable")
 
 		if (excel.classList.contains('d-none')) {
@@ -88,15 +91,17 @@
 			.Select(o => new {
 			o.Id,
 			o.Nome,
+			o.Tipo,
 			o.Ativo
 			})));
 
 		var colHeaders = [
 			'ID',
 			'Nome',
+			'Tipo',
 			'Ativo'];
 
-		var container = document.getElementById('orcamentosRTTable');
+		var container = document.getElementById('excelRevenueTypes');
 
 		var hot = new Handsontable(container, {
 			data: data,
@@ -104,6 +109,7 @@
 			columns: [
 				{ data: 'id', readOnly: true },
 				{ data: 'nome', type: 'text' },
+				{ data: 'tipo', type: 'text' },
 				{ data: 'ativo', type: 'checkbox' }
 			],
 
@@ -126,7 +132,7 @@
 			hot.validateCells((valid) => {
 				if (valid) {
 					$.ajax({
-						url: '/Orcamentos/UpdateOrcamentos',
+						url: '/RevenueTypes/UpdateRevenueTypes',
 						data: JSON.stringify(hot.getSourceData()),
 						dataType: 'json',
 						contentType: "application/json",
@@ -150,22 +156,23 @@
 		function getTable() {
 
 			$.ajax({
-				url: '/Orcamentos/GetTableOrcamentos',
+				url: '/RevenueTypes/GetTableRevenueTypes',
 				dataType: 'json',
 				contentType: "application/json",
 				type: 'GET',
 				success: function (data) {
-					var tableBody = $('#orcamentosRTTable tbody');
+					var tableBody = $('#revenueTypesTable tbody');
 					tableBody.empty(); // clear existing rows
 					$.each(data, function (index, item) {
 
 						var row = '<tr>' +
 							'<td>' + item.nome + '</td>' +
+							'<td>' + item.tipo + '</td>' +
 							'<td>' + '<input type="checkbox" disabled ' + (item.ativo ? 'checked' : '') + '></td>' +
 							'<td>' +
-							'<a href="/orcamentos/edit/' + item.id + '">Editar</a> | ' +
-							'<a href="/orcamentos/details/' + item.id + '">Detalhes</a> | ' +
-							'<a href="/orcamentos/delete/' + item.id + '">Eliminar</a>' +
+							'<a href="/revenueTypes/edit/' + item.id + '">Editar</a> | ' +
+							'<a href="/revenueTypes/details/' + item.id + '">Detalhes</a> | ' +
+							'<a href="/revenueTypes/delete/' + item.id + '">Eliminar</a>' +
 							'</td>' +
 							'</tr>';
 						tableBody.append(row);
@@ -181,14 +188,15 @@
 		function addNewRow() {
 
 			var novaLinha = {
-				Nome: "Não defendo",
+				Nome: "Não definido",
+				Tipo: "Não definido",
 				Ativo: false
 			};
 
 
 			$.ajax({
 				type: "POST",
-				url: "/Orcamentos/AddNewRow",
+				url: "/RevenueTypes/AddNewRow",
 				data: novaLinha,
 				dataType: "json",
 				success: function (dataModel) {
