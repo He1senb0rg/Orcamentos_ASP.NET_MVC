@@ -9,7 +9,7 @@
 <p>
     <a asp-action="Create">Criar Novo</a>
 </p>
-<table class="table">
+<table class="table" id="orcamentosRTTable">
     <thead>
         <tr>
             <th>
@@ -49,113 +49,165 @@
 
 </table>
 
- <div id="excelTable">
-        <div class="mb-3" id="excelRevenueTypes"></div>
+<div id="excelTable" class="d-none">
+	<div class="mb-3" id="excelOrcamentos"></div>
 
-        <button class="btn btn-success" id="save-button">Guardar</button>
-    </div>
+	<button class="btn btn-success" id="save-button">Guardar</button>
+	<button class="btn btn-success" id="addRowButton">Adicionar linha</button>
+</div>
+
+
+@*<div>@Html.DropDownList("profilesList")</div>*@
 
 <script>
 
-    document.addEventListener('DOMContentLoaded', function () {
-        var data = @Html.Raw(Json.Serialize(Model
-            .Select(o => new {
-            o.Id,
-            o.Nome,
-            o.Tipo,
-            o.Ativo
-            })));
+	var buttonTable = document.getElementById("changeTableButton")
 
-        var colHeaders = [
-            'ID',
-            'Nome',
-            'Tipo',
-            'Ativo'
-        ];
+	function changeTable() {
 
-        var container = document.getElementById('excelRevenueTypes');
-        var hot = new Handsontable(container, {
-            data: data,
-            colHeaders: colHeaders,
-            columns: [
-                { data: 'id', readOnly: true },
-                { data: 'nome', type: 'text' },
-                { data: 'tipo', type: 'text' },
-                { data: 'ativo', type: 'checkbox' }
-            ],
-            language: 'pt-BR',
-            rowHeaders: true,
-            filters: true,
-            dropdownMenu: ['filter_by_condition', 'filter_action_bar'],
-            columnSorting: true,
-            height: 'auto',
-            licenseKey: 'non-commercial-and-evaluation' // for non-commercial use only
-        });
+		var table = document.getElementById("orcamentosTable");
+		var excel = document.getElementById("excelTable")
 
-        const save = document.querySelector('#save-button');
+		if (excel.classList.contains('d-none')) {
+			table.classList.add('d-none')
+			excel.classList.remove('d-none')
+			buttonTable.innerHTML = "Mostrar Tabela"
+		}
+		else {
+			table.classList.remove('d-none')
+			excel.classList.add('d-none')
+			buttonTable.innerHTML = "Mostrar Excel"
+		}
 
-        var tableData = JSON.stringify(hot.getSourceData());
+	}
 
-        console.log(tableData);
+	document.addEventListener('DOMContentLoaded', function () {
 
-        $("#save-button").click(function () {
-            hot.validateCells((valid) => {
-                if (valid) {
-                    $.ajax({
-                        url: '/RevenueTypes/UpdateRevenueTypes',
-                        data: JSON.stringify(hot.getSourceData()),
-                        dataType: 'json',
-                        contentType: "application/json",
-                        type: 'POST',
-                        success: function (result) {
-                            alert("Success");
-                            getTable();
-                            location.reload()
-                        },
-                        error: function (xhr, status, error) {
-                            alert("Failure: " + error);
-                        }
-                    });
-                }
-                else {
-                    alert("error");
-                }
-            })
+		var data = @Html.Raw(Json.Serialize(Model
 
-        });
+			.Select(o => new {
+			o.Id,
+			o.Nome,
+			o.Ativo
+			})));
 
-        function getTable() {
+		var colHeaders = [
+			'ID',
+			'Nome',
+			'Ativo'];
 
-            $.ajax({
-                url: '/RevenueTypes/GetTableRevenueTypes',
-                dataType: 'json',
-                contentType: "application/json",
-                type: 'GET',
-                success: function (data) {
-                    var tableBody = $('#revenueTypesTable tbody');
-                    tableBody.empty();  //clear existing rows
-                    $.each(data, function (index, item) {
+		var container = document.getElementById('orcamentosRTTable');
 
-                        var row = '<tr>' +
-                            '<td>' + item.id + '</td>' +
-                            '<td>' + item.Nome + '</td>' +
-                            '<td>' + item.tipo + '</td>' +
-                            '<td>' + '<input type="checkbox" disabled ' + (item.ativo ? 'checked' : '') + '></td>' +
-                            '<td>' +
-                            '<a href="/revenueTypes/edit/' + item.id + '">Editar</a> | ' +
-                            '<a href="/revenueTypes/details/' + item.id + '">Detalhes</a> | ' +
-                            '<a href="/revenueTypes/delete/' + item.id + '">Eliminar</a>' +
-                            '</td>' +
-                            '</tr>';
-                        tableBody.append(row);
-                    });
-                },
-                error: function (xhr, status, error) {
-                    alert("Failure: " + error);
-                }
-            });
-        }
-    });
+		var hot = new Handsontable(container, {
+			data: data,
+			colHeaders: colHeaders,
+			columns: [
+				{ data: 'id', readOnly: true },
+				{ data: 'nome', type: 'text' },
+				{ data: 'ativo', type: 'checkbox' }
+			],
+
+			language: 'pt-BR',
+			rowHeaders: true,
+			filters: true,
+			dropdownMenu: ['filter_by_condition', 'filter_action_bar'],
+			columnSorting: true,
+			height: '300px',
+			licenseKey: 'non-commercial-and-evaluation' // for non-commercial use only
+		});
+
+		const save = document.querySelector('#save-button');
+
+		var tableData = JSON.stringify(hot.getSourceData());
+
+		//console.log(tableData);
+
+		$("#save-button").click(function () {
+			hot.validateCells((valid) => {
+				if (valid) {
+					$.ajax({
+						url: '/Orcamentos/UpdateOrcamentos',
+						data: JSON.stringify(hot.getSourceData()),
+						dataType: 'json',
+						contentType: "application/json",
+						type: 'POST',
+						success: function (result) {
+							getTable();
+							//location.reload()
+						},
+						error: function (xhr, status, error) {
+							alert("Failure: " + error);
+						}
+					});
+				}
+				else {
+					alert("error");
+				}
+			})
+
+		});
+
+		function getTable() {
+
+			$.ajax({
+				url: '/Orcamentos/GetTableOrcamentos',
+				dataType: 'json',
+				contentType: "application/json",
+				type: 'GET',
+				success: function (data) {
+					var tableBody = $('#orcamentosRTTable tbody');
+					tableBody.empty(); // clear existing rows
+					$.each(data, function (index, item) {
+
+						var row = '<tr>' +
+							'<td>' + item.nome + '</td>' +
+							'<td>' + '<input type="checkbox" disabled ' + (item.ativo ? 'checked' : '') + '></td>' +
+							'<td>' +
+							'<a href="/orcamentos/edit/' + item.id + '">Editar</a> | ' +
+							'<a href="/orcamentos/details/' + item.id + '">Detalhes</a> | ' +
+							'<a href="/orcamentos/delete/' + item.id + '">Eliminar</a>' +
+							'</td>' +
+							'</tr>';
+						tableBody.append(row);
+					});
+				},
+				error: function (xhr, status, error) {
+					alert("Failure: " + error);
+				}
+			});
+
+		}
+
+		function addNewRow() {
+
+			var novaLinha = {
+				Nome: "Não defendo",
+				Ativo: false
+			};
+
+
+			$.ajax({
+				type: "POST",
+				url: "/Orcamentos/AddNewRow",
+				data: novaLinha,
+				dataType: "json",
+				success: function (dataModel) {
+
+					hot.loadData(dataModel);
+					getTable();
+				},
+				error: function (xhr, status, error) {
+					console.log(error);
+				}
+			});
+
+		}
+
+		var buttonNewRow = document.getElementById("addRowButton")
+		buttonNewRow.addEventListener("click", addNewRow)
+
+	});
+
 
 
 </script>
