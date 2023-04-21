@@ -226,5 +226,19 @@ namespace Orcamentos.Controllers
 
             return Ok(data);
         }
+
+        [HttpPost]
+        public JsonResult AddNewRow(Orcamento novaLinha)
+        {
+
+            _context.orcamentos.Add(novaLinha);
+            _context.SaveChanges();
+
+            var linhas = _context.orcamentos.ToList();
+
+            ViewBag.myData = linhas;
+
+            return Json(linhas);
+        }
     }
 }

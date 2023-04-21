@@ -91,79 +91,79 @@
 		}
 		@foreach (var item in Model)
 		{
-			<tr>
-				<td>
+				<tr>
+					<td>
 					@Html.DisplayFor(modelItem => item.OrcamentoNome.Nome)
-				</td>
-				<td>
+					</td>
+					<td>
 					@Html.DisplayFor(modelItem => item.Profile.Name)
-				</td>
-				<td>
+					</td>
+					<td>
 					@Html.DisplayFor(modelItem => item.RevenueType.Nome)
-				</td>
-				<td>
+					</td>
+					<td>
 					@Html.DisplayFor(modelItem => item.BusinessUnit.Name)
-				</td>
-				<td>
+					</td>
+					<td>
 					@Html.DisplayFor(modelItem => item.Marca)
-				</td>
-				<td>
+					</td>
+					<td>
 					@Html.DisplayFor(modelItem => item.TipoUni)
-				</td>
-				<td>
+					</td>
+					<td>
 					@Html.DisplayFor(modelItem => item.Partnumb)
-				</td>
-				<td>
+					</td>
+					<td>
 					@Html.DisplayFor(modelItem => item.modelo)
-				</td>
-				<td>
+					</td>
+					<td>
 					@Html.DisplayFor(modelItem => item.SerialNumb)
-				</td>
-				<td>
+					</td>
+					<td>
 					@Html.DisplayFor(modelItem => item.ProductName)
-				</td>
-				<td id="@("UnitPrice"+i)">
+					</td>
+					<td id="@("UnitPrice"+i)">
 					@Html.DisplayFor(modelItem => item.UnitPrice)
-				</td>
-				<td>
+					</td>
+					<td>
 					@Html.DisplayFor(modelItem => item.UnitCost)
-				</td>
-				<td id="feuiwe">
+					</td>
+					<td id="feuiwe">
 					@Html.DisplayFor(modelItem => item.DescontoTabela)
-				</td>
-				<td>
+					</td>
+					<td>
 					@Html.DisplayFor(modelItem => item.PrecoParcial)
-				</td>
-				<td>
+					</td>
+					<td>
 					@Html.DisplayFor(modelItem => item.CustoTabela)
-				</td>
-				<td>
+					</td>
+					<td>
 					@Html.DisplayFor(modelItem => item.CustoDesc1)
-				</td>
-				<td>
+					</td>
+					<td>
 					@Html.DisplayFor(modelItem => item.CustoDesc2)
-				</td>
-				<td>
+					</td>
+					<td>
 					@Html.DisplayFor(modelItem => item.CustoDesc3)
-				</td>
-				<td>
+					</td>
+					<td>
 					@Html.DisplayFor(modelItem => item.TotalCost)
-				</td>
-				<td>
+					</td>
+					<td>
 					@Html.DisplayFor(modelItem => item.TotalPrice)
-				</td>
-				<td>
+					</td>
+					<td>
 					@Html.DisplayFor(modelItem => item.Margin)
-				</td>
-				<td>
+					</td>
+					<td>
 					@Html.DisplayFor(modelItem => item.Ativo)
-				</td>
-				<td>
-					<a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-					<a asp-action="Details" asp-route-id="@item.Id">Detalhes</a> |
-					<a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
-				</td>
-			</tr>
+					</td>
+					<td>
+						<a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+						<a asp-action="Details" asp-route-id="@item.Id">Detalhes</a> |
+						<a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+					</td>
+				</tr>
 			i++;
 		}
 	</tbody>
@@ -173,6 +173,7 @@
 	<div class="mb-3" id="excelOrcamentos"></div>
 
 	<button class="btn btn-success" id="save-button">Guardar</button>
+	<button class="btn btn-success" id="addRowButton" >Adicionar linha</button>
 </div>
 
 
@@ -392,7 +393,6 @@
 						contentType: "application/json",
 						type: 'POST',
 						success: function (result) {
-							alert("Success");
 							getTable();
 							//location.reload()
 						},
@@ -462,6 +462,92 @@
 			});
 
 		}
+
+		function addNewRow() {
+
+			var novaLinha = {
+				orcamentoNomeId: 1,
+				profileId: 1,
+				revenueTypeId: 1,
+				businessUnitId: 1,
+				Marca: "não defenido",
+				TipoUni: "Não defenido",
+				Partnumb: 0,
+				modelo: "Não defendo",
+				SerialNumb: 0,
+				ProductName: "Não defenido",
+				UnitPrice: 0,
+				UnitCost: 0,
+				DescontoTabela: 0,
+				PrecoParcial: 0,
+				CustoTabela: 0,
+				CustoDesc1: 0,
+				CustoDesc2: 0,
+				CustoDesc3: 0,
+				TotalCost: 0,
+				TotalPrice: 0,
+				Margin: 0,
+				MG: 0.00,
+				Ativo: false
+			};
+
+
+			$.ajax({
+				type: "POST",
+				url: "/Orcamentos/AddNewRow",
+				data: novaLinha,
+				dataType: "json",
+				success: function (dataModel) {
+
+			@*		@{
+						var dataModel = ViewBag.myData;
+					}
+					
+
+					var table = @dataModel
+			.Select(o => new {
+			o.Id,
+			OrcamentoNomeId = o.orcamentoNomeId,
+			OrcamentoName = o.OrcamentoNome.Nome,
+			ProfileId = o.profileId,
+			ProfileName = o.Profile.Name,
+			RevenueTypeId = o.revenueTypeId,
+			RevenueTypeName = o.RevenueType.Nome,
+			BusinessUnitId = o.businessUnitId,
+			BusinessUnitName = o.BusinessUnit.Name,
+			o.Marca,
+			o.TipoUni,
+			o.Partnumb,
+			o.modelo,
+			o.SerialNumb,
+			o.ProductName,
+			o.UnitPrice,
+			o.UnitCost,
+			o.DescontoTabela,
+			o.PrecoParcial,
+			o.CustoTabela,
+			o.CustoDesc1,
+			o.CustoDesc2,
+			o.CustoDesc3,
+			o.TotalCost,
+			o.TotalPrice,
+			o.Margin,
+			o.MG,
+			o.Ativo
+			});*@
+
+					hot.loadData(dataModel);
+					getTable();
+				},
+				error: function (xhr, status, error) {
+					console.log(error);
+				}
+			});
+
+		}
+
+		 var buttonNewRow = document.getElementById("addRowButton")
+		 buttonNewRow.addEventListener("click", addNewRow)
 
 		//save.addEventListener('click', () => {
 		//    // save all cell's data
