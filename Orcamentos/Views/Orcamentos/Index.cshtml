@@ -287,6 +287,9 @@
 
 			afterChange: function (changes, source) {
 				if (source === 'edit') {
+					var unitCostCol = hot.getDataAtCol(16);
+					var unitPriceCol = hot.getDataAtCol(15);
+
 					changes.forEach(function (change) {
 						var row = change[0];
 						var prop = change[1];
@@ -296,43 +299,24 @@
 							var profile = mList.find(function (p) { return p.text === newValue; });
 							hot.setDataAtCell(row, hot.propToCol('profileId'), profile.value);
 						}
-					});
-				}
-
-				if (source === 'edit') {
-					changes.forEach(function (change) {
-						var row = change[0];
-						var prop = change[1];
-						var newValue = change[3];
-
 						if (prop === 'orcamentoName') {
 							var profile2 = mList4.find(function (p) { return p.text === newValue; });
 							hot.setDataAtCell(row, hot.propToCol('orcamentoNomeId'), profile2.value);
 						}
-					});
-				}
-
-				if (source === 'edit') {
-					changes.forEach(function (change) {
-						var row = change[0];
-						var prop = change[1];
-						var newValue = change[3];
-
 						if (prop === 'revenueTypeName') {
 							var profile3 = mList2.find(function (p) { return p.text === newValue; });
 							hot.setDataAtCell(row, hot.propToCol('revenueTypeId'), profile3.value);
 						}
-					});
-				}
-				if (source === 'edit') {
-					changes.forEach(function (change) {
-						var row = change[0];
-						var prop = change[1];
-						var newValue = change[3];
-
 						if (prop === 'businessUnitName') {
 							var profile4 = mList3.find(function (p) { return p.text === newValue; });
 							hot.setDataAtCell(row, hot.propToCol('businessUnitId'), profile4.value);
+						}
+						if (prop === 'unitPrice') { // If the change is in the Age column
+							var row = change[0];
+							var unitPrice = unitPriceCol[row];
+							var unitCost = unitPrice * 100; // Apply your formula here
+							console.log(unitCost);
+							hot.setDataAtCell(row, hot.propToCol('unitCost'), unitCost); // Set the new value for the Salary column
 						}
 					});
 				}

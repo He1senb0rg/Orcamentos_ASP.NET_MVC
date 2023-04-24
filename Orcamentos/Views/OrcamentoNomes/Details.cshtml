@@ -294,6 +294,7 @@
 						var newValue = change[3];
 
 						if (prop === 'profileName') {
+							console.log("rr");
 							var profile = mList.find(function (p) { return p.text === newValue; });
 							hot.setDataAtCell(row, hot.propToCol('profileId'), profile.value);
 						}
@@ -338,7 +339,6 @@
 					});
 				}
 			},
-
 			language: 'pt-BR',
 			rowHeaders: true,
 			filters: true,
