@@ -154,14 +154,15 @@
 
 	<button class="btn btn-success" id="save-button">Guardar</button>
 	<button class="btn btn-success" id="addRowButton" >Adicionar linha</button>
-	<button class="btn btn-success" id="export-file" >Exportar CSV</button>
-	<button class="btn btn-success" id="btnPrint" >Imprimir Tabela</button>
+	<button class="btn btn-success" id="export-file" >Guardar CSV</button>
+	<button class="btn btn-success" id="btnPDF" >Guardar PDF</button>
 </div>
 
 
 @*<div>@Html.DropDownList("profilesList")</div>*@
 
 <script>
+
 
 	function showModalDelete(id){
 
@@ -183,19 +184,19 @@
 
 	function setEuro(){
 		var model = @Html.Raw(Json.Serialize(Model));
-	var totalCosts = model.map((item) => item.totalCost);
-	var totalPrices = model.map((item) => item.totalPrice);
+		var totalCosts = model.map((item) => item.totalCost);
+		var totalPrices = model.map((item) => item.totalPrice);
 
 
-	for (let i = 0; i < @Model.Count(); i++) {
+		for (let i = 0; i < @Model.Count(); i++) {
 
-		var totalCost = document.getElementById("TotalCost" + i);
-		totalCost.innerHTML = euro.format(totalCosts[i]);
+			var totalCost = document.getElementById("TotalCost" + i);
+			totalCost.innerHTML = euro.format(totalCosts[i]);
 
-		var totalPrice = document.getElementById("TotalPrice" + i);
-		totalPrice.innerHTML = euro.format(totalPrices[i]);
-
-	}
+			var totalPrice = document.getElementById("TotalPrice" + i);
+			totalPrice.innerHTML = euro.format(totalPrices[i]);
+	
+		}
 	}
 
 	setEuro();
@@ -397,6 +398,30 @@
 			});
 		});
 
+		var pdfButton = document.getElementById('btnPDF');
+
+		pdfButton.addEventListener('click', function() {
+
+			var data = hot.getData();
+			window.jsPDF = window.jspdf.jsPDF;
+
+			var doc = new jsPDF({
+				orientation: "landscape"
+			});
+
+			doc.text('Tabela de Orçamentos', 10, 10);
+
+			doc.autoTable({
+				head: [colHeaders],
+				body: data,
+				styles: {
+					fontSize: 5 // Set font size to 14
+				}
+			});
+
+			doc.save('Tabela_Orçamentos.pdf');
+		});
+
 		const save = document.querySelector('#save-button');
 
 		var tableData = JSON.stringify(hot.getSourceData());
@@ -513,44 +538,6 @@
 				data: novaLinha,
 				dataType: "json",
 				success: function (dataModel) {
-
-	@*		@{
-						var dataModel = ViewBag.myData;
-					}
-
-
-					var table = @dataModel
-			.Select(o => new {
-			o.Id,
-			OrcamentoNomeId = o.orcamentoNomeId,
-			OrcamentoName = o.OrcamentoNome.Nome,
-			ProfileId = o.profileId,
-			ProfileName = o.Profile.Name,
-			RevenueTypeId = o.revenueTypeId,
-			RevenueTypeName = o.RevenueType.Nome,
-			BusinessUnitId = o.businessUnitId,
-			BusinessUnitName = o.BusinessUnit.Name,
-			o.Marca,
-			o.TipoUni,
-			o.Partnumb,
-			o.modelo,
-			o.SerialNumb,
-			o.ProductName,
-			o.UnitPrice,
-			o.UnitCost,
-			o.DescontoTabela,
-			o.PrecoParcial,
-			o.CustoTabela,
-			o.CustoDesc1,
-			o.CustoDesc2,
-			o.CustoDesc3,
-			o.TotalCost,
-			o.TotalPrice,
-			o.Margin,
-			o.MG,
-			o.Ativo
-			});*@
-
 					hot.loadData(dataModel);
 					getTable();
 				},

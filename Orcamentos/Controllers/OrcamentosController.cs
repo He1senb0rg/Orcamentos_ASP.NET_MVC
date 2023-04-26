@@ -234,7 +234,36 @@ namespace Orcamentos.Controllers
             _context.orcamentos.Add(novaLinha);
             _context.SaveChanges();
 
-            var linhas = _context.orcamentos.ToList();
+            var linhas = _context.orcamentos.Include(o => o.OrcamentoNome).Include(o => o.BusinessUnit).Include(o => o.Profile).Include(o => o.RevenueType).Select(o => new {
+                o.Id,
+                OrcamentoNomeId = o.orcamentoNomeId,
+                OrcamentoName = o.OrcamentoNome.Nome,
+                ProfileId = o.profileId,
+                ProfileName = o.Profile.Name,
+                RevenueTypeId = o.revenueTypeId,
+                RevenueTypeName = o.RevenueType.Nome,
+                BusinessUnitId = o.businessUnitId,
+                BusinessUnitName = o.BusinessUnit.Name,
+                o.Marca,
+                o.TipoUni,
+                o.Partnumb,
+                o.modelo,
+                o.SerialNumb,
+                o.ProductName,
+                o.UnitPrice,
+                o.UnitCost,
+                o.DescontoTabela,
+                o.PrecoParcial,
+                o.CustoTabela,
+                o.CustoDesc1,
+                o.CustoDesc2,
+                o.CustoDesc3,
+                o.TotalCost,
+                o.TotalPrice,
+                o.Margin,
+                o.MG,
+                o.Ativo
+            }).ToList();
 
             return Json(linhas);
         }

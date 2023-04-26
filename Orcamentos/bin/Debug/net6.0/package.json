@@ -1,8 +1,8 @@
 {
   "dependencies": {
     "jsgrid": "^1.5.3",
+    "jspdf": "^2.5.1",
     "jspreadsheet-ce": "^4.11.4",
     "numbro": "^2.3.6"
   }
 }
-
