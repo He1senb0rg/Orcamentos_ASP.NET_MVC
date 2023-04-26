@@ -25,6 +25,10 @@
         </tr>
     </thead>
     <tbody>
+
+		@{
+			int i = 0;
+		}
         @foreach (var item in Model)
         {
             <tr>
@@ -35,26 +39,75 @@
                     @Html.DisplayFor(modelItem => item.Ativo)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Detalhes</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+					<div class="btn-group" role="group">
+						<div>
+							<a asp-action="Details" asp-route-id="@item.Id" class="btn btn-success rounded-0 rounded-start">
+								<i class="bi bi-file-text-fill btn-icon mr-2"></i>
+							</a>
+						</div>
+						<div>
+							<a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-info rounded-0">
+								<i class="bi bi-pencil-square btn-icon mr-2"></i>
+							</a>
+						</div>
+						<div>
+							<button type="button" class="btn btn-danger rounded-0 rounded-end" id="@("EliminarButton"+i)" data-id="@item.Id" data-marca="@item.Nome" onclick="showModalDelete(this.id)">
+								<i class="bi bi-trash3-fill btn-icon mr-2"></i>
+							</button>
+						</div>
+					</div>
                 </td>
             </tr>
+			i++;
         }
     </tbody>
 </table>
+
+<div class="modal fade" id="eliminarModal" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title text-break" id="eliminarModalNome">Eliminar Orçamento Nº</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body text-break">
+				Tem a certeza que pretende eliminar o Orçamento Nº<span id="eliminarModalDesc"></span> ? <h6>Esta ação não pode ser desfeita</h6>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+				<form id="eliminarModalForm" method="POST">
+					<button type="submit" class="btn btn-danger">Eliminar</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
 
 <div id="excelTable" class="d-none">
 	<div class="mb-3" id="excelOrcamentos"></div>
 
 	<button class="btn btn-success" id="save-button">Guardar</button>
 	<button class="btn btn-success" id="addRowButton">Adicionar linha</button>
+	<button class="btn btn-success" id="export-file">Guardar CSV</button>
 </div>
 
 
 @*<div>@Html.DropDownList("profilesList")</div>*@
 
 <script>
+
+	function showModalDelete(id) {
+
+		var id_value = document.getElementById(id);
+		const idOrcamento = id_value.getAttribute("data-id");
+		const marcaOrcamento = id_value.getAttribute("data-marca");
+
+		document.getElementById('eliminarModalForm').setAttribute("action", "/BuManagers/Delete/" + idOrcamento);
+		document.getElementById('eliminarModalNome').innerHTML = "Eliminar Orçamento Nº" + idOrcamento;
+		document.getElementById('eliminarModalDesc').innerHTML = marcaOrcamento;
+
+		$("#eliminarModal").modal("show");
+	}
 
 	var buttonTable = document.getElementById("changeTableButton")
 
@@ -114,6 +167,24 @@
 		const save = document.querySelector('#save-button');
 
 		var tableData = JSON.stringify(hot.getSourceData());
+
+		var button1 = document.getElementById('export-file');
+		var exportPlugin1 = hot.getPlugin('exportFile');
+
+		button1.addEventListener('click', function () {
+			exportPlugin1.downloadFile('csv', {
+				bom: false,
+				columnDelimiter: ',',
+				columnHeaders: true,
+				exportHiddenColumns: true,
+				exportHiddenRows: true,
+				fileExtension: 'csv',
+				filename: 'Tabela_BuManagers_[YYYY]-[MM]-[DD]',
+				mimeType: 'text/csv',
+				rowDelimiter: '\r\n',
+				rowHeaders: false
+			});
+		});
 
 		//console.log(tableData);
 

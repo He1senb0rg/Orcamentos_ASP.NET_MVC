@@ -1693,3 +1693,4 @@ C:\Users\warga\OneDrive\Documentos\GitHub\Orcamentos_ASP.NET_MVC\Orcamentos\obj\
 C:\Users\warga\OneDrive\Documentos\GitHub\Orcamentos_ASP.NET_MVC\Orcamentos\obj\Debug\net6.0\Orcamentos.genruntimeconfig.cache
 C:\Users\warga\OneDrive\Documentos\GitHub\Orcamentos_ASP.NET_MVC\Orcamentos\obj\Debug\net6.0\ref\Orcamentos.dll
 E:\GitHub Projects\Orcamentos_ASP.NET_MVC\Orcamentos\bin\Debug\net6.0\libman.json
+C:\Users\warga\OneDrive\Documentos\GitHub\Orcamentos_ASP.NET_MVC\Orcamentos\bin\Debug\net6.0\libman.json
