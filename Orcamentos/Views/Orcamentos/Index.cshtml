@@ -64,62 +64,98 @@
 		}
 		@foreach (var item in Model)
 		{
-				<tr>
-					<td>
+					<tr>
+						<td>
 					@Html.DisplayFor(modelItem => item.OrcamentoNome.Nome)
-					</td>
-					<td>
+						</td>
+						<td>
 					@Html.DisplayFor(modelItem => item.Profile.Name)
-					</td>
-					<td>
+						</td>
+						<td>
 					@Html.DisplayFor(modelItem => item.RevenueType.Nome)
-					</td>
-					<td>
+						</td>
+						<td>
 					@Html.DisplayFor(modelItem => item.BusinessUnit.Name)
-					</td>
-					<td>
+						</td>
+						<td>
 					@Html.DisplayFor(modelItem => item.Marca)
-					</td>
-					<td>
+						</td>
+						<td>
 					@Html.DisplayFor(modelItem => item.TipoUni)
-					</td>
-					<td>
+						</td>
+						<td>
 					@Html.DisplayFor(modelItem => item.Partnumb)
-					</td>
-					<td>
+						</td>
+						<td>
 					@Html.DisplayFor(modelItem => item.modelo)
-					</td>
-					<td>
+						</td>
+						<td>
 					@Html.DisplayFor(modelItem => item.SerialNumb)
-					</td>
-					<td>
+						</td>
+						<td>
 					@Html.DisplayFor(modelItem => item.ProductName)
-					</td>
-					<td id="@("TotalCost"+i)">
-                    @Html.DisplayFor(modelItem => item.TotalCost)
-                    </td>
-                    <td id="@("TotalPrice"+i)">
-                    @Html.DisplayFor(modelItem => item.TotalPrice)
-                    </td>
-					<td>
+						</td>
+						<td id="@("TotalCost"+i)">
+					@Html.DisplayFor(modelItem => item.TotalCost)
+						</td>
+						<td id="@("TotalPrice"+i)">
+					@Html.DisplayFor(modelItem => item.TotalPrice)
+						</td>
+						<td>
 					@Html.DisplayFor(modelItem => item.Ativo)
-					</td>
-					<td>
-						<a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-						<a asp-action="Details" asp-route-id="@item.Id">Detalhes</a> |
-						<a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
-					</td>
-				</tr>
+						</td>
+						<td>
+							 <div class="btn-group" role="group" >
+								<div>
+									<a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-success rounded-0 rounded-start">
+										<i class="bi bi-file-text-fill btn-icon mr-2"></i>
+									</a>
+								</div>
+								<div>
+									<a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info rounded-0">
+										<i class="bi bi-pencil-square btn-icon mr-2"></i>
+									</a>
+								</div>
+								<div>
+									<button type="button" class="btn btn-danger rounded-0 rounded-end" id="@("EliminarButton"+i)" data-id="@item.Id" data-marca="@item.Marca" onclick="showModalDelete(this.id)">
+										<i class="bi bi-trash3-fill btn-icon mr-2"></i>
+									</button>
+								</div>
+							</div>
+						</td>
+					</tr>
 			i++;
 		}
 	</tbody>
 </table>
+
+<div class="modal fade" id="eliminarModal" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title text-break" id="eliminarModalNome">Eliminar Orçamento Nº</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body text-break" >
+				Tem a certeza que pretende eliminar o Orçamento Nº<span id="eliminarModalDesc"></span> ? <h6>Esta ação não pode ser desfeita</h6>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+				<form id="eliminarModalForm" method="POST">
+					<button type="submit" class="btn btn-danger">Eliminar</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
 
 <div id="excelTable" class="d-none">
 	<div class="mb-3" id="excelOrcamentos"></div>
 
 	<button class="btn btn-success" id="save-button">Guardar</button>
 	<button class="btn btn-success" id="addRowButton" >Adicionar linha</button>
+	<button class="btn btn-success" id="export-file" >Exportar CSV</button>
+	<button class="btn btn-success" id="btnPrint" >Imprimir Tabela</button>
 </div>
 
 
@@ -127,26 +163,39 @@
 
 <script>
 
+	function showModalDelete(id){
+
+		var id_value = document.getElementById(id);
+		const idOrcamento = id_value.getAttribute("data-id");
+		const marcaOrcamento = id_value.getAttribute("data-marca");
+
+		document.getElementById('eliminarModalForm').setAttribute("action", "/Orcamentos/Delete/"+idOrcamento); 
+        document.getElementById('eliminarModalNome').innerHTML = "Eliminar Orçamento Nº" + idOrcamento;
+        document.getElementById('eliminarModalDesc').innerHTML = marcaOrcamento;
+
+		$("#eliminarModal").modal("show");
+	}
+
 	let euro = new Intl.NumberFormat('pt-PT', {
-        style: 'currency',
-        currency: 'EUR',
-    });
+		style: 'currency',
+		currency: 'EUR',
+	});
 
 	function setEuro(){
 		var model = @Html.Raw(Json.Serialize(Model));
-    var totalCosts = model.map((item) => item.totalCost);
-    var totalPrices = model.map((item) => item.totalPrice);
+	var totalCosts = model.map((item) => item.totalCost);
+	var totalPrices = model.map((item) => item.totalPrice);
 
 
-    for (let i = 0; i < @Model.Count(); i++) {
+	for (let i = 0; i < @Model.Count(); i++) {
 
-        var totalCost = document.getElementById("TotalCost" + i);
-        totalCost.innerHTML = euro.format(totalCosts[i]);
+		var totalCost = document.getElementById("TotalCost" + i);
+		totalCost.innerHTML = euro.format(totalCosts[i]);
 
-        var totalPrice = document.getElementById("TotalPrice" + i);
-        totalPrice.innerHTML = euro.format(totalPrices[i]);
+		var totalPrice = document.getElementById("TotalPrice" + i);
+		totalPrice.innerHTML = euro.format(totalPrices[i]);
 
-    }
+	}
 	}
 
 	setEuro();
@@ -233,7 +282,7 @@
 			'Preço Total',
 			'Margem',
 			'MG',
-            'Ativo'];
+			'Ativo'];
 
 		var container = document.getElementById('excelOrcamentos');
 
@@ -330,6 +379,24 @@
 			licenseKey: 'non-commercial-and-evaluation' // for non-commercial use only
 		});
 
+		var button1 = document.getElementById('export-file');
+		var exportPlugin1 = hot.getPlugin('exportFile');
+
+		button1.addEventListener('click', function() {
+			exportPlugin1.downloadFile('csv', {
+				bom: false,
+				columnDelimiter: ',',
+				columnHeaders: true,
+				exportHiddenColumns: true,
+				exportHiddenRows: true,
+				fileExtension: 'csv',
+				filename: 'Tabela_Orçamentos_[YYYY]-[MM]-[DD]',
+				mimeType: 'text/csv',
+				rowDelimiter: '\r\n',
+				rowHeaders: false
+			});
+		});
+
 		const save = document.querySelector('#save-button');
 
 		var tableData = JSON.stringify(hot.getSourceData());
@@ -373,32 +440,32 @@
 					var tableBody = $('#orcamentosTable tbody');
 					tableBody.empty(); // clear existing rows
 					$.each(data, function (index, item) {
-						
+
 						var orcamentoName = item.orcamentoNome ? item.orcamentoNome.nome : '';
 						var profileName = item.profile ? item.profile.name : '';
 						var revenueTypeName = item.revenueType ? item.revenueType.nome : '';
 						var businessUnitName = item.businessUnit ? item.businessUnit.name : '';
 
 						var row = '<tr>' +
-                            '<td>' + orcamentoName + '</td>' +
-                            '<td>' + profileName + '</td>' +
-                            '<td>' + revenueTypeName + '</td>' +
-                            '<td>' + businessUnitName + '</td>' +
-                            '<td>' + item.marca + '</td>' +
-                            '<td>' + item.tipoUni + '</td>' +
-                            '<td>' + item.partnumb + '</td>' +
-                            '<td>' + item.modelo + '</td>' +
-                            '<td>' + item.serialNumb + '</td>' +
-                            '<td>' + item.productName + '</td>' +
-                            '<td id="TotalCost'+i+'">' + item.totalCost + '</td>' +
-                            '<td id="TotalPrice'+i+'">' + item.totalPrice + '</td>' +
-                            '<td>' + '<input type="checkbox" disabled ' + (item.ativo ? 'checked' : '') + '></td>' +
-                            '<td>' +
-                            '<a href="/orcamentos/edit/' + item.id + '">Editar</a> | ' +
-                            '<a href="/orcamentos/details/' + item.id + '">Detalhes</a> | ' +
-                            '<a href="/orcamentos/delete/' + item.id + '">Eliminar</a>' +
-                            '</td>' +
-                            '</tr>';
+							'<td>' + orcamentoName + '</td>' +
+							'<td>' + profileName + '</td>' +
+							'<td>' + revenueTypeName + '</td>' +
+							'<td>' + businessUnitName + '</td>' +
+							'<td>' + item.marca + '</td>' +
+							'<td>' + item.tipoUni + '</td>' +
+							'<td>' + item.partnumb + '</td>' +
+							'<td>' + item.modelo + '</td>' +
+							'<td>' + item.serialNumb + '</td>' +
+							'<td>' + item.productName + '</td>' +
+							'<td id="TotalCost'+i+'">' + item.totalCost + '</td>' +
+							'<td id="TotalPrice'+i+'">' + item.totalPrice + '</td>' +
+							'<td>' + '<input type="checkbox" disabled ' + (item.ativo ? 'checked' : '') + '></td>' +
+							'<td>' +
+							'<a href="/orcamentos/edit/' + item.id + '">Editar</a> | ' +
+							'<a href="/orcamentos/details/' + item.id + '">Detalhes</a> | ' +
+							'<a href="/orcamentos/delete/' + item.id + '">Eliminar</a>' +
+							'</td>' +
+							'</tr>';
 						tableBody.append(row);
 						i += 1;
 					});
@@ -447,10 +514,10 @@
 				dataType: "json",
 				success: function (dataModel) {
 
-			@*		@{
+	@*		@{
 						var dataModel = ViewBag.myData;
 					}
-					
+
 
 					var table = @dataModel
 			.Select(o => new {
