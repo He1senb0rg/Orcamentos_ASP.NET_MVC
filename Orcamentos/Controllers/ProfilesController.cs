@@ -201,7 +201,13 @@ namespace Orcamentos.Controllers
             _context.profiles.Add(novaLinha);
             _context.SaveChanges();
 
-            var linhas = _context.profiles.ToList();
+            var linhas = _context.profiles.Select(o => new {
+                o.Id,
+                o.Name,
+                ProfileLevelId = o.profileLevelId,
+                ProfileLevelName = o.ProfileLevel.Name,
+                o.Ativo
+            }).ToList();
 
             return Json(linhas);
         }

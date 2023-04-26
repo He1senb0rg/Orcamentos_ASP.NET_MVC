@@ -59,7 +59,7 @@
 							</a>
 						</div>
 						<div>
-							<button type="button" class="btn btn-danger rounded-0 rounded-end" id="@("EliminarButton"+i)" data-id="@item.Id" data-marca="@item.Name" onclick="showModalDelete(this.id)">
+							<button type="button" class="btn btn-danger rounded-0 rounded-end" id="@("EliminarButton"+i)" data-id="@item.Id" onclick="showModalDelete(this.id)">
 								<i class="bi bi-trash3-fill btn-icon mr-2"></i>
 							</button>
 						</div>
@@ -79,7 +79,7 @@
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body text-break">
-				Tem a certeza que pretende eliminar o Orçamento Nº<span id="eliminarModalDesc"></span> ? <h6>Esta ação não pode ser desfeita</h6>
+				Tem a certeza que pretende eliminar o Perfil Nº<span id="eliminarModalDesc"></span> ? <h6>Esta ação não pode ser desfeita</h6>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
@@ -107,12 +107,11 @@
 	function showModalDelete(id) {
 
 		var id_value = document.getElementById(id);
-		const idOrcamento = id_value.getAttribute("data-id");
-		const marcaOrcamento = id_value.getAttribute("data-marca");
+		const idProfile = id_value.getAttribute("data-id");
 
-		document.getElementById('eliminarModalForm').setAttribute("action", "/Profiles/Delete/" + idOrcamento);
-		document.getElementById('eliminarModalNome').innerHTML = "Eliminar Orçamento Nº" + idOrcamento;
-		document.getElementById('eliminarModalDesc').innerHTML = marcaOrcamento;
+		document.getElementById('eliminarModalForm').setAttribute("action", "/Profiles/Delete/" + idProfile);
+		document.getElementById('eliminarModalNome').innerHTML = "Eliminar Perfil Nº" + idProfile;
+		document.getElementById('eliminarModalDesc').innerHTML = idProfile;
 
 		$("#eliminarModal").modal("show");
 	}
@@ -206,7 +205,7 @@
 				exportHiddenColumns: true,
 				exportHiddenRows: true,
 				fileExtension: 'csv',
-				filename: 'Tabela_Profiles_[YYYY]-[MM]-[DD]',
+				filename: 'Tabela_Perfis_[YYYY]-[MM]-[DD]',
 				mimeType: 'text/csv',
 				rowDelimiter: '\r\n',
 				rowHeaders: false

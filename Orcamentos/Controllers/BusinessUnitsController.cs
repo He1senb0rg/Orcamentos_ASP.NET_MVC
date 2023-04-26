@@ -200,7 +200,13 @@ namespace Orcamentos.Controllers
             _context.businessUnits.Add(novaLinha);
             _context.SaveChanges();
 
-            var linhas = _context.businessUnits.ToList();
+            var linhas = _context.businessUnits.Select(o => new {
+                o.Id,
+                o.Name,
+                BuManagerId = o.buManagerId,
+                BuManagerName = o.BuManager.Nome,
+                o.Ativo
+            }).ToList();
 
             return Json(linhas);
         }

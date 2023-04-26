@@ -36,6 +36,7 @@
 </div>
 <div>
 	<h2>Orçamentos</h2>
+	<button class="btn btn-success mb-3" onclick="changeTable()" id="changeTableButton">Mostrar Excel</button>
 	<table class="table" id="orcamentosTable">
 		<thead>
 			<tr>
@@ -128,35 +129,105 @@
 						@Html.DisplayFor(modelItem => item.Ativo)
 					</td>
 					<td>
-						<a asp-action="Edit" asp-controller="Orcamentos" asp-route-id="@item.Id">Editar</a> |
-						<a asp-action="Details" asp-controller="Orcamentos" asp-route-id="@item.Id">Detalhes</a> |
-						<a asp-action="Delete" asp-controller="Orcamentos" asp-route-id="@item.Id">Eliminar</a>
+						<div class="btn-group" role="group" >
+								<div>
+									<a asp-action="Details" asp-controller="Orcamentos" asp-route-id="@item.Id" class="btn btn-success rounded-0 rounded-start">
+										<i class="bi bi-file-text-fill btn-icon mr-2"></i>
+									</a>
+								</div>
+								<div>
+									<a asp-action="Edit" asp-controller="Orcamentos" asp-route-id="@item.Id" class="btn btn-info rounded-0">
+										<i class="bi bi-pencil-square btn-icon mr-2"></i>
+									</a>
+								</div>
+								<div>
+									<button type="button" class="btn btn-danger rounded-0 rounded-end" id="@("EliminarButton"+i)" data-id="@item.Id" onclick="showModalDelete(this.id)">
+										<i class="bi bi-trash3-fill btn-icon mr-2"></i>
+									</button>
+								</div>
+							</div>
 					</td>
 				</tr>
 				i++;
 			}
 		</tbody>
 	</table>
-</div>
-<div class="mb-3" id="excelOrcamentos"></div>
 
-<button class="btn btn-success" id="save-button">Guardar</button>
+	<div class="modal fade" id="eliminarModal" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title text-break" id="eliminarModalNome">Eliminar Orçamento Nº</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body text-break" >
+				Tem a certeza que pretende eliminar o Orçamento Nº<span id="eliminarModalDesc"></span> ? <h6>Esta ação não pode ser desfeita</h6>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+				<form id="eliminarModalForm" method="POST">
+					<button type="submit" class="btn btn-danger">Eliminar</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+<div id="excelTable" class="d-none mb-3">
+	<div class="mb-3" id="excelOrcamentos"></div>
+	<button class="btn btn-success" id="save-button">Guardar</button>
+	<button class="btn btn-success" id="addRowButton" >Adicionar linha</button>
+	<button class="btn btn-success" id="export-file" >Guardar CSV</button>
+</div>
+
 <div>
-	<a asp-action="Edit" , class="btn btn-primary" , asp-route-id="@Model?.Id">Editar</a> |
-	<a asp-action="Index" , class="btn btn-primary">Voltar para a lista</a>
+	<a asp-action="Edit" class="btn btn-primary" asp-route-id="@Model?.Id">Editar</a>
+	<a asp-action="Index" class="btn btn-primary">Voltar para a lista</a>
 </div>
 
 <script>
+
+	function showModalDelete(id){
+
+		var id_value = document.getElementById(id);
+		const idOrcamento = id_value.getAttribute("data-id");
+
+		document.getElementById('eliminarModalForm').setAttribute("action", "/Orcamentos/Delete/"+idOrcamento); 
+        document.getElementById('eliminarModalNome').innerHTML = "Eliminar Orçamento Nº" + idOrcamento;
+        document.getElementById('eliminarModalDesc').innerHTML = idOrcamento;
+
+		$("#eliminarModal").modal("show");
+	}
 
 		let euro = new Intl.NumberFormat('pt-PT', {
         style: 'currency',
         currency: 'EUR',
     });
 
+	var buttonTable = document.getElementById("changeTableButton")
+
+	function changeTable() {
+
+		var table = document.getElementById("orcamentosTable");
+		var excel = document.getElementById("excelTable")
+
+		if (excel.classList.contains('d-none')) {
+			table.classList.add('d-none')
+			excel.classList.remove('d-none')
+			buttonTable.innerHTML = "Mostrar Tabela"
+		}
+		else {
+			table.classList.remove('d-none')
+			excel.classList.add('d-none')
+			buttonTable.innerHTML = "Mostrar Excel"
+		}
+
+	}
+
 	function setEuro(){
 		var model = @Html.Raw(Json.Serialize(listaOrcamentos));
-    var totalCosts = model.map((item) => item.totalCost);
-    var totalPrices = model.map((item) => item.totalPrice);
+		var totalCosts = model.map((item) => item.totalCost);
+		var totalPrices = model.map((item) => item.totalPrice);
 
 
     for (let i = 0; i < @listaOrcamentos.Count(); i++) {
@@ -285,56 +356,38 @@
 				{ data: 'mg', type: 'numeric', numericFormat: formatEUR },
 				{ data: 'ativo', type: 'checkbox' }
 			],
-
 			afterChange: function (changes, source) {
 				if (source === 'edit') {
+					var unitCostCol = hot.getDataAtCol(16);
+					var unitPriceCol = hot.getDataAtCol(15);
+
 					changes.forEach(function (change) {
 						var row = change[0];
 						var prop = change[1];
 						var newValue = change[3];
 
 						if (prop === 'profileName') {
-							console.log("rr");
 							var profile = mList.find(function (p) { return p.text === newValue; });
 							hot.setDataAtCell(row, hot.propToCol('profileId'), profile.value);
 						}
-					});
-				}
-
-				if (source === 'edit') {
-					changes.forEach(function (change) {
-						var row = change[0];
-						var prop = change[1];
-						var newValue = change[3];
-
 						if (prop === 'orcamentoName') {
 							var profile2 = mList4.find(function (p) { return p.text === newValue; });
 							hot.setDataAtCell(row, hot.propToCol('orcamentoNomeId'), profile2.value);
 						}
-					});
-				}
-
-				if (source === 'edit') {
-					changes.forEach(function (change) {
-						var row = change[0];
-						var prop = change[1];
-						var newValue = change[3];
-
 						if (prop === 'revenueTypeName') {
 							var profile3 = mList2.find(function (p) { return p.text === newValue; });
 							hot.setDataAtCell(row, hot.propToCol('revenueTypeId'), profile3.value);
 						}
-					});
-				}
-				if (source === 'edit') {
-					changes.forEach(function (change) {
-						var row = change[0];
-						var prop = change[1];
-						var newValue = change[3];
-
 						if (prop === 'businessUnitName') {
 							var profile4 = mList3.find(function (p) { return p.text === newValue; });
 							hot.setDataAtCell(row, hot.propToCol('businessUnitId'), profile4.value);
+						}
+						if (prop === 'unitPrice') { // If the change is in the Age column
+							var row = change[0];
+							var unitPrice = unitPriceCol[row];
+							var unitCost = unitPrice * 100; // Apply your formula here
+							console.log(unitCost);
+							hot.setDataAtCell(row, hot.propToCol('unitCost'), unitCost); // Set the new value for the Salary column
 						}
 					});
 				}
@@ -347,6 +400,24 @@
 			columnSorting: true,
 			height: '300px',
 			licenseKey: 'non-commercial-and-evaluation' // for non-commercial use only
+		});
+
+		var button1 = document.getElementById('export-file');
+		var exportPlugin1 = hot.getPlugin('exportFile');
+
+		button1.addEventListener('click', function() {
+			exportPlugin1.downloadFile('csv', {
+				bom: false,
+				columnDelimiter: ',',
+				columnHeaders: true,
+				exportHiddenColumns: true,
+				exportHiddenRows: true,
+				fileExtension: 'csv',
+				filename: 'Tabela_Orçamentos_[YYYY]-[MM]-[DD]',
+				mimeType: 'text/csv',
+				rowDelimiter: '\r\n',
+				rowHeaders: false
+			});
 		});
 
 		const save = document.querySelector('#save-button');
@@ -367,7 +438,6 @@
 						success: function (result) {
 							//alert("Success");
 							getTable();
-							//location.reload()
 						},
 						error: function (xhr, status, error) {
 							alert("Failure: " + error);
@@ -393,6 +463,7 @@
 				data: { id: id },
 				success: function (data) {
 					hot.loadData(data);
+					var i = 0;
 					var tableBody = $('#orcamentosTable tbody');
 					tableBody.empty(); // clear existing rows
 					$.each(data, function (index, item) {
@@ -422,15 +493,62 @@
                             '</td>' +
                             '</tr>';
 						tableBody.append(row);
-
-				
+						i += 1;
 					});
+					setEuro();
 				},
 				error: function (xhr, status, error) {
 					alert("Failure: " + error);
 				}
 			});
+		}
+
+		function addNewRow() {
+
+			var novaLinha = {
+				orcamentoNomeId: @Html.Raw(Json.Serialize(Model.Id)),
+				profileId: 1,
+				revenueTypeId: 1,
+				businessUnitId: 1,
+				Marca: "Não definido",
+				TipoUni: "Não definido",
+				Partnumb: 0,
+				modelo: "Não definido",
+				SerialNumb: 0,
+				ProductName: "Não definido",
+				UnitPrice: 0,
+				UnitCost: 0,
+				DescontoTabela: 0,
+				PrecoParcial: 0,
+				CustoTabela: 0,
+				CustoDesc1: 0,
+				CustoDesc2: 0,
+				CustoDesc3: 0,
+				TotalCost: 0,
+				TotalPrice: 0,
+				Margin: 0,
+				MG: 0.00,
+				Ativo: false
+			};
+
+
+			$.ajax({
+				type: "POST",
+				url: "/OrcamentoNomes/AddNewRowOrcamentos",
+				data: novaLinha,
+				dataType: "json",
+				success: function (dataModel) {
+					hot.loadData(dataModel);
+					getTable();
+				},
+				error: function (xhr, status, error) {
+					console.log(error);
+				}
+			});
 
 		}
+
+		 var buttonNewRow = document.getElementById("addRowButton")
+		 buttonNewRow.addEventListener("click", addNewRow)
 	});
 </script>

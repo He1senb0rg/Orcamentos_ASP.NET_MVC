@@ -50,7 +50,7 @@
 							</a>
 						</div>
 						<div>
-							<button type="button" class="btn btn-danger rounded-0 rounded-end" id="@("EliminarButton"+i)" data-id="@item.Id" data-marca="@item.Name" onclick="showModalDelete(this.id)">
+							<button type="button" class="btn btn-danger rounded-0 rounded-end" id="@("EliminarButton"+i)" data-id="@item.Id" onclick="showModalDelete(this.id)">
 								<i class="bi bi-trash3-fill btn-icon mr-2"></i>
 							</button>
 						</div>
@@ -70,7 +70,7 @@
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body text-break">
-				Tem a certeza que pretende eliminar o Orçamento Nº<span id="eliminarModalDesc"></span> ? <h6>Esta ação não pode ser desfeita</h6>
+				Tem a certeza que pretende eliminar o Nivel de Perfil Nº<span id="eliminarModalDesc"></span> ? <h6>Esta ação não pode ser desfeita</h6>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
@@ -98,12 +98,11 @@
 	function showModalDelete(id) {
 
 		var id_value = document.getElementById(id);
-		const idOrcamento = id_value.getAttribute("data-id");
-		const marcaOrcamento = id_value.getAttribute("data-marca");
+		const idProfileLevel = id_value.getAttribute("data-id");
 
-		document.getElementById('eliminarModalForm').setAttribute("action", "/ProfileLevels/Delete/" + idOrcamento);
-		document.getElementById('eliminarModalNome').innerHTML = "Eliminar Orçamento Nº" + idOrcamento;
-		document.getElementById('eliminarModalDesc').innerHTML = marcaOrcamento;
+		document.getElementById('eliminarModalForm').setAttribute("action", "/ProfileLevels/Delete/" + idProfileLevel);
+		document.getElementById('eliminarModalNome').innerHTML = "Eliminar Nivel de Perfil Nº" + idProfileLevel;
+		document.getElementById('eliminarModalDesc').innerHTML = idProfileLevel;
 
 		$("#eliminarModal").modal("show");
 	}
@@ -178,7 +177,7 @@
 				exportHiddenColumns: true,
 				exportHiddenRows: true,
 				fileExtension: 'csv',
-				filename: 'Tabela_ProfileLevels_[YYYY]-[MM]-[DD]',
+				filename: 'Tabela_Niveis_de_Perfil_[YYYY]-[MM]-[DD]',
 				mimeType: 'text/csv',
 				rowDelimiter: '\r\n',
 				rowHeaders: false
