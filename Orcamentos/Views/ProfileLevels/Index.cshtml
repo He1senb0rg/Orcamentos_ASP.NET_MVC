@@ -219,6 +219,7 @@
 				contentType: "application/json",
 				type: 'GET',
 				success: function (data) {
+						var i = 0;
 					var tableBody = $('#profileLevelsTable tbody');
 					tableBody.empty(); // clear existing rows
 					$.each(data, function (index, item) {
@@ -226,11 +227,27 @@
 						var row = '<tr>' +
 							'<td>' + item.name + '</td>' +
 							'<td>' + '<input type="checkbox" disabled ' + (item.ativo ? 'checked' : '') + '></td>' +
+							
 							'<td>' +
-							'<a href="/profileLevels/edit/' + item.id + '">Editar</a> | ' +
-							'<a href="/profileLevels/details/' + item.id + '">Detalhes</a> | ' +
-							'<a href="/profileLevels/delete/' + item.id + '">Eliminar</a>' +
+							'<div class="btn-group" role="group" >' +
+							'<div>' +
+							'<a href="/profileLevels/details/' + item.id + '" class="btn btn-success rounded-0 rounded-start">' +
+							'<i class="bi bi-file-text-fill btn-icon mr-2"></i>' +
+							'</a>' +
+							'</div>' +
+							'<div>' +
+							'<a href="/profileLevels/edit/' + item.id + '" class="btn btn-info rounded-0">' +
+							'<i class="bi bi-pencil-square btn-icon mr-2"></i>' +
+							'</a>' +
+							'</div>' +
+							'<div>' +
+							'<button type="button" class="btn btn-danger rounded-0 rounded-end" id="EliminarButton' + i + '" data-id="' + item.id + '" onclick="showModalDelete(this.id)">' +
+							'<i class="bi bi-trash3-fill btn-icon mr-2"></i>' +
+							'</button>' +
+							'</div>' +
+							'</div>' +
 							'</td>' +
+
 							'</tr>';
 						tableBody.append(row);
 					});

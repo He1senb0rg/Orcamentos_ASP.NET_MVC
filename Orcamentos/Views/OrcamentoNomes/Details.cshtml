@@ -486,11 +486,27 @@
                             '<td id="TotalCost'+i+'">' + item.totalCost + '</td>' +
                             '<td id="TotalPrice'+i+'">' + item.totalPrice + '</td>' +
                             '<td>' + '<input type="checkbox" disabled ' + (item.ativo ? 'checked' : '') + '></td>' +
-                            '<td>' +
-                            '<a href="/orcamentos/edit/' + item.id + '">Editar</a> | ' +
-                            '<a href="/orcamentos/details/' + item.id + '">Detalhes</a> | ' +
-                            '<a href="/orcamentos/delete/' + item.id + '">Eliminar</a>' +
-                            '</td>' +
+                           
+							'<td>' +
+							'<div class="btn-group" role="group" >' +
+							'<div>' +
+							'<a href="/orcamentos/details/' + item.id + '" class="btn btn-success rounded-0 rounded-start">' +
+							'<i class="bi bi-file-text-fill btn-icon mr-2"></i>' +
+							'</a>' +
+							'</div>' +
+							'<div>' +
+							'<a href="/orcamentos/edit/' + item.id + '" class="btn btn-info rounded-0">' +
+							'<i class="bi bi-pencil-square btn-icon mr-2"></i>' +
+							'</a>' +
+							'</div>' +
+							'<div>' +
+							'<button type="button" class="btn btn-danger rounded-0 rounded-end" id="EliminarButton' + i + '" data-id="' + item.id + '" onclick="showModalDelete(this.id)">' +
+							'<i class="bi bi-trash3-fill btn-icon mr-2"></i>' +
+							'</button>' +
+							'</div>' +
+							'</div>' +
+							'</td>' +
+
                             '</tr>';
 						tableBody.append(row);
 						i += 1;
