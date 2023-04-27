@@ -34,6 +34,8 @@ namespace Orcamentos.Controllers
             IEnumerable<SelectListItem> orcamentosNomesList = DBHelper.FillOrcamentosNomes(_context);
             ViewBag.orcamentosNomesList = orcamentosNomesList;
 
+            ViewBag.countOrcamentos = listaOrcamentos.Count;
+
             return View(listaOrcamentos);
         }
 
@@ -264,6 +266,8 @@ namespace Orcamentos.Controllers
                 o.MG,
                 o.Ativo
             }).ToList();
+
+            ViewBag.countOrcamentos = linhas.Count;
 
             return Json(linhas);
         }

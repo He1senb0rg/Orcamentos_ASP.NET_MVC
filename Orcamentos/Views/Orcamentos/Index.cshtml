@@ -97,7 +97,7 @@
 						<td>
 					@Html.DisplayFor(modelItem => item.ProductName)
 						</td>
-						<td id="@("TotalCost"+i)">
+						<td id="@("TotalCost"+i)" class="totalCost">
 					@Html.DisplayFor(modelItem => item.TotalCost)
 						</td>
 						<td id="@("TotalPrice"+i)">
@@ -184,25 +184,6 @@
 		style: 'currency',
 		currency: 'EUR',
 	});
-
-	function setEuro(){
-		var model = @Html.Raw(Json.Serialize(Model));
-		var totalCosts = model.map((item) => item.totalCost);
-		var totalPrices = model.map((item) => item.totalPrice);
-
-
-		for (let i = 0; i < @Model.Count(); i++) {
-
-			var totalCost = document.getElementById("TotalCost" + i);
-			totalCost.innerHTML = euro.format(totalCosts[i]);
-
-			var totalPrice = document.getElementById("TotalPrice" + i);
-			totalPrice.innerHTML = euro.format(totalPrices[i]);
-	
-		}
-	}
-
-	setEuro();
 
 	var buttonTable = document.getElementById("changeTableButton")
 
@@ -472,6 +453,24 @@
 			doc.save('Tabela_Orçamentos_'+dateString+'.pdf');
 		});
 
+		function setEuro(){
+		var totalCosts = hot.getDataAtCol(23);
+		var totalPrices = hot.getDataAtCol(24);
+		var countOrcamentos = document.getElementsByClassName('totalCost').length;
+
+		for (let i = 0; i < countOrcamentos; i++) {
+
+			var totalCost = document.getElementById("TotalCost" + i);
+			totalCost.innerHTML = euro.format(totalCosts[i]);
+
+			var totalPrice = document.getElementById("TotalPrice" + i);
+			totalPrice.innerHTML = euro.format(totalPrices[i]);
+	
+		}
+	}
+
+	setEuro();
+
 		const save = document.querySelector('#save-button');
 
 		var tableData = JSON.stringify(hot.getSourceData());
@@ -532,7 +531,7 @@
 							'<td>' + item.modelo + '</td>' +
 							'<td>' + item.serialNumb + '</td>' +
 							'<td>' + item.productName + '</td>' +
-							'<td id="TotalCost'+i+'">' + item.totalCost + '</td>' +
+							'<td id="TotalCost'+i+'" class="totalCost">' + item.totalCost + '</td>' +
 							'<td id="TotalPrice'+i+'">' + item.totalPrice + '</td>' +
 							'<td>' + '<input type="checkbox" disabled ' + (item.ativo ? 'checked' : '') + '></td>' +
 							'<td>' +
