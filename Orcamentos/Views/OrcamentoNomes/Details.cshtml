@@ -178,6 +178,9 @@
 	<button class="btn btn-success" id="save-button">Guardar</button>
 	<button class="btn btn-success" id="addRowButton" >Adicionar linha</button>
 	<button class="btn btn-success" id="export-file" >Guardar CSV</button>
+	<button class="btn btn-success" id="btnPDF" >Guardar PDF</button>
+
+	<div class="d-none" id="excelOrcamentos2"></div>
 </div>
 
 <div>
@@ -403,9 +406,35 @@
 		});
 
 		var button1 = document.getElementById('export-file');
-		var exportPlugin1 = hot.getPlugin('exportFile');
 
 		button1.addEventListener('click', function() {
+
+			var data = hot.getData();
+
+			for (var i = 0; i < data.length; i++) {
+				data[i][15] = euro.format(data[i][15]);
+				data[i][16] = euro.format(data[i][16]);
+				data[i][17] = euro.format(data[i][17]);
+				data[i][18] = euro.format(data[i][18]);
+				data[i][19] = euro.format(data[i][19]);
+				data[i][20] = euro.format(data[i][20]);
+				data[i][21] = euro.format(data[i][21]);
+				data[i][22] = euro.format(data[i][22]);
+				data[i][23] = euro.format(data[i][23]);
+				data[i][24] = euro.format(data[i][24]);
+				data[i][25] = euro.format(data[i][25]);
+				data[i][26] = euro.format(data[i][26]);
+			}
+
+		var hot2 = new Handsontable(document.getElementById('excelOrcamentos2'), {
+			data: data,
+			colHeaders: colHeaders,
+			rowHeaders: true,
+			licenseKey: 'non-commercial-and-evaluation' // for non-commercial use only
+		});
+
+		var exportPlugin1 = hot2.getPlugin('exportFile');
+
 			exportPlugin1.downloadFile('csv', {
 				bom: false,
 				columnDelimiter: ',',
@@ -413,11 +442,56 @@
 				exportHiddenColumns: true,
 				exportHiddenRows: true,
 				fileExtension: 'csv',
-				filename: 'Tabela_Orçamentos_[YYYY]-[MM]-[DD]',
+				filename: 'Tabela_Orçamentos_'+@Html.Raw(Json.Serialize(Model.Nome))+'_[YYYY]-[MM]-[DD]',
 				mimeType: 'text/csv',
 				rowDelimiter: '\r\n',
 				rowHeaders: false
 			});
+		});
+
+		var pdfButton = document.getElementById('btnPDF');
+
+		pdfButton.addEventListener('click', function() {
+
+			var data = hot.getData();
+			window.jsPDF = window.jspdf.jsPDF;
+
+			for (var i = 0; i < data.length; i++) {
+				data[i][15] = euro.format(data[i][15]);
+				data[i][16] = euro.format(data[i][16]);
+				data[i][17] = euro.format(data[i][17]);
+				data[i][18] = euro.format(data[i][18]);
+				data[i][19] = euro.format(data[i][19]);
+				data[i][20] = euro.format(data[i][20]);
+				data[i][21] = euro.format(data[i][21]);
+				data[i][22] = euro.format(data[i][22]);
+				data[i][23] = euro.format(data[i][23]);
+				data[i][24] = euro.format(data[i][24]);
+				data[i][25] = euro.format(data[i][25]);
+				data[i][26] = euro.format(data[i][26]);
+			}
+
+			var doc = new jsPDF({
+				orientation: "landscape"
+			});
+
+			var currentDate = new Date();
+
+			var dateString = currentDate.getDate() + '/' + (currentDate.getMonth() + 1) + '/' + currentDate.getFullYear();
+
+			doc.text('Tabela de Orçamentos - '+@Html.Raw(Json.Serialize(Model.Nome))+' - ' + dateString, 10, 10);
+
+			doc.autoTable({
+				head: [colHeaders],
+				body: data,
+				styles: {
+					fontSize: 5 // Set font size to 14
+				}
+			});
+
+			var dateString = currentDate.getDate() + '-' + (currentDate.getMonth() + 1) + '-' + currentDate.getFullYear();
+
+			doc.save('Tabela_Orçamentos_'+@Html.Raw(Json.Serialize(Model.Nome))+'_'+dateString+'.pdf');
 		});
 
 		const save = document.querySelector('#save-button');

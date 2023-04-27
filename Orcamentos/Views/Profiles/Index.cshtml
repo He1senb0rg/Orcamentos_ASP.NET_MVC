@@ -98,6 +98,7 @@
 	<button class="btn btn-success" id="save-button">Guardar</button>
 	<button class="btn btn-success" id="addRowButton">Adicionar linha</button>
 	<button class="btn btn-success" id="export-file">Guardar CSV</button>
+	<button class="btn btn-success" id="btnPDF" >Guardar PDF</button>
 </div>
 
 
@@ -211,6 +212,36 @@
 				rowDelimiter: '\r\n',
 				rowHeaders: false
 			});
+		});
+
+		var pdfButton = document.getElementById('btnPDF');
+
+		pdfButton.addEventListener('click', function() {
+
+			var data = hot.getData();
+			window.jsPDF = window.jspdf.jsPDF;
+
+			var doc = new jsPDF({
+				orientation: "landscape"
+			});
+
+			var currentDate = new Date();
+
+			var dateString = currentDate.getDate() + '/' + (currentDate.getMonth() + 1) + '/' + currentDate.getFullYear();
+
+			doc.text('Tabela de Perfis - ' + dateString, 10, 10);
+
+			doc.autoTable({
+				head: [colHeaders],
+				body: data,
+				styles: {
+					fontSize: 5 // Set font size to 14
+				}
+			});
+
+			var dateString = currentDate.getDate() + '-' + (currentDate.getMonth() + 1) + '-' + currentDate.getFullYear();
+
+			doc.save('Tabela_Perfis_'+dateString+'.pdf');
 		});
 
 		const save = document.querySelector('#save-button');
