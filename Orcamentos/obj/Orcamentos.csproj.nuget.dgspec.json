@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\joaoc\\Documents\\Orcamentos_ASP.NET_MVC\\Orcamentos\\Orcamentos.csproj": {}
+    "E:\\GitHub Projects\\Orcamentos_ASP.NET_MVC\\Orcamentos\\Orcamentos.csproj": {}
   },
   "projects": {
-    "C:\\Users\\joaoc\\Documents\\Orcamentos_ASP.NET_MVC\\Orcamentos\\Orcamentos.csproj": {
+    "E:\\GitHub Projects\\Orcamentos_ASP.NET_MVC\\Orcamentos\\Orcamentos.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\joaoc\\Documents\\Orcamentos_ASP.NET_MVC\\Orcamentos\\Orcamentos.csproj",
+        "projectUniqueName": "E:\\GitHub Projects\\Orcamentos_ASP.NET_MVC\\Orcamentos\\Orcamentos.csproj",
         "projectName": "Orcamentos",
-        "projectPath": "C:\\Users\\joaoc\\Documents\\Orcamentos_ASP.NET_MVC\\Orcamentos\\Orcamentos.csproj",
-        "packagesPath": "C:\\Users\\joaoc\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\joaoc\\Documents\\Orcamentos_ASP.NET_MVC\\Orcamentos\\obj\\",
+        "projectPath": "E:\\GitHub Projects\\Orcamentos_ASP.NET_MVC\\Orcamentos\\Orcamentos.csproj",
+        "packagesPath": "C:\\Users\\Big Boss\\.nuget\\packages\\",
+        "outputPath": "E:\\GitHub Projects\\Orcamentos_ASP.NET_MVC\\Orcamentos\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\joaoc\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Big Boss\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -65,8 +65,7 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -78,7 +77,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     }

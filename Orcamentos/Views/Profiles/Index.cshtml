@@ -6,11 +6,12 @@
 
 <h1>Menu</h1>
 <h3>Perfil</h3>
-<p>
-    <a asp-action="Create">Criar Novo</a>
-</p>
 
-<button class="btn btn-success mb-3" onclick="changeTable()" id="changeTableButton">Mostrar Excel</button>
+<div class="mb-3">
+	<a class="btn btn-primary" asp-action="Create"><i class="bi bi-plus-lg btn-icon mr-2"></i></a>
+
+	<button class="btn btn-success" onclick="changeTable()" id="changeTableButton">Mostrar Excel</button>
+</div>
 
 <table class="table" id="profileTable">
     <thead>
@@ -54,7 +55,7 @@
 							</a>
 						</div>
 						<div>
-							<a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-info rounded-0">
+							<a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary rounded-0">
 								<i class="bi bi-pencil-square btn-icon mr-2"></i>
 							</a>
 						</div>
@@ -270,7 +271,7 @@
 							'</a>' +
 							'</div>' +
 							'<div>' +
-							'<a href="/profiles/edit/' + item.id + '" class="btn btn-info rounded-0">' +
+							'<a href="/profiles/edit/' + item.id + '" class="btn btn-primary rounded-0">' +
 							'<i class="bi bi-pencil-square btn-icon mr-2"></i>' +
 							'</a>' +
 							'</div>' +
