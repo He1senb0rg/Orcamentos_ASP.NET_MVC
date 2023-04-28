@@ -540,16 +540,16 @@
 					var tableBody = $('#orcamentosTable tbody');
 					tableBody.empty(); // clear existing rows
 					$.each(data, function (index, item) {
-						var orcamentoName = item.orcamentoNome ? item.orcamentoNome.nome : '';
+						var orcamentoName = item.OrcamentoName ? item.orcamentoNome.nome : '';
 						var profileName = item.profile ? item.profile.name : '';
 						var revenueTypeName = item.revenueType ? item.revenueType.nome : '';
 						var businessUnitName = item.businessUnit ? item.businessUnit.name : '';
 
 						var row = '<tr>' +
-							'<td>' + orcamentoName + '</td>' +
-                            '<td>' + profileName + '</td>' +
-                            '<td>' + revenueTypeName + '</td>' +
-                            '<td>' + businessUnitName + '</td>' +
+							'<td>' + item.orcamentoName + '</td>' +
+                            '<td>' + item.profileName + '</td>' +
+                            '<td>' + item.revenueTypeName + '</td>' +
+                            '<td>' + item.businessUnitName + '</td>' +
                             '<td>' + item.marca + '</td>' +
                             '<td>' + item.tipoUni + '</td>' +
                             '<td>' + item.partnumb + '</td>' +
