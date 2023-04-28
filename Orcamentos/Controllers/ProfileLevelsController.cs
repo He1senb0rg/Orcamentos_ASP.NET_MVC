@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NToastNotify;
 using Orcamentos.Infrastructure;
 using Orcamentos.Models;
 
@@ -8,10 +9,12 @@ namespace Orcamentos.Controllers
     public class ProfileLevelsController : Controller
     {
         private readonly DataContext _context;
+        private readonly IToastNotification _toastNotification;
 
-        public ProfileLevelsController(DataContext context)
+        public ProfileLevelsController(DataContext context, IToastNotification toastNotification)
         {
             _context = context;
+            _toastNotification = toastNotification;
         }
 
         // GET: ProfileLevels
@@ -57,6 +60,7 @@ namespace Orcamentos.Controllers
             {
                 _context.Add(profileLevel);
                 await _context.SaveChangesAsync();
+                _toastNotification.AddSuccessToastMessage("Nivel de Perfil criado com sucesso");
                 return RedirectToAction(nameof(Index));
             }
             return View(profileLevel);
@@ -96,6 +100,7 @@ namespace Orcamentos.Controllers
                 {
                     _context.Update(profileLevel);
                     await _context.SaveChangesAsync();
+                    _toastNotification.AddSuccessToastMessage("Nivel de Perfil editado com sucesso");
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -145,6 +150,7 @@ namespace Orcamentos.Controllers
             {
                 profileLevel.Ativo = false;
                 _context.SaveChanges();
+                _toastNotification.AddSuccessToastMessage("Nivel de Perfil eliminado com sucesso");
             }
 
             await _context.SaveChangesAsync();
@@ -165,6 +171,7 @@ namespace Orcamentos.Controllers
                 _context.Update(profileLevel);
             }
             _context.SaveChanges();
+            _toastNotification.AddSuccessToastMessage("Tabela guardada com sucesso");
 
             return Ok(profileLevels);
         }
@@ -182,6 +189,7 @@ namespace Orcamentos.Controllers
 
             _context.profileLevels.Add(novaLinha);
             _context.SaveChanges();
+            _toastNotification.AddSuccessToastMessage("Linha adicionada");
 
             var linhas = _context.profileLevels.ToList();
 

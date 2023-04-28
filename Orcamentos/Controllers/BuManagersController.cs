@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NToastNotify;
 using Orcamentos.Infrastructure;
 using Orcamentos.Models;
 
@@ -8,10 +9,12 @@ namespace Orcamentos.Controllers
     public class BuManagersController : Controller
     {
         private readonly DataContext _context;
+        private readonly IToastNotification _toastNotification;
 
-        public BuManagersController(DataContext context)
+        public BuManagersController(DataContext context, IToastNotification toastNotification)
         {
             _context = context;
+            _toastNotification = toastNotification;
         }
 
         // GET: BuManagers
@@ -57,6 +60,7 @@ namespace Orcamentos.Controllers
             {
                 _context.Add(buManager);
                 await _context.SaveChangesAsync();
+                _toastNotification.AddSuccessToastMessage("Gestor de Negócio criado com sucesso");
                 return RedirectToAction(nameof(Index));
             }
             return View(buManager);
@@ -96,6 +100,7 @@ namespace Orcamentos.Controllers
                 {
                     _context.Update(buManager);
                     await _context.SaveChangesAsync();
+                    _toastNotification.AddSuccessToastMessage("Gestor de Negócio editado com sucesso");
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -145,6 +150,7 @@ namespace Orcamentos.Controllers
             {
                 buManager.Ativo = false;
                 _context.SaveChanges();
+                _toastNotification.AddSuccessToastMessage("Gestor de Negócio eliminado com sucesso");
             }
 
             await _context.SaveChangesAsync();
@@ -165,6 +171,7 @@ namespace Orcamentos.Controllers
                 _context.Update(buManager);
             }
             _context.SaveChanges();
+            _toastNotification.AddSuccessToastMessage("Tabela guardada com sucesso");
 
             return Ok(buManagers);
         }
@@ -182,6 +189,7 @@ namespace Orcamentos.Controllers
 
             _context.buManagers.Add(novaLinha);
             _context.SaveChanges();
+            _toastNotification.AddSuccessToastMessage("Linha adicionada");
 
             var linhas = _context.buManagers.ToList();
 

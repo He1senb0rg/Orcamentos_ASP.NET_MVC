@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using NToastNotify;
 using Orcamentos.Helpers;
 using Orcamentos.Infrastructure;
 using Orcamentos.Models;
@@ -10,10 +11,12 @@ namespace Orcamentos.Controllers
     public class BusinessUnitsController : Controller
     {
         private readonly DataContext _context;
+        private readonly IToastNotification _toastNotification;
 
-        public BusinessUnitsController(DataContext context)
+        public BusinessUnitsController(DataContext context, IToastNotification toastNotification)
         {
             _context = context;
+            _toastNotification = toastNotification;
         }
 
         // GET: BusinessUnits
@@ -69,6 +72,7 @@ namespace Orcamentos.Controllers
             {
                 _context.Add(businessUnit);
                 await _context.SaveChangesAsync();
+                _toastNotification.AddSuccessToastMessage("Unidade de Negócio criada com sucesso");
                 return RedirectToAction(nameof(Index));
             }
             return View(businessUnit);
@@ -112,6 +116,7 @@ namespace Orcamentos.Controllers
                 {
                     _context.Update(businessUnit);
                     await _context.SaveChangesAsync();
+                    _toastNotification.AddSuccessToastMessage("Unidade de Negócio editada com sucesso");
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -162,6 +167,7 @@ namespace Orcamentos.Controllers
             {
                 businessUnit.Ativo = false;
                 _context.SaveChanges();
+                _toastNotification.AddSuccessToastMessage("Unidade de Negócio eliminada com sucesso");
             }
 
             await _context.SaveChangesAsync();
@@ -182,6 +188,7 @@ namespace Orcamentos.Controllers
                 _context.Update(businessUnit);
             }
             _context.SaveChanges();
+            _toastNotification.AddSuccessToastMessage("Tabela guardada com sucesso");
 
             return Ok(businessUnits);
         }
@@ -199,6 +206,7 @@ namespace Orcamentos.Controllers
 
             _context.businessUnits.Add(novaLinha);
             _context.SaveChanges();
+            _toastNotification.AddSuccessToastMessage("Linha adicionada");
 
             var linhas = _context.businessUnits.Select(o => new {
                 o.Id,

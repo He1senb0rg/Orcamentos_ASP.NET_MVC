@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NToastNotify;
 using Orcamentos.Infrastructure;
 using Orcamentos.Models;
 
@@ -8,10 +9,12 @@ namespace Orcamentos.Controllers
     public class RevenueTypesController : Controller
     {
         private readonly DataContext _context;
+        private readonly IToastNotification _toastNotification;
 
-        public RevenueTypesController(DataContext context)
+        public RevenueTypesController(DataContext context, IToastNotification toastNotification)
         {
             _context = context;
+            _toastNotification = toastNotification;
         }
 
         // GET: RevenueTypes
@@ -57,6 +60,7 @@ namespace Orcamentos.Controllers
             {
                 _context.Add(revenueType);
                 await _context.SaveChangesAsync();
+                _toastNotification.AddSuccessToastMessage("Tipo de Rendimento criado com sucesso");
                 return RedirectToAction(nameof(Index));
             }
             return View(revenueType);
@@ -96,6 +100,7 @@ namespace Orcamentos.Controllers
                 {
                     _context.Update(revenueType);
                     await _context.SaveChangesAsync();
+                    _toastNotification.AddSuccessToastMessage("Tipo de Rendimento editado com sucesso");
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -146,6 +151,7 @@ namespace Orcamentos.Controllers
             {
                 revenueType.Ativo = false;
                 _context.SaveChanges();
+                _toastNotification.AddSuccessToastMessage("Tipo de Rendimento eliminado com sucesso");
             }
 
             await _context.SaveChangesAsync();
@@ -166,6 +172,7 @@ namespace Orcamentos.Controllers
                 _context.Update(revenueType);
             }
             _context.SaveChanges();
+            _toastNotification.AddSuccessToastMessage("Tabela guardada com sucesso");
 
             return Ok(revenueTypes);
         }
@@ -183,6 +190,7 @@ namespace Orcamentos.Controllers
 
             _context.revenueTypes.Add(novaLinha);
             _context.SaveChanges();
+            _toastNotification.AddSuccessToastMessage("Linha adicionada");
 
             var linhas = _context.revenueTypes.ToList();
 

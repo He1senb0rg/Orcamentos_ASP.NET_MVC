@@ -5,16 +5,19 @@ using Orcamentos.Helpers;
 using Orcamentos.Infrastructure;
 using Orcamentos.Models;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using NToastNotify;
 
 namespace Orcamentos.Controllers
 {
     public class OrcamentosController : Controller
     {
         private readonly DataContext _context;
+        private readonly IToastNotification _toastNotification;
 
-        public OrcamentosController(DataContext context)
+        public OrcamentosController(DataContext context, IToastNotification toastNotification)
         {
             _context = context;
+            _toastNotification = toastNotification;
         }
 
         // GET: Orcamentos
@@ -33,8 +36,6 @@ namespace Orcamentos.Controllers
 
             IEnumerable<SelectListItem> orcamentosNomesList = DBHelper.FillOrcamentosNomes(_context);
             ViewBag.orcamentosNomesList = orcamentosNomesList;
-
-            ViewBag.countOrcamentos = listaOrcamentos.Count;
 
             return View(listaOrcamentos);
         }
@@ -90,10 +91,12 @@ namespace Orcamentos.Controllers
             {
                 _context.Add(orcamento);
                 await _context.SaveChangesAsync();
+                _toastNotification.AddSuccessToastMessage("Orçamento criado com sucesso");
                 return RedirectToAction(nameof(Index));
             }
             ViewData["BuManagerId"] = new SelectList(_context.buManagers, "Id", "Id", orcamento.businessUnitId);
             ViewData["ProfileId"] = new SelectList(_context.profiles, "Id", "Id", orcamento.profileId);
+        
             return View(orcamento);
         }
 
@@ -143,6 +146,7 @@ namespace Orcamentos.Controllers
                 {
                     _context.Update(orcamento);
                     await _context.SaveChangesAsync();
+                    _toastNotification.AddSuccessToastMessage("Orçamento editado com sucesso");
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -198,6 +202,7 @@ namespace Orcamentos.Controllers
             {
                 orcamento.Ativo = false;
                 _context.SaveChanges();
+                _toastNotification.AddSuccessToastMessage("Orçamento eliminado com sucesso");
             }
 
             await _context.SaveChangesAsync();
@@ -218,6 +223,7 @@ namespace Orcamentos.Controllers
                 _context.Update(orcamento);
             }
             _context.SaveChanges();
+            _toastNotification.AddSuccessToastMessage("Tabela guardada com sucesso");
 
             return Ok(orcamentos);
         }
@@ -235,6 +241,7 @@ namespace Orcamentos.Controllers
 
             _context.orcamentos.Add(novaLinha);
             _context.SaveChanges();
+            _toastNotification.AddSuccessToastMessage("Linha adicionada");
 
             var linhas = _context.orcamentos.Include(o => o.OrcamentoNome).Include(o => o.BusinessUnit).Include(o => o.Profile).Include(o => o.RevenueType).Select(o => new {
                 o.Id,
