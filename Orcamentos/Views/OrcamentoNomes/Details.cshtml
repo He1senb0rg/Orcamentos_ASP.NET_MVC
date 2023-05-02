@@ -36,7 +36,11 @@
 </div>
 <div>
 	<h2>Orçamentos</h2>
-	<button class="btn btn-success mb-3" onclick="changeTable()" id="changeTableButton">Mostrar Excel</button>
+	<div class="mb-3">
+		<a class="btn btn-primary" asp-action="Create"><i class="bi bi-plus-lg btn-icon mr-2"></i></a>
+		<button class="btn btn-success onclick="changeTable()" id="changeTableButton">Mostrar Excel</button>
+	</div>
+	
 	<table class="table" id="orcamentosTable">
 		<thead>
 			<tr>
