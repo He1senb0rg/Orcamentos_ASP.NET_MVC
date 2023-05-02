@@ -4,7 +4,7 @@
 
 namespace Orcamentos.Migrations
 {
-    public partial class first : Migration
+    public partial class teste : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

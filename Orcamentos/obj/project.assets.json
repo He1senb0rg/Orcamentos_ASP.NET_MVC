@@ -11482,19 +11482,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\andre\\.nuget\\packages\\": {}
+    "C:\\Users\\warga\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\andre\\Documents\\GitHub\\Orcamentos_ASP.NET_MVC\\Orcamentos\\Orcamentos.csproj",
+      "projectUniqueName": "C:\\Users\\warga\\GitHub\\Orcamentos\\Orcamentos_ASP.NET_MVC\\Orcamentos\\Orcamentos.csproj",
       "projectName": "Orcamentos",
-      "projectPath": "C:\\Users\\andre\\Documents\\GitHub\\Orcamentos_ASP.NET_MVC\\Orcamentos\\Orcamentos.csproj",
-      "packagesPath": "C:\\Users\\andre\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\andre\\Documents\\GitHub\\Orcamentos_ASP.NET_MVC\\Orcamentos\\obj\\",
+      "projectPath": "C:\\Users\\warga\\GitHub\\Orcamentos\\Orcamentos_ASP.NET_MVC\\Orcamentos\\Orcamentos.csproj",
+      "packagesPath": "C:\\Users\\warga\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\warga\\GitHub\\Orcamentos\\Orcamentos_ASP.NET_MVC\\Orcamentos\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\andre\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\warga\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -11562,7 +11562,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
       }
     }
   }
