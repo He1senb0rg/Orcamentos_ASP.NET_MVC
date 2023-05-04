@@ -85,7 +85,7 @@ namespace Orcamentos.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,orcamentoNomeId,profileId,revenueTypeId,businessUnitId,Marca,TipoUni,Partnumb,modelo,SerialNumb,ProductName,UnitPrice,UnitCost,DescontoTabela,PrecoParcial,CustoTabela,CustoDesc1,CustoDesc2,CustoDesc3,TotalCost,TotalPrice,Margin,MG,Ativo")] Orcamento orcamento)
+        public async Task<IActionResult> Create([Bind("Id,orcamentoNomeId,profileId,revenueTypeId,businessUnitId,Marca,TipoUni,Partnumb,modelo,SerialNumb,ProductName,Quantidade,UnitPrice,UnitCost,DescontoTabela,PrecoParcial,CustoTabela,CustoDesc1,CustoDesc2,CustoDesc3,TotalCost,TotalPrice,Margin,MG,Ativo")] Orcamento orcamento)
         {
             if (ModelState.IsValid)
             {
@@ -133,7 +133,7 @@ namespace Orcamentos.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,orcamentoNomeId,profileId,revenueTypeId,businessUnitId,Marca,TipoUni,Partnumb,modelo,SerialNumb,ProductName,UnitPrice,UnitCost,DescontoTabela,PrecoParcial,CustoTabela,CustoDesc1,CustoDesc2,CustoDesc3,TotalCost,TotalPrice,Margin,MG,Ativo")] Orcamento orcamento)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,orcamentoNomeId,profileId,revenueTypeId,businessUnitId,Marca,TipoUni,Partnumb,modelo,SerialNumb,ProductName,Quantidade,UnitPrice,UnitCost,DescontoTabela,PrecoParcial,CustoTabela,CustoDesc1,CustoDesc2,CustoDesc3,TotalCost,TotalPrice,Margin,MG,Ativo")] Orcamento orcamento)
         {
             if (id != orcamento.Id)
             {
@@ -259,6 +259,7 @@ namespace Orcamentos.Controllers
                 o.modelo,
                 o.SerialNumb,
                 o.ProductName,
+                o.Quantidade,
                 o.UnitPrice,
                 o.UnitCost,
                 o.DescontoTabela,

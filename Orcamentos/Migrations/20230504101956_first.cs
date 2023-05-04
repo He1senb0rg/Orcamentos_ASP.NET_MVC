@@ -4,7 +4,7 @@
 
 namespace Orcamentos.Migrations
 {
-    public partial class teste : Migration
+    public partial class first : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -124,6 +124,7 @@ namespace Orcamentos.Migrations
                     modelo = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     SerialNumb = table.Column<int>(type: "int", nullable: false),
                     ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Quantidade = table.Column<int>(type: "int", nullable: false),
                     UnitPrice = table.Column<int>(type: "int", nullable: false),
                     UnitCost = table.Column<int>(type: "int", nullable: false),
                     DescontoTabela = table.Column<int>(type: "int", nullable: false),

@@ -53,6 +53,9 @@ namespace Orcamentos.Models
         public string ProductName { get; set; }
 
         [Required]
+        public int Quantidade { get; set; }
+
+        [Required]
         public int UnitPrice { get; set; }
 
         [Required]

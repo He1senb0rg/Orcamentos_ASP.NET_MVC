@@ -74,6 +74,9 @@
 					Nome de produto
 				</th>
 				<th>
+					Quantidade
+				</th>
+				<th>
 					Custo total
 				</th>
 				<th>
@@ -121,6 +124,9 @@
 					</td>
 					<td>
 						@Html.DisplayFor(modelItem => item.ProductName)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Quantidade)
 					</td>
 					<td id="@("TotalCost"+i)" class="totalCost">
                     @Html.DisplayFor(modelItem => item.TotalCost)
@@ -249,6 +255,7 @@
 			o.modelo,
 			o.SerialNumb,
 			o.ProductName,
+			o.Quantidade,
 			o.UnitPrice,
 			o.UnitCost,
 			o.DescontoTabela,
@@ -280,8 +287,9 @@
 			'Modelo',
 			'Número de Série',
 			'Nome do Produto',
-			'Preço de Unidade',
-			'Custo de Unidade',
+			'Quantidade',
+			'Preço de Unidade Diário',
+			'Custo de Unidade Diário',
 			'Desconto Tabela',
 			'Preço Parcial',
 			'Custo Tabela',
@@ -329,6 +337,7 @@
 				{ data: 'modelo', type: 'text' },
 				{ data: 'serialNumb', type: 'numeric' },
 				{ data: 'productName', type: 'text' },
+				{ data: 'quantidade', type: 'numeric' },
 				{ data: 'unitPrice', type: 'numeric', numericFormat: formatEUR },
 				{ data: 'unitCost', type: 'numeric', numericFormat: formatEUR },
 				{ data: 'descontoTabela', type: 'numeric', numericFormat: formatEUR },
@@ -396,7 +405,6 @@
 			var data = hot.getData();
 
 			for (var i = 0; i < data.length; i++) {
-				data[i][15] = euro.format(data[i][15]);
 				data[i][16] = euro.format(data[i][16]);
 				data[i][17] = euro.format(data[i][17]);
 				data[i][18] = euro.format(data[i][18]);
@@ -408,6 +416,7 @@
 				data[i][24] = euro.format(data[i][24]);
 				data[i][25] = euro.format(data[i][25]);
 				data[i][26] = euro.format(data[i][26]);
+				data[i][27] = euro.format(data[i][27]);
 			}
 
 		var hot2 = new Handsontable(document.getElementById('excelOrcamentos2'), {
@@ -441,7 +450,6 @@
 			window.jsPDF = window.jspdf.jsPDF;
 
 			for (var i = 0; i < data.length; i++) {
-				data[i][15] = euro.format(data[i][15]);
 				data[i][16] = euro.format(data[i][16]);
 				data[i][17] = euro.format(data[i][17]);
 				data[i][18] = euro.format(data[i][18]);
@@ -453,6 +461,7 @@
 				data[i][24] = euro.format(data[i][24]);
 				data[i][25] = euro.format(data[i][25]);
 				data[i][26] = euro.format(data[i][26]);
+				data[i][27] = euro.format(data[i][27]);
 			}
 
 			var doc = new jsPDF({
@@ -479,8 +488,8 @@
 		});
 
 		function setEuro(){
-		var totalCosts = hot.getDataAtCol(23);
-		var totalPrices = hot.getDataAtCol(24);
+		var totalCosts = hot.getDataAtCol(24);
+		var totalPrices = hot.getDataAtCol(25);
 		var countOrcamentos = document.getElementsByClassName('totalCost').length;
 
 			for (let i = 0; i < countOrcamentos; i++) {
@@ -559,6 +568,7 @@
                             '<td>' + item.modelo + '</td>' +
                             '<td>' + item.serialNumb + '</td>' +
                             '<td>' + item.productName + '</td>' +
+							'<td>' + item.quantidade + '</td>' +
                             '<td id="TotalCost'+i+'" class="totalCost">' + item.totalCost + '</td>' +
                             '<td id="TotalPrice'+i+'">' + item.totalPrice + '</td>' +
                             '<td>' + '<input type="checkbox" disabled ' + (item.ativo ? 'checked' : '') + '></td>' +
@@ -608,6 +618,7 @@
 				modelo: "Não definido",
 				SerialNumb: 0,
 				ProductName: "Não definido",
+				Quantidade: 0,
 				UnitPrice: 0,
 				UnitCost: 0,
 				DescontoTabela: 0,

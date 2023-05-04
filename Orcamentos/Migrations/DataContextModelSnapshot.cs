@@ -112,6 +112,9 @@ namespace Orcamentos.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Quantidade")
+                        .HasColumnType("int");
+
                     b.Property<int>("SerialNumb")
                         .HasColumnType("int");
 
