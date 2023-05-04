@@ -147,8 +147,12 @@
           Margem
         </dt>
         <dd class="col-sm-10" id="Margin">
-      @Html.DisplayFor(model => model. Margin)
-        
+      @Html.DisplayFor(model => model.Margin)
+        <dt class="col-sm-2">
+            MG
+        </dt>
+        <dd class="col-sm-10" id="MG">
+        @Html.DisplayFor(model => model.MG)
            
 
     </dl>
@@ -164,6 +168,12 @@
     style: 'currency',
     currency: 'EUR',
 });
+
+	let percentagem = new Intl.NumberFormat('default', {
+		style: 'percent',
+		minimumFractionDigits: 1,
+		maximumFractionDigits: 1,
+	});
 
     var unitPrice = document.getElementById("unitPrice")
 
@@ -209,7 +219,9 @@
 
     Margin.innerHTML = euro.format(@Html.Raw(Json.Serialize(Model.Margin)));
 
+    var mg = document.getElementById("MG")
 
+    mg.innerHTML = percentagem.format(@Html.Raw(Json.Serialize(Model.MG)));
 
 
 

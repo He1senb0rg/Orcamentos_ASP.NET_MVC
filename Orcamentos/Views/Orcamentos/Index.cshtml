@@ -191,6 +191,12 @@
 		currency: 'EUR',
 	});
 
+	let percentagem = new Intl.NumberFormat('default', {
+		style: 'percent',
+		minimumFractionDigits: 1,
+		maximumFractionDigits: 1,
+	});
+
 	var buttonTable = document.getElementById("changeTableButton")
 
 	function changeTable() {
@@ -321,17 +327,24 @@
 				{ data: 'custoDesc1', type: 'numeric', numericFormat: formatEUR },
 				{ data: 'custoDesc2', type: 'numeric', numericFormat: formatEUR },
 				{ data: 'custoDesc3', type: 'numeric', numericFormat: formatEUR },
-				{ data: 'totalCost', type: 'numeric', numericFormat: formatEUR },
-				{ data: 'totalPrice', type: 'numeric', numericFormat: formatEUR },
-				{ data: 'margin', type: 'numeric', numericFormat: formatEUR },
-				{ data: 'mg', type: 'numeric', numericFormat: formatEUR },
+				{ data: 'totalCost', type: 'numeric', numericFormat: formatEUR, readOnly: true },
+				{ data: 'totalPrice', type: 'numeric', numericFormat: formatEUR, readOnly: true },
+				{ data: 'margin', type: 'numeric', numericFormat: formatEUR, readOnly: true },
+				{ data: 'mg', type: 'numeric', numericFormat: { pattern: { output: "percent", mantissa: 1 } }, readOnly: true },
 				{ data: 'ativo', type: 'checkbox' }
 			],
 
 			afterChange: function (changes, source) {
 				if (source === 'edit') {
-					var unitCostCol = hot.getDataAtCol(16);
-					var unitPriceCol = hot.getDataAtCol(15);
+					var unitCostCol = hot.getDataAtCol(17);
+					var unitPriceCol = hot.getDataAtCol(16);
+					var quantidadeCol = hot.getDataAtCol(15);
+					var descTabelaCol = hot.getDataAtCol(18);
+					var totalCostCol = hot.getDataAtCol(24);
+					var precoParcialCol = hot.getDataAtCol(19);
+					var custoDesc1Col = hot.getDataAtCol(21);
+					var custoDesc2Col = hot.getDataAtCol(22);
+					var custoDesc3Col = hot.getDataAtCol(23);
 
 					changes.forEach(function (change) {
 						var row = change[0];
@@ -354,12 +367,22 @@
 							var profile4 = mList3.find(function (p) { return p.text === newValue; });
 							hot.setDataAtCell(row, hot.propToCol('businessUnitId'), profile4.value);
 						}
-						if (prop === 'unitPrice') { // If the change is in the Age column
+						if (prop === 'unitCost' || prop === 'quantidade' || prop === 'unitPrice' || prop === 'descontoTabela'|| prop === 'precoParcial'|| prop === 'custoDesc1'|| prop === 'custoDesc2'|| prop === 'custoDesc3') {
 							var row = change[0];
+							var unitCost = unitCostCol[row];
+							var qnt = quantidadeCol[row];
+							var totalCost = unitCost * qnt;
 							var unitPrice = unitPriceCol[row];
-							var unitCost = unitPrice * 100; // Apply your formula here
-							console.log(unitCost);
-							hot.setDataAtCell(row, hot.propToCol('unitCost'), unitCost); // Set the new value for the Salary column
+							var descTabela = descTabelaCol[row];
+							var precoParcial = precoParcialCol[row];
+							var custoDescs = custoDesc1Col[row] + custoDesc2Col[row] + custoDesc3Col[row]
+							var totalPrice = ((unitPrice - descTabela) + precoParcial) - custoDescs;
+							var margin = totalPrice - totalCost
+							var mg = margin / totalPrice;
+							hot.setDataAtCell(row, hot.propToCol('totalCost'), totalCost);
+							hot.setDataAtCell(row, hot.propToCol('totalPrice'), totalPrice);
+							hot.setDataAtCell(row, hot.propToCol('margin'), margin);
+							hot.setDataAtCell(row, hot.propToCol('mg'), mg);
 						}
 					});
 				}
@@ -391,7 +414,7 @@
 				data[i][24] = euro.format(data[i][24]);
 				data[i][25] = euro.format(data[i][25]);
 				data[i][26] = euro.format(data[i][26]);
-				data[i][27] = euro.format(data[i][27]);
+				data[i][27] = percentagem.format(data[i][27]);
 			}
 
 		var hot2 = new Handsontable(document.getElementById('excelOrcamentos2'), {
@@ -437,7 +460,7 @@
 				data[i][24] = euro.format(data[i][24]);
 				data[i][25] = euro.format(data[i][25]);
 				data[i][26] = euro.format(data[i][26]);
-				data[i][27] = euro.format(data[i][27]);
+				data[i][27] = percentagem.format(data[i][27]);
 			}
 
 			var doc = new jsPDF({
