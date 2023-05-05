@@ -10,20 +10,18 @@
 <hr />
 <div class="row mb-2">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" class="needs-validation">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+            <div class="form-group mb-2">
                 <label asp-for="Nome" class="control-label"></label>
-                <input asp-for="Nome" class="form-control" />
-                <span asp-validation-for="Nome" class="text-danger"></span>
+                <input asp-for="Nome" class="form-control" required/>
             </div>
-            <div class="form-group">
-                <label  class="control-label">Criado por:</label>
-                <input asp-for="CreatedBy" class="form-control" />
-                <span asp-validation-for="CreatedBy" class="text-danger"></span>
+            <div class="form-group mb-2">
+                <label asp-for="CreatedBy" class="control-label">Criado por:</label>
+                <input asp-for="CreatedBy" class="form-control" required/>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
+            <div class="form-group form-check mb-2">
+                <label asp-for="Ativo" class="form-check-label">
                     <input class="form-check-input" asp-for="Ativo" /> @Html.DisplayNameFor(model => model.Ativo)
                 </label>
             </div>
@@ -37,6 +35,28 @@
 <div>
     <a asp-action="Index" class="btn btn-primary">Voltar para a lista</a>
 </div>
+
+<script>
+
+    (function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName('needs-validation');
+    // Loop over them and prevent submission
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
+
+</script>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

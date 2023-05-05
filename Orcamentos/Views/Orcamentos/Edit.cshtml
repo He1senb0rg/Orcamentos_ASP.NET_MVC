@@ -8,30 +8,28 @@
 
 <h4>Orçamento</h4>
 <hr />
-<div class="container">
-		<form asp-action="Edit">
+<div>
+		<form asp-action="Edit" class="needs-validation">
 			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 			<div class="row">
-				<div class="col-6">
+				<div class="col-4">
 					<input type="hidden" asp-for="Id" />
 					<div class="form-group mb-2">
 						<label class="control-label">Orçamento Nome</label>
 						<div class="input-group">
-							<select class="form-control" asp-for="orcamentoNomeId"
+							<select class="form-select" asp-for="orcamentoNomeId" required
 									asp-items="@(new SelectList(ViewBag.orcamentosNomesList,"Value","Text"))">
-								<option>Selecione uma opção</option>
+								<option selected disabled value="">Selecione uma opção</option>
 							</select>
 
 						</div>
-
-						<span asp-validation-for="orcamentoNomeId" class="text-danger"></span>
 					</div>
 					<div class="form-group mb-2">
 						<label class="control-label">Perfil</label>
 						<div class="input-group">
-							<select class="form-control" asp-for="profileId"
+							<select class="form-select" asp-for="profileId" required
 									asp-items="@(new SelectList(ViewBag.profilesList,"Value","Text"))">
-								<option>Selecione uma opção</option>
+								<option selected disabled value="">Selecione uma opção</option>
 							</select>
 
 						</div>
@@ -41,9 +39,9 @@
 					<div class="form-group mb-2">
 						<label class="control-label">Tipo de Rendimento</label>
 						<div class="input-group">
-							<select class="form-control" asp-for="revenueTypeId"
+							<select class="form-select" asp-for="revenueTypeId" required
 									asp-items="@(new SelectList(ViewBag.revenueTypesList,"Value","Text"))">
-								<option>Selecione uma opção</option>
+								<option selected disabled value="">Selecione uma opção</option>
 							</select>
 
 						</div>
@@ -53,9 +51,9 @@
 					<div class="form-group mb-2">
 						<label class="control-label">Unidade de Negocio</label>
 						<div class="input-group">
-							<select class="form-control" asp-for="businessUnitId"
+							<select class="form-select" asp-for="businessUnitId" required
 									asp-items="@(new SelectList(ViewBag.businessUnitsList,"Value","Text"))">
-								<option>Selecione uma opção</option>
+								<option selected disabled value="">Selecione uma opção</option>
 							</select>
 
 						</div>
@@ -64,101 +62,143 @@
 					</div>
 					<div class="form-group mb-2">
 						<label asp-for="Marca" class="control-label"></label>
-						<input asp-for="Marca" class="form-control" />
-						<span asp-validation-for="Marca" class="text-danger"></span>
+						<input asp-for="Marca" class="form-control" required/>
 					</div>
 					<div class="form-group mb-2">
-						<label class="control-label">Tipo de Unidade</label>
-						<input asp-for="TipoUni" class="form-control" />
-						<span asp-validation-for="TipoUni" class="text-danger"></span>
+						<label asp-for="TipoUni" class="control-label">Tipo de Unidade</label>
+						<input asp-for="TipoUni" class="form-control" required/>
 					</div>
 					<div class="form-group mb-2">
-						<label class="control-label">Part Number</label>
-						<input asp-for="Partnumb" class="form-control" />
-						<span asp-validation-for="Partnumb" class="text-danger"></span>
+						<label asp-for="Partnumb" class="control-label">Part Number</label>
+						<input asp-for="Partnumb" class="form-control" required/>
 					</div>
 					<div class="form-group mb-2">
-						<label class="control-label">Modelo</label>
-						<input asp-for="modelo" class="form-control" />
-						<span asp-validation-for="modelo" class="text-danger"></span>
+						<label asp-for="modelo" class="control-label">Modelo</label>
+						<input asp-for="modelo" class="form-control" required/>
 					</div>
 					<div class="form-group mb-2">
-						<label class="control-label">Numero de Serie</label>
-						<input asp-for="SerialNumb" class="form-control" />
-						<span asp-validation-for="SerialNumb" class="text-danger"></span>
+						<label asp-for="SerialNumb" class="control-label">Numero de Serie</label>
+						<input asp-for="SerialNumb" class="form-control" required/>
 					</div>
 					<div class="form-group mb-2">
-						<label class="control-label">Nome do Produto</label>
-						<input asp-for="ProductName" class="form-control" />
-						<span asp-validation-for="ProductName" class="text-danger"></span>
+						<label asp-for="ProductName" class="control-label">Nome do Produto</label>
+						<input asp-for="ProductName" class="form-control" required/>
 					</div>
 				<div class="form-group mb-2">
-					<label class="control-label">Quantidade</label>
-					<input asp-for="Quantidade" class="form-control" />
-					<span asp-validation-for="Quantidade" class="text-danger"></span>
+					<label asp-for="Quantidade" class="control-label">Quantidade</label>
+					<input asp-for="Quantidade" class="form-control" id="qnt" required/>
 				</div>
-					<div class="form-group mb-2">
-						<label class="control-label">Preço diário/por unidade</label>
-						<input asp-for="UnitPrice" class="form-control" />
-						<span asp-validation-for="UnitPrice" class="text-danger"></span>
+					<div class="mb-2">
+						<label asp-for="UnitPrice" class="control-label">Preço de Unidade Diário</label>
+						<div class="input-group">
+							<input asp-for="UnitPrice" class="form-control" id="unitPrice" required/>
+							<div class="input-group-append">
+								<span class="input-group-text">,00 €</span>
+							</div>
+						</div>	
 					</div>
-					
 				</div>
-				<div class="col-6">
-				<div class="form-group mb-2">
-					<label class="control-label">Custo diário/por unidade</label>
-					<input asp-for="UnitCost" class="form-control" />
-					<span asp-validation-for="UnitCost" class="text-danger"></span>
+				<div class="col-4">
+				<div class="mb-2">
+					<label asp-for="UnitCost" class="control-label">Custo de Unidade Diário</label>
+					<div class="input-group">
+						<input asp-for="UnitCost" class="form-control" id="unitCost" required/>
+						<div class="input-group-append">
+								<span class="input-group-text">,00 €</span>
+						</div>
+					</div>
 				</div>
-					<div class="form-group mb-2">
-						<label class="control-label">Desconto da Tabela</label>
-						<input asp-for="DescontoTabela" class="form-control" />
-						<span asp-validation-for="DescontoTabela" class="text-danger"></span>
+					<div class="mb-2">
+						<label asp-for="DescontoTabela" class="control-label">Desconto da Tabela</label>
+						<div class="input-group">
+							<input asp-for="DescontoTabela" class="form-control" id="descTabela" required/>
+							<div class="input-group-append">
+								<span class="input-group-text">,00 €</span>
+							</div>
+						</div>
 					</div>
-					<div class="form-group mb-2">
-						<label class="control-label">Preço Parcial</label>
-						<input asp-for="PrecoParcial" class="form-control" />
-						<span asp-validation-for="PrecoParcial" class="text-danger"></span>
+					<div class="mb-2">
+						<label asp-for="PrecoParcial" class="control-label">Preço Parcial</label>
+						<div class="input-group">
+							<input asp-for="PrecoParcial" class="form-control" id="precoParcial" required/>
+							<div class="input-group-append">
+								<span class="input-group-text">,00 €</span>
+							</div>
+						</div>	
 					</div>
-					<div class="form-group mb-2">
-						<label class="control-label">Custo da Tabela</label>
-						<input asp-for="CustoTabela" class="form-control" />
-						<span asp-validation-for="CustoTabela" class="text-danger"></span>
+					<div class="mb-2">
+						<label asp-for="CustoTabela" class="control-label">Custo da Tabela</label>
+						<div class="input-group">
+							<input asp-for="CustoTabela" class="form-control" id="custoTabela" required/>
+							<div class="input-group-append">
+								<span class="input-group-text">,00 €</span>
+							</div>
+						</div>
 					</div>
-					<div class="form-group mb-2">
-						<label class="control-label">Custo do Desconto 1</label>
-						<input asp-for="CustoDesc1" class="form-control" />
-						<span asp-validation-for="CustoDesc1" class="text-danger"></span>
+					<div class="mb-2">
+						<label asp-for="CustoDesc1" class="control-label">Custo do Desconto 1</label>
+						<div class="input-group">
+							<input asp-for="CustoDesc1" class="form-control" id="custoDesc1" required/>
+							<div class="input-group-append">
+								<span class="input-group-text">,00 €</span>
+							</div>
+						</div>	
 					</div>
-					<div class="form-group mb-2">
-						<label class="control-label">Custo do Desconto 2</label>
-						<input asp-for="CustoDesc2" class="form-control" />
-						<span asp-validation-for="CustoDesc2" class="text-danger"></span>
+					<div class="mb-2">
+						<label asp-for="CustoDesc2" class="control-label">Custo do Desconto 2</label>
+						<div class="input-group">
+							<input asp-for="CustoDesc2" class="form-control" id="custoDesc2" required/>
+							<div class="input-group-append">
+								<span class="input-group-text">,00 €</span>
+							</div>
+						</div>			
 					</div>
-					<div class="form-group mb-2">
-						<label class="control-label">Custo do Desconto 3</label>
-						<input asp-for="CustoDesc3" class="form-control" />
-						<span asp-validation-for="CustoDesc3" class="text-danger"></span>
+					<div class="mb-2">
+						<label asp-for="CustoDesc3" class="control-label">Custo do Desconto 3</label>
+						<div class="input-group">
+							<input asp-for="CustoDesc3" class="form-control" id="custoDesc3" required/>
+							<div class="input-group-append">
+								<span class="input-group-text">,00 €</span>
+							</div>
+						</div>	
 					</div>
-					<div class="form-group mb-2">
-						<label class="control-label">Custo Total</label>
-						<input asp-for="TotalCost" class="form-control" />
-						<span asp-validation-for="TotalCost" class="text-danger"></span>
+					<div class="mb-2">
+						<label asp-for="TotalCost" class="control-label">Custo Total</label>
+						<div class="input-group">
+							<input asp-for="TotalCost" class="form-control" id="custoTotal" readonly/>
+							<div class="input-group-append">
+								<span class="input-group-text">,00 €</span>
+							</div>
+						</div>
+						
 					</div>
-					<div class="form-group mb-2">
-						<label class="control-label">Preço Total</label>
-						<input asp-for="TotalPrice" class="form-control" />
-						<span asp-validation-for="TotalPrice" class="text-danger"></span>
+					<div class="mb-2">
+						<label asp-for="TotalPrice" class="control-label">Preço Total</label>
+						<div class="input-group">
+							<input asp-for="TotalPrice" class="form-control" id="precoTotal" readonly/>
+							<div class="input-group-append">
+								<span class="input-group-text">,00 €</span>
+							</div>
+						</div>
 					</div>
-					<div class="form-group mb-2">
-						<label class="control-label">Margem</label>
-						<input asp-for="Margin" class="form-control" />
-						<span asp-validation-for="Margin" class="text-danger"></span>
+					<div class="mb-2">
+						<label asp-for="Margin" class="control-label">Margem</label>
+						<div class="input-group">
+							<input asp-for="Margin" class="form-control" id="margem" readonly/>
+							<div class="input-group-append">
+								<span class="input-group-text">,00 €</span>
+							</div>
+						</div>
 					</div>
-					<div class="form-group mb-2">
-						<label class="control-label">MG</label>
-						<input asp-for="MG" class="form-control" />
-						<span asp-validation-for="MG" class="text-danger"></span>
+					<div class="mb-2">
+						<label asp-for="MG" class="control-label">MG</label>
+						<div class="input-group">
+							<input asp-for="MG" class="form-control" id="MG" readonly/>
+							<div class="input-group-append">
+								<span class="input-group-text">%</span>
+							</div>
+						</div>
+						
 					</div>
 					<div class="form-group form-check">
 						<label class="form-check-label">
@@ -177,7 +217,109 @@
 	</div>
 </div>
 
+<script>
 
+	 var qnt = document.getElementById("qnt");
+    var unitPrice = document.getElementById("unitPrice");
+    var unitCost = document.getElementById("unitCost");
+    var descTabela = document.getElementById("descTabela");
+    var precoParcial = document.getElementById("precoParcial");
+    var custoTabela = document.getElementById("custoTabela");
+    var custoDesc1 = document.getElementById("custoDesc1");
+    var custoDesc2 = document.getElementById("custoDesc2");
+    var custoDesc3 = document.getElementById("custoDesc3");
+
+    var custoTotal = document.getElementById("custoTotal");
+    var precoTotal = document.getElementById("precoTotal");
+    var margem = document.getElementById("margem");
+    var MG = document.getElementById("MG");
+
+    qnt.addEventListener("keyup", cost);
+    unitCost.addEventListener("keyup", cost);
+    unitPrice.addEventListener("keyup", price);
+    custoDesc1.addEventListener("keyup", price);
+    custoDesc2.addEventListener("keyup", price);
+    custoDesc3.addEventListener("keyup", price);
+    descTabela.addEventListener("keyup", price);
+    precoParcial.addEventListener("keyup", price);
+
+    function cost(){
+        if(unitCost.value != ""){
+            var q = qnt.value;
+
+            if(q == ""){
+                q = 1;
+            }
+
+            custoTotal.value = parseInt(q) * unitCost.value;
+        }
+
+        if(custoTotal.value != "" && precoTotal.value != ""){
+            margem.value = precoTotal.value - custoTotal.value;
+            MG.value = margem.value / precoTotal.value
+        }
+    }
+
+    function price(){
+        if(unitPrice.value != ""){
+            var desc1 = custoDesc1.value;
+            var desc2 = custoDesc2.value;
+            var desc3 = custoDesc3.value;
+            var precoP = precoParcial.value;
+            var descT = descTabela.value;
+
+            if(desc1 == ""){
+                desc1 = 0;
+            }
+
+            if(desc2 == ""){
+                desc2 = 0;
+            }
+
+            if(desc3 == ""){
+                desc3 = 0;
+            }
+
+            if(precoP == ""){
+                precoP = 0;
+            }
+
+            if(descT == ""){
+                descT = 0;
+            }
+
+            var descs = parseInt(desc1) + parseInt(desc2) + parseInt(desc3);
+
+            precoTotal.value = ((unitPrice.value - parseInt(descT)) + parseInt(precoP)) - descs;
+
+            if(custoTotal.value != "" && precoTotal.value != ""){
+                margem.value = precoTotal.value - custoTotal.value;
+                MG.value = margem.value / precoTotal.value
+            }
+        }
+    }
+
+    (function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName('needs-validation');
+    // Loop over them and prevent submission
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
+
+    
+
+</script>
 
 @section Scripts {
 	@{

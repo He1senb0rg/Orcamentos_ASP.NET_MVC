@@ -375,6 +375,7 @@
 							var unitPrice = unitPriceCol[row];
 							var descTabela = descTabelaCol[row];
 							var precoParcial = precoParcialCol[row];
+							//AINDA FALTA O CUSTO TABELA
 							var custoDescs = custoDesc1Col[row] + custoDesc2Col[row] + custoDesc3Col[row]
 							var totalPrice = ((unitPrice - descTabela) + precoParcial) - custoDescs;
 							var margin = totalPrice - totalCost
@@ -474,6 +475,7 @@
 			doc.text('Tabela de Orçamentos - ' + dateString, 10, 10);
 
 			doc.autoTable({
+				margin: {left: 5, right: 5},
 				head: [colHeaders],
 				body: data,
 				styles: {
