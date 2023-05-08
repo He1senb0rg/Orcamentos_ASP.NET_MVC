@@ -22,7 +22,7 @@ namespace Orcamentos.Controllers
         // GET: BusinessUnits
         public async Task<IActionResult> Index()
         {
-            List<BusinessUnit> listaBu = _context.businessUnits.Include(p => p.BuManager).ToList();
+            List<BusinessUnit> listaBu = _context.businessUnits.Include(p => p.BuManager).Where(d => d.Ativo == true).ToList();
 
             IEnumerable<SelectListItem> buManagersList = DBHelper.FillBuManagers(_context);
             ViewBag.buManagersList = buManagersList;
@@ -165,9 +165,32 @@ namespace Orcamentos.Controllers
             var businessUnit = await _context.businessUnits.FindAsync(id);
             if (businessUnit != null)
             {
-                businessUnit.Ativo = false;
-                _context.SaveChanges();
-                _toastNotification.AddSuccessToastMessage("Unidade de Negócio eliminada com sucesso");
+                if (businessUnit.Id != 1)
+                {
+                    businessUnit.Ativo = false;
+
+                    List<Orcamento> listaOrcamentos =
+                    _context.orcamentos
+                    .Include(o => o.OrcamentoNome)
+                    .Include(o => o.BusinessUnit)
+                    .Include(o => o.Profile)
+                    .Include(o => o.RevenueType)
+                    .Where(d => d.businessUnitId == businessUnit.Id)
+                    .ToList();
+
+                    foreach (var orcamento in listaOrcamentos)
+                    {
+                        orcamento.businessUnitId = 1;
+                    }
+
+                    _context.SaveChanges();
+                    _toastNotification.AddSuccessToastMessage("Unidade de Negócio eliminada com sucesso");
+                }
+                else
+                {
+                    _toastNotification.AddErrorToastMessage("Não é possivel eliminar esta Unidade de Negócio");
+                }
+                
             }
 
             await _context.SaveChangesAsync();
@@ -195,9 +218,55 @@ namespace Orcamentos.Controllers
 
         public IActionResult GetTableBusinessUnits()
         {
-            List<BusinessUnit> data = _context.businessUnits.Include(o => o.BuManager).ToList();
+            List<BusinessUnit> data = _context.businessUnits.Include(o => o.BuManager).Where(d => d.Ativo == true).ToList();
 
             return Ok(data);
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> deleteOnExcelAsync([FromBody] int idBusinessUnit)
+        {
+
+            var businessUnit = await _context.businessUnits.FindAsync(idBusinessUnit);
+            if (businessUnit.Id != 1)
+            {
+                businessUnit.Ativo = false;
+
+                List<Orcamento> listaOrcamentos =
+                    _context.orcamentos
+                    .Include(o => o.OrcamentoNome)
+                    .Include(o => o.BusinessUnit)
+                    .Include(o => o.Profile)
+                    .Include(o => o.RevenueType)
+                    .Where(d => d.businessUnitId == businessUnit.Id)
+                    .ToList();
+
+                foreach (var orcamento in listaOrcamentos)
+                {
+                    orcamento.businessUnitId = 1;
+                }
+
+                _context.Update(businessUnit);
+
+                _context.SaveChanges();
+                _toastNotification.AddSuccessToastMessage("Unidade de Negócio eliminada com sucesso");
+
+
+            }
+            else
+            {
+                _toastNotification.AddErrorToastMessage("Não é possivel eliminar esta Unidade de Negócio");
+            }
+
+            var data = _context.businessUnits.Where(d => d.Ativo == true).Select(o => new {
+                o.Id,
+                o.Name,
+                BuManagerId = o.buManagerId,
+                BuManagerName = o.BuManager.Nome,
+                o.Ativo
+            }).ToList();
+
+            return Json(data);
         }
 
         [HttpPost]
@@ -208,7 +277,7 @@ namespace Orcamentos.Controllers
             _context.SaveChanges();
             _toastNotification.AddSuccessToastMessage("Linha adicionada");
 
-            var linhas = _context.businessUnits.Select(o => new {
+            var linhas = _context.businessUnits.Where(d => d.Ativo == true).Select(o => new {
                 o.Id,
                 o.Name,
                 BuManagerId = o.buManagerId,

@@ -162,6 +162,24 @@
 		</tbody>
 	</table>
 
+	<div class="modal fade" id="eliminarModalExcel" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title text-break" id="eliminarModalNomeExcel">Eliminar Orçamento Nº</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body text-break">
+				Tem a certeza que pretende eliminar o Orçamento Nº<span id="eliminarModalDescExcel"></span> ? <h6>Esta ação não pode ser desfeita</h6>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+				<button type="submit" class="btn btn-danger" data-id="" id="eliminarModalButtonExcel">Eliminar</button>
+			</div>
+		</div>
+	</div>
+</div>
+
 	<div class="modal fade" id="eliminarModal" tabindex="-1">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -209,6 +227,19 @@
         document.getElementById('eliminarModalDesc').innerHTML = idOrcamento;
 
 		$("#eliminarModal").modal("show");
+	}
+
+	function showModalDeleteExcel(id) {
+
+		var id_value = document.getElementById(id);
+		const idOrcamento = id_value.getAttribute("data-id");
+
+		document.getElementById('eliminarModalNomeExcel').innerHTML = "Eliminar Orçamento Nº" + idOrcamento;
+		document.getElementById('eliminarModalDescExcel').innerHTML = idOrcamento;
+
+		document.getElementById('eliminarModalButtonExcel').setAttribute("data-id", idOrcamento);
+
+		$("#eliminarModalExcel").modal("show");
 	}
 
 		let euro = new Intl.NumberFormat('pt-PT', {
@@ -273,8 +304,7 @@
 			o.TotalCost,
 			o.TotalPrice,
 			o.Margin,
-			o.MG,
-			o.Ativo
+			o.MG
 			})));
 
 		var colHeaders = [
@@ -306,7 +336,14 @@
 			'Preço Total',
 			'Margem',
 			'MG',
-            'Ativo'];
+            'Eliminar'];
+
+			var actionRenderer = function (instance, td, row, col, prop, value, cellProperties) {
+				var id = instance.getDataAtRowProp(row, 'id');
+				var $button = $('<button type="button" class="btn btn-sm btn-danger rounded-2" style="font-size: 0.8em;" id="EliminarButtonExcel'+id+'" data-id="'+id+'" onclick="showModalDeleteExcel(this.id)"></button>');
+				$button.html("Eliminar")
+				$(td).css('text-align', 'center').empty().append($button);
+			};
 
 		var container = document.getElementById('excelOrcamentos');
 
@@ -356,7 +393,7 @@
 				{ data: 'totalPrice', type: 'numeric', numericFormat: formatEUR },
 				{ data: 'margin', type: 'numeric', numericFormat: formatEUR },
 				{ data: 'mg', type: 'numeric', numericFormat: { pattern: { output: "percent", mantissa: 1 } }, readOnly: true },
-				{ data: 'ativo', type: 'checkbox' }
+				{ data: 'eliminar', renderer: actionRenderer, readOnly: true }
 			],
 			afterChange: function (changes, source) {
 				if (source === 'edit') {
@@ -621,6 +658,33 @@
 			});
 		}
 
+		function deleteOnExcel(){
+
+		var id_value = document.getElementById("eliminarModalButtonExcel");
+		const idOrcamento = id_value.getAttribute("data-id");
+
+		$("#eliminarModalExcel").modal("hide");
+
+		$.ajax({
+				type: "POST",
+				url: "/OrcamentoNomes/deleteOnExcelOrcamento",
+				data: idOrcamento,
+				contentType: "application/json; charset=utf-8;",
+				dataType: "json",
+				success: function (data) {
+
+					hot.loadData(data);
+					getTable();
+				},
+				error: function (xhr, status, error) {
+					console.log(error);
+				}
+			});
+		}
+
+		var buttonDelete = document.getElementById("eliminarModalButtonExcel")
+		buttonDelete.addEventListener("click", deleteOnExcel)
+
 		function addNewRow() {
 
 			var novaLinha = {
@@ -647,7 +711,7 @@
 				TotalPrice: 0,
 				Margin: 0,
 				MG: 0.00,
-				Ativo: false
+				Ativo: true
 			};
 
 

@@ -22,7 +22,7 @@ namespace Orcamentos.Controllers
         // GET: Profiles
         public async Task<IActionResult> Index()
         {
-            List<Profile> listaProfiles = _context.profiles.Include(o => o.ProfileLevel).ToList();
+            List<Profile> listaProfiles = _context.profiles.Include(o => o.ProfileLevel).Where(d => d.Ativo == true).ToList();
 
             IEnumerable<SelectListItem> profileLevelsList = DBHelper.FillProfileLevels(_context);
             ViewBag.profileLevelsList = profileLevelsList;
@@ -166,11 +166,33 @@ namespace Orcamentos.Controllers
             var profile = await _context.profiles.FindAsync(id);
             if (profile != null)
             {
-                profile.Ativo = false;
-                _context.SaveChanges();
-                _toastNotification.AddSuccessToastMessage("Perfil eliminado com sucesso");
-            }
+                if (profile.Id != 1)
+                {
+                    profile.Ativo = false;
 
+                    List<Orcamento> listaOrcamentos =
+                    _context.orcamentos
+                    .Include(o => o.OrcamentoNome)
+                    .Include(o => o.BusinessUnit)
+                    .Include(o => o.Profile)
+                    .Include(o => o.RevenueType)
+                    .Where(d => d.profileId == profile.Id)
+                    .ToList();
+
+                    foreach (var orcamento in listaOrcamentos)
+                    {
+                        orcamento.profileId = 1;
+                    }
+
+                    _context.SaveChanges();
+                    _toastNotification.AddSuccessToastMessage("Perfil eliminado com sucesso");
+                }
+                else
+                {
+                    _toastNotification.AddErrorToastMessage("Não é possivel eliminar este Perfil");
+                }
+            }
+            
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
@@ -196,9 +218,55 @@ namespace Orcamentos.Controllers
 
         public IActionResult GetTableProfiles()
         {
-            List<Profile> data = _context.profiles.Include(o => o.ProfileLevel).ToList();
+            List<Profile> data = _context.profiles.Include(o => o.ProfileLevel).Where(d => d.Ativo == true).ToList();
 
             return Ok(data);
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> deleteOnExcelAsync([FromBody] int idProfile)
+        {
+
+            var profile = await _context.profiles.FindAsync(idProfile);
+            if (profile.Id != 1)
+            {
+                profile.Ativo = false;
+
+                List<Orcamento> listaOrcamentos =
+                    _context.orcamentos
+                    .Include(o => o.OrcamentoNome)
+                    .Include(o => o.BusinessUnit)
+                    .Include(o => o.Profile)
+                    .Include(o => o.RevenueType)
+                    .Where(d => d.profileId == profile.Id)
+                    .ToList();
+
+                foreach (var orcamento in listaOrcamentos)
+                {
+                    orcamento.profileId = 1;
+                }
+
+                _context.Update(profile);
+
+                _context.SaveChanges();
+                _toastNotification.AddSuccessToastMessage("Perfil eliminado com sucesso");
+
+
+            }
+            else
+            {
+                _toastNotification.AddErrorToastMessage("Não é possivel eliminar este Perfil");
+            }
+
+            var data = _context.profiles.Where(d => d.Ativo == true).Select(o => new {
+                o.Id,
+                o.Name,
+                ProfileLevelId = o.profileLevelId,
+                ProfileLevelName = o.ProfileLevel.Name,
+                o.Ativo
+            }).ToList();
+
+            return Json(data);
         }
 
         [HttpPost]
@@ -209,7 +277,7 @@ namespace Orcamentos.Controllers
             _context.SaveChanges();
             _toastNotification.AddSuccessToastMessage("Linha adicionada");
 
-            var linhas = _context.profiles.Select(o => new {
+            var linhas = _context.profiles.Where(d => d.Ativo == true).Select(o => new {
                 o.Id,
                 o.Name,
                 ProfileLevelId = o.profileLevelId,

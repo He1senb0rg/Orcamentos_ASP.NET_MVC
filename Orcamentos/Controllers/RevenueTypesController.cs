@@ -20,7 +20,7 @@ namespace Orcamentos.Controllers
         // GET: RevenueTypes
         public async Task<IActionResult> Index()
         {
-            List<RevenueType> revenueTypes = _context.revenueTypes.ToList();
+            List<RevenueType> revenueTypes = _context.revenueTypes.Where(d => d.Ativo == true).ToList();
 
            return View(revenueTypes);
         }
@@ -149,9 +149,31 @@ namespace Orcamentos.Controllers
             var revenueType = await _context.revenueTypes.FindAsync(id);
             if (revenueType != null)
             {
-                revenueType.Ativo = false;
-                _context.SaveChanges();
-                _toastNotification.AddSuccessToastMessage("Tipo de Rendimento eliminado com sucesso");
+                if(revenueType.Id != 1)
+                {
+                    revenueType.Ativo = false;
+
+                    List<Orcamento> listaOrcamentos =
+                    _context.orcamentos
+                    .Include(o => o.OrcamentoNome)
+                    .Include(o => o.BusinessUnit)
+                    .Include(o => o.Profile)
+                    .Include(o => o.RevenueType)
+                    .Where(d => d.revenueTypeId == revenueType.Id)
+                    .ToList();
+
+                    foreach (var orcamento in listaOrcamentos)
+                    {
+                        orcamento.revenueTypeId = 1;
+                    }
+
+                    _context.SaveChanges();
+                    _toastNotification.AddSuccessToastMessage("Tipo de Rendimento eliminado com sucesso");
+                }
+                else
+                {
+                    _toastNotification.AddErrorToastMessage("Não é possivel eliminar este Tipo de Rendimento");
+                }
             }
 
             await _context.SaveChangesAsync();
@@ -177,9 +199,49 @@ namespace Orcamentos.Controllers
             return Ok(revenueTypes);
         }
 
+        [HttpPost]
+        public async Task<JsonResult> deleteOnExcelAsync([FromBody] int idRevenueType)
+        {
+
+            var revenueType = await _context.revenueTypes.FindAsync(idRevenueType);
+            if (revenueType.Id != 1)
+            {
+                revenueType.Ativo = false;
+
+                List<Orcamento> listaOrcamentos =
+                    _context.orcamentos
+                    .Include(o => o.OrcamentoNome)
+                    .Include(o => o.BusinessUnit)
+                    .Include(o => o.Profile)
+                    .Include(o => o.RevenueType)
+                    .Where(d => d.revenueTypeId == revenueType.Id)
+                    .ToList();
+
+                foreach (var orcamento in listaOrcamentos)
+                {
+                    orcamento.revenueTypeId = 1;
+                }
+
+                _context.Update(revenueType);
+
+                _context.SaveChanges();
+                _toastNotification.AddSuccessToastMessage("Tipo de Rendimento eliminado com sucesso");
+
+                
+            }
+            else
+            {
+                _toastNotification.AddErrorToastMessage("Não é possivel eliminar este Tipo de Rendimento");
+            }
+
+            List<RevenueType> data = _context.revenueTypes.Where(d => d.Ativo == true).ToList();
+
+            return Json(data);
+        }
+
         public IActionResult GetTableRevenueTypes()
         {
-            List<RevenueType> data = _context.revenueTypes.ToList();
+            List<RevenueType> data = _context.revenueTypes.Where(d => d.Ativo == true).ToList();
 
             return Ok(data);
         }
@@ -192,7 +254,7 @@ namespace Orcamentos.Controllers
             _context.SaveChanges();
             _toastNotification.AddSuccessToastMessage("Linha adicionada");
 
-            var linhas = _context.revenueTypes.ToList();
+            var linhas = _context.revenueTypes.Where(d => d.Ativo == true).ToList();
 
             return Json(linhas);
         }

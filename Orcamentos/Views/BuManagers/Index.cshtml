@@ -68,7 +68,7 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title text-break" id="eliminarModalNome">Eliminar Orçamento Nº</h5>
+				<h5 class="modal-title text-break" id="eliminarModalNome">Eliminar Gestor de Negócios Nº</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body text-break">
@@ -79,6 +79,24 @@
 				<form id="eliminarModalForm" method="POST">
 					<button type="submit" class="btn btn-danger">Eliminar</button>
 				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="eliminarModalExcel" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title text-break" id="eliminarModalNomeExcel">Eliminar Gestor de Negócios Nº</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body text-break">
+				Tem a certeza que pretende eliminar o Gestor de Negócios Nº<span id="eliminarModalDescExcel"></span> ? <h6>Esta ação não pode ser desfeita</h6>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+				<button type="submit" class="btn btn-danger" data-id="" id="eliminarModalButtonExcel">Eliminar</button>
 			</div>
 		</div>
 	</div>
@@ -110,6 +128,19 @@
 		$("#eliminarModal").modal("show");
 	}
 
+	function showModalDeleteExcel(id) {
+
+		var id_value = document.getElementById(id);
+		const idBuManagers = id_value.getAttribute("data-id");
+
+		document.getElementById('eliminarModalNomeExcel').innerHTML = "Eliminar Gestor de Negócios Nº" + idBuManagers;
+		document.getElementById('eliminarModalDescExcel').innerHTML = idBuManagers;
+
+		document.getElementById('eliminarModalButtonExcel').setAttribute("data-id", idBuManagers);
+
+		$("#eliminarModalExcel").modal("show");
+	}
+
 	var buttonTable = document.getElementById("changeTableButton")
 
 	function changeTable() {
@@ -136,14 +167,20 @@
 
 			.Select(o => new {
 			o.Id,
-			o.Nome,
-			o.Ativo
+			o.Nome
 			})));
 
 		var colHeaders = [
 			'ID',
 			'Nome',
-			'Ativo'];
+			'Eliminar'];
+
+			var actionRenderer = function (instance, td, row, col, prop, value, cellProperties) {
+				var id = instance.getDataAtRowProp(row, 'id');
+				var $button = $('<button type="button" class="btn btn-sm btn-danger rounded-2" style="font-size: 0.8em;" id="EliminarButtonExcel'+id+'" data-id="'+id+'" onclick="showModalDeleteExcel(this.id)"></button>');
+				$button.html("Eliminar")
+				$(td).css('text-align', 'center').empty().append($button);
+			};
 
 		var container = document.getElementById('excelOrcamentos');
 
@@ -153,7 +190,7 @@
 			columns: [
 				{ data: 'id', readOnly: true },
 				{ data: 'nome', type: 'text' },
-				{ data: 'ativo', type: 'checkbox' }
+				{ data: 'eliminar', renderer: actionRenderer, readOnly: true }
 			],
 
 			language: 'pt-BR',
@@ -280,9 +317,10 @@
 							'</div>' +
 							'</div>' +
 							'</td>' +
-
 							'</tr>';
+						i += 1
 						tableBody.append(row);
+						
 					});
 				},
 				error: function (xhr, status, error) {
@@ -292,11 +330,38 @@
 
 		}
 
+		function deleteOnExcel(){
+
+		var id_value = document.getElementById("eliminarModalButtonExcel");
+		const idBuManagers = id_value.getAttribute("data-id");
+
+		$("#eliminarModalExcel").modal("hide");
+
+		$.ajax({
+				type: "POST",
+				url: "/BuManagers/deleteOnExcel",
+				data: idBuManagers,
+				contentType: "application/json; charset=utf-8;",
+				dataType: "json",
+				success: function (data) {
+
+					hot.loadData(data);
+					getTable();
+				},
+				error: function (xhr, status, error) {
+					console.log(error);
+				}
+			});
+		}
+
+		var buttonDelete = document.getElementById("eliminarModalButtonExcel")
+		buttonDelete.addEventListener("click", deleteOnExcel)
+
 		function addNewRow() {
 
 			var novaLinha = {
 				Nome: "Não definido",
-				Ativo: false
+				Ativo: true
 			};
 
 

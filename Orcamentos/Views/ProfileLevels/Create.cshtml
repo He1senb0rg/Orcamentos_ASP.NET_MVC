@@ -16,9 +16,9 @@
                 <label asp-for="Name" class="control-label">Nome</label>
                 <input asp-for="Name" class="form-control" required />
             </div>
-            <div class="form-group form-check mb-2">
+            <div class="form-group form-check d-none">
                 <label asp-for="Ativo" class="form-check-label">
-                    <input class="form-check-input" asp-for="Ativo" /> @Html.DisplayNameFor(model => model.Ativo)
+                    <input class="form-check-input" asp-for="Ativo" checked /> @Html.DisplayNameFor(model => model.Ativo)
                 </label>
             </div>
             <div class="form-group">

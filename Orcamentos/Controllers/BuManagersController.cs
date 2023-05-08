@@ -20,7 +20,7 @@ namespace Orcamentos.Controllers
         // GET: BuManagers
         public async Task<IActionResult> Index()
         {
-            List<BuManager> listaBuManagers = _context.buManagers.ToList();
+            List<BuManager> listaBuManagers = _context.buManagers.Where(d => d.Ativo == true).ToList();
 
             return View(listaBuManagers);
         }
@@ -148,9 +148,28 @@ namespace Orcamentos.Controllers
             var buManager = await _context.buManagers.FindAsync(id);
             if (buManager != null)
             {
-                buManager.Ativo = false;
-                _context.SaveChanges();
-                _toastNotification.AddSuccessToastMessage("Gestor de Negócio eliminado com sucesso");
+                if (buManager.Id != 1)
+                {
+                    buManager.Ativo = false;
+
+                    List<BusinessUnit> listaBusinessUnit =
+                    _context.businessUnits
+                    .Where(d => d.buManagerId == buManager.Id)
+                    .ToList();
+
+                    foreach (var business in listaBusinessUnit)
+                    {
+                        business.buManagerId = 1;
+                    }
+
+                    _context.SaveChanges();
+                    _toastNotification.AddSuccessToastMessage("Gestor de Negócios eliminado com sucesso");
+                }
+                else
+                {
+                    _toastNotification.AddErrorToastMessage("Não é possivel eliminar este Gestor de Negócios");
+                }
+                
             }
 
             await _context.SaveChangesAsync();
@@ -178,9 +197,45 @@ namespace Orcamentos.Controllers
 
         public IActionResult GetTableBuManagers()
         {
-            List<BuManager> data = _context.buManagers.ToList();
+            List<BuManager> data = _context.buManagers.Where(d => d.Ativo == true).ToList();
 
             return Ok(data);
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> deleteOnExcelAsync([FromBody] int idBuManager)
+        {
+
+            var buManager = await _context.buManagers.FindAsync(idBuManager);
+            if (buManager.Id != 1)
+            {
+                buManager.Ativo = false;
+
+                List<BusinessUnit> listaBusinessUnit =
+                    _context.businessUnits
+                    .Where(d => d.buManagerId == buManager.Id)
+                    .ToList();
+
+                foreach (var business in listaBusinessUnit)
+                {
+                    business.buManagerId = 1;
+                }
+
+                _context.Update(buManager);
+
+                _context.SaveChanges();
+                _toastNotification.AddSuccessToastMessage("Gestor de Negócios eliminado com sucesso");
+
+
+            }
+            else
+            {
+                _toastNotification.AddErrorToastMessage("Não é possivel eliminar este Gestor de Negócios");
+            }
+
+            List<BuManager> data = _context.buManagers.Where(d => d.Ativo == true).ToList();
+
+            return Json(data);
         }
 
         [HttpPost]
@@ -191,7 +246,7 @@ namespace Orcamentos.Controllers
             _context.SaveChanges();
             _toastNotification.AddSuccessToastMessage("Linha adicionada");
 
-            var linhas = _context.buManagers.ToList();
+            var linhas = _context.buManagers.Where(d => d.Ativo == true).ToList();
 
             return Json(linhas);
         }

@@ -26,9 +26,9 @@ namespace Orcamentos.Controllers
         // GET: OrcamentoNomes
         public async Task<IActionResult> Index()
         {
-              return _context.orcamentoNomes != null ? 
-                          View(await _context.orcamentoNomes.ToListAsync()) :
-                          Problem("Entity set 'DataContext.orcamentoNomes'  is null.");
+            List<OrcamentoNome> listaOrcamentoNomes = _context.orcamentoNomes.Where(d => d.Ativo == true).ToList();
+
+            return View(listaOrcamentoNomes);
         }
 
         // GET: OrcamentoNomes/Details/5
@@ -89,7 +89,7 @@ namespace Orcamentos.Controllers
             {
                 _context.Add(orcamentoNome);
                 await _context.SaveChangesAsync();
-                _toastNotification.AddSuccessToastMessage("Nome do Orçamento criado com sucesso");
+                _toastNotification.AddSuccessToastMessage("Nome de Orçamento criado com sucesso");
                 return RedirectToAction(nameof(Index));
             }
             return View(orcamentoNome);
@@ -129,7 +129,7 @@ namespace Orcamentos.Controllers
                 {
                     _context.Update(orcamentoNome);
                     await _context.SaveChangesAsync();
-                    _toastNotification.AddSuccessToastMessage("Nome do Orçamento editado com sucesso");
+                    _toastNotification.AddSuccessToastMessage("Nome de Orçamento editado com sucesso");
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -179,25 +179,31 @@ namespace Orcamentos.Controllers
 
             if (orcamentoNome != null)
             {
-                orcamentoNome.Ativo = false;
-
-                List<Orcamento> listaOrcamentos =
-                _context.orcamentos
-                .Include(o => o.OrcamentoNome)
-                .Include(o => o.BusinessUnit)
-                .Include(o => o.Profile)
-                .Include(o => o.RevenueType)
-                .Where(d => d.orcamentoNomeId == orcamentoNome.Id)
-                .ToList();
-
-                foreach(var orcamento in listaOrcamentos)
+                if (orcamentoNome.Id != 1)
                 {
-                    orcamento.Ativo = false;
+                    orcamentoNome.Ativo = false;
+
+                    List<Orcamento> listaOrcamentos =
+                    _context.orcamentos
+                    .Include(o => o.OrcamentoNome)
+                    .Include(o => o.BusinessUnit)
+                    .Include(o => o.Profile)
+                    .Include(o => o.RevenueType)
+                    .Where(d => d.orcamentoNomeId == orcamentoNome.Id)
+                    .ToList();
+
+                    foreach (var orcamento in listaOrcamentos)
+                    {
+                        orcamento.orcamentoNomeId = 1;
+                    }
+
+                    _context.SaveChanges();
+                    _toastNotification.AddSuccessToastMessage("Nome de Orçamento eliminado com sucesso");
                 }
-
-
-                _context.SaveChanges();
-                _toastNotification.AddSuccessToastMessage("Nome do Orçamento eliminado com sucesso");
+                else
+                {
+                    _toastNotification.AddErrorToastMessage("Não é possivel eliminar este Nome de Orçamento");
+                }         
                 //_context.orcamentoNomes.Remove(orcamentoNome);
             }
             
@@ -214,7 +220,7 @@ namespace Orcamentos.Controllers
         {
             var orcamentoNome = await _context.orcamentoNomes.FindAsync(id);
 
-            var data = _context.orcamentos
+            var data = _context.orcamentos.Where(d => d.Ativo == true)
                 .Include(o => o.OrcamentoNome)
                 .Include(o => o.BusinessUnit)
                 .Include(o => o.Profile)
@@ -272,9 +278,49 @@ namespace Orcamentos.Controllers
 
         public IActionResult GetTableOrcamentoNomes()
         {
-            List<OrcamentoNome> data = _context.orcamentoNomes.ToList();
+            List<OrcamentoNome> data = _context.orcamentoNomes.Where(d => d.Ativo == true).ToList();
 
             return Ok(data);
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> deleteOnExcelAsync([FromBody] int idOrcamentoNome)
+        {
+
+            var orcamentoNome = await _context.orcamentoNomes.FindAsync(idOrcamentoNome);
+            if (orcamentoNome.Id != 1)
+            {
+                orcamentoNome.Ativo = false;
+
+                List<Orcamento> listaOrcamentos =
+                    _context.orcamentos
+                    .Include(o => o.OrcamentoNome)
+                    .Include(o => o.BusinessUnit)
+                    .Include(o => o.Profile)
+                    .Include(o => o.RevenueType)
+                    .Where(d => d.orcamentoNomeId == orcamentoNome.Id)
+                    .ToList();
+
+                foreach (var orcamento in listaOrcamentos)
+                {
+                    orcamento.orcamentoNomeId = 1;
+                }
+
+                _context.Update(orcamentoNome);
+
+                _context.SaveChanges();
+                _toastNotification.AddSuccessToastMessage("Nome de Orçamento eliminado com sucesso");
+
+
+            }
+            else
+            {
+                _toastNotification.AddErrorToastMessage("Não é possivel eliminar este Nome de Orçamento");
+            }
+
+            List<OrcamentoNome> data = _context.orcamentoNomes.Where(d => d.Ativo == true).ToList();
+
+            return Json(data);
         }
 
         [HttpPost]
@@ -285,7 +331,7 @@ namespace Orcamentos.Controllers
             _context.SaveChanges();
             _toastNotification.AddSuccessToastMessage("Linha adicionada");
 
-            var linhas = _context.orcamentoNomes.ToList();
+            var linhas = _context.orcamentoNomes.Where(d => d.Ativo == true).ToList();
 
             return Json(linhas);
         }
@@ -301,7 +347,7 @@ namespace Orcamentos.Controllers
             _context.SaveChanges();
             _toastNotification.AddSuccessToastMessage("Tabela guardada com sucesso");
 
-            var linhas = _context.orcamentos.Include(o => o.OrcamentoNome).Include(o => o.BusinessUnit).Include(o => o.Profile).Include(o => o.RevenueType).Select(o => new {
+            var linhas = _context.orcamentos.Include(o => o.OrcamentoNome).Include(o => o.BusinessUnit).Include(o => o.Profile).Include(o => o.RevenueType).Where(d => d.Ativo == true).Select(o => new {
                 o.Id,
                 OrcamentoNomeId = o.orcamentoNomeId,
                 OrcamentoName = o.OrcamentoNome.Nome,
@@ -344,6 +390,54 @@ namespace Orcamentos.Controllers
         //}
 
         [HttpPost]
+        public async Task<JsonResult> deleteOnExcelOrcamentoAsync([FromBody] int idOrcamento)
+        {
+
+            var orcamento = await _context.orcamentos.FindAsync(idOrcamento);
+
+            orcamento.Ativo = false;
+
+            _context.Update(orcamento);
+
+            _context.SaveChanges();
+            _toastNotification.AddSuccessToastMessage("Orçamento eliminado com sucesso");
+
+            var data = _context.orcamentos.Include(o => o.OrcamentoNome).Include(o => o.BusinessUnit).Include(o => o.Profile).Include(o => o.RevenueType).Where(d => d.Ativo == true).Select(o => new {
+                o.Id,
+                OrcamentoNomeId = o.orcamentoNomeId,
+                OrcamentoName = o.OrcamentoNome.Nome,
+                ProfileId = o.profileId,
+                ProfileName = o.Profile.Name,
+                RevenueTypeId = o.revenueTypeId,
+                RevenueTypeName = o.RevenueType.Nome,
+                BusinessUnitId = o.businessUnitId,
+                BusinessUnitName = o.BusinessUnit.Name,
+                o.Marca,
+                o.TipoUni,
+                o.Partnumb,
+                o.modelo,
+                o.SerialNumb,
+                o.ProductName,
+                o.Quantidade,
+                o.UnitPrice,
+                o.UnitCost,
+                o.DescontoTabela,
+                o.PrecoParcial,
+                o.CustoTabela,
+                o.CustoDesc1,
+                o.CustoDesc2,
+                o.CustoDesc3,
+                o.TotalCost,
+                o.TotalPrice,
+                o.Margin,
+                o.MG,
+                o.Ativo
+            }).ToList();
+
+            return Json(data);
+        }
+
+        [HttpPost]
         public JsonResult AddNewRowOrcamentos(Orcamento novaLinha)
         {
 
@@ -351,7 +445,7 @@ namespace Orcamentos.Controllers
             _context.SaveChanges();
             _toastNotification.AddSuccessToastMessage("Linha adicionada");
 
-            var linhas = _context.orcamentos.Include(o => o.OrcamentoNome).Include(o => o.BusinessUnit).Include(o => o.Profile).Include(o => o.RevenueType).Select(o => new {
+            var linhas = _context.orcamentos.Include(o => o.OrcamentoNome).Include(o => o.BusinessUnit).Include(o => o.Profile).Include(o => o.RevenueType).Where(d => d.Ativo == true).Select(o => new {
                 o.Id,
                 OrcamentoNomeId = o.orcamentoNomeId,
                 OrcamentoName = o.OrcamentoNome.Nome,

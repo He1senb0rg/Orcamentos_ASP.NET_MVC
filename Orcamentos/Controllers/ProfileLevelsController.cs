@@ -20,7 +20,7 @@ namespace Orcamentos.Controllers
         // GET: ProfileLevels
         public async Task<IActionResult> Index()
         {
-            List<ProfileLevel> listaProfileLevels = _context.profileLevels.ToList();
+            List<ProfileLevel> listaProfileLevels = _context.profileLevels.Where(d => d.Ativo == true).ToList();
 
             return View(listaProfileLevels);
         }
@@ -148,9 +148,27 @@ namespace Orcamentos.Controllers
             var profileLevel = await _context.profileLevels.FindAsync(id);
             if (profileLevel != null)
             {
-                profileLevel.Ativo = false;
-                _context.SaveChanges();
-                _toastNotification.AddSuccessToastMessage("Nivel de Perfil eliminado com sucesso");
+                if (profileLevel.Id != 1)
+                {
+                    profileLevel.Ativo = false;
+
+                    List<Profile> listaProfile =
+                    _context.profiles
+                    .Where(d => d.profileLevelId == profileLevel.Id)
+                    .ToList();
+
+                    foreach (var profile in listaProfile)
+                    {
+                        profile.profileLevelId = 1;
+                    }
+
+                    _context.SaveChanges();
+                    _toastNotification.AddSuccessToastMessage("Nivel de Perfil eliminado com sucesso");
+                }
+                else
+                {
+                    _toastNotification.AddErrorToastMessage("Não é possivel eliminar este Nivel de Perfil");
+                }
             }
 
             await _context.SaveChangesAsync();
@@ -178,9 +196,45 @@ namespace Orcamentos.Controllers
 
         public IActionResult GetTableProfileLevels()
         {
-            List<ProfileLevel> data = _context.profileLevels.ToList();
+            List<ProfileLevel> data = _context.profileLevels.Where(d => d.Ativo == true).ToList();
 
             return Ok(data);
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> deleteOnExcelAsync([FromBody] int idProfileLevel)
+        {
+
+            var profileLevel = await _context.profileLevels.FindAsync(idProfileLevel);
+            if (profileLevel.Id != 1)
+            {
+                profileLevel.Ativo = false;
+
+                List<Profile> listaProfile =
+                    _context.profiles
+                    .Where(d => d.profileLevelId == profileLevel.Id)
+                    .ToList();
+
+                foreach (var profile in listaProfile)
+                {
+                    profile.profileLevelId = 1;
+                }
+
+                _context.Update(profileLevel);
+
+                _context.SaveChanges();
+                _toastNotification.AddSuccessToastMessage("Nivel de Perfil eliminado com sucesso");
+
+
+            }
+            else
+            {
+                _toastNotification.AddErrorToastMessage("Não é possivel eliminar este Nivel de Perfil");
+            }
+
+            List<ProfileLevel> data = _context.profileLevels.Where(d => d.Ativo == true).ToList();
+
+            return Json(data);
         }
 
         [HttpPost]
@@ -191,7 +245,7 @@ namespace Orcamentos.Controllers
             _context.SaveChanges();
             _toastNotification.AddSuccessToastMessage("Linha adicionada");
 
-            var linhas = _context.profileLevels.ToList();
+            var linhas = _context.profileLevels.Where(d => d.Ativo == true).ToList();
 
             return Json(linhas);
         }
