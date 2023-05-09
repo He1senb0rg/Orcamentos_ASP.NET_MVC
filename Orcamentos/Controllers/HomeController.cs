@@ -23,15 +23,23 @@ namespace Orcamentos.Controllers
 
         public IActionResult Index()
         {
-            int totalOrcamentos = _context.orcamentos.Count();
-            decimal mediaPrecos = (decimal)_context.orcamentos.Average(o => o.TotalPrice);
-            decimal mediaCustos = (decimal)_context.orcamentos.Average(o => o.TotalCost);
+            int totalOrcamentos = 0;
+            decimal mediaPrecos = 0.0m;
+            decimal mediaCustos = 0.0m;
 
+            // Verificar se existem orçamentos ativos na base de dados
+            var orcamentosAtivos = _context.orcamentos.Where(o => o.Ativo == true);
+            if (orcamentosAtivos.Any())
+            {
+                totalOrcamentos = orcamentosAtivos.Count();
+                mediaPrecos = (decimal)orcamentosAtivos.Average(o => o.TotalPrice);
+                mediaCustos = (decimal)orcamentosAtivos.Average(o => o.TotalCost);
+            }
 
             ViewBag.TotalOrcamentos = totalOrcamentos;
             ViewBag.MediaPrecos = mediaPrecos;
             ViewBag.MediaCusto = mediaCustos;
-
+           
             return View();
         }
 

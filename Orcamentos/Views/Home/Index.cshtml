@@ -28,7 +28,14 @@
 </div>
 
 
-
+   @if (ViewBag.TotalOrcamentos == null || ViewBag.MediaPrecos == null || ViewBag.MediaCusto == null)
+        {
+            <div class="alert alert-warning" role="alert">
+                Não há orçamentos ativos para exibir.
+            </div>
+        }
+        else
+        {
     <div class="row mt-4">
         <div class="col-sm-4">
             <div class="card card-gradient">
@@ -60,7 +67,7 @@
             </div>
         </div>
     </div>
-
+    }
     <div class="row mt-4">
         <div class="col-sm-12">
             <div class="card">
