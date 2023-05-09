@@ -2,6 +2,9 @@
   "version": 3,
   "targets": {
     "net6.0": {
+      "Chart.js/3.7.1": {
+        "type": "package"
+      },
       "Handsontable/12.3.3": {
         "type": "package"
       },
@@ -4287,6 +4290,19 @@
     }
   },
   "libraries": {
+    "Chart.js/3.7.1": {
+      "sha512": "gJunTMEueTNdA5Hp92J9sv363msSemW+GSy1VtbrwjxCaMrp+/mgB20EdVezbP34dbM+h+A8G5XbEuL6tOJoCw==",
+      "type": "package",
+      "path": "chart.js/3.7.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "chart.js.3.7.1.nupkg.sha512",
+        "chart.js.nuspec",
+        "content/Scripts/chart.js",
+        "content/Scripts/chart.min.js"
+      ]
+    },
     "Handsontable/12.3.3": {
       "sha512": "qizY5ZUVxd5TuDezQ7rEg8WLRuVzHBqNhtS8xVFXlQsZolhK8f3oVwi0U5oND91dvomkPLB+Z4EGcIpSNz/GEg==",
       "type": "package",
@@ -11474,6 +11490,7 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "Chart.js >= 3.7.1",
       "Handsontable >= 12.3.3",
       "Microsoft.EntityFrameworkCore.SqlServer >= 6.0.16",
       "Microsoft.EntityFrameworkCore.Tools >= 6.0.16",
@@ -11482,24 +11499,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\2005h\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\warga\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\2005h\\Desktop\\Git_Projects\\Orcamentos_ASP.NET_MVC\\Orcamentos\\Orcamentos.csproj",
+      "projectUniqueName": "C:\\Users\\warga\\Documents\\GitHub\\Orcamentos_ASP.NET_MVC\\Orcamentos\\Orcamentos.csproj",
       "projectName": "Orcamentos",
-      "projectPath": "C:\\Users\\2005h\\Desktop\\Git_Projects\\Orcamentos_ASP.NET_MVC\\Orcamentos\\Orcamentos.csproj",
-      "packagesPath": "C:\\Users\\2005h\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\2005h\\Desktop\\Git_Projects\\Orcamentos_ASP.NET_MVC\\Orcamentos\\obj\\",
+      "projectPath": "C:\\Users\\warga\\Documents\\GitHub\\Orcamentos_ASP.NET_MVC\\Orcamentos\\Orcamentos.csproj",
+      "packagesPath": "C:\\Users\\warga\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\warga\\Documents\\GitHub\\Orcamentos_ASP.NET_MVC\\Orcamentos\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\2005h\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\warga\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -11507,7 +11519,6 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -11526,6 +11537,10 @@
       "net6.0": {
         "targetAlias": "net6.0",
         "dependencies": {
+          "Chart.js": {
+            "target": "Package",
+            "version": "[3.7.1, )"
+          },
           "Handsontable": {
             "target": "Package",
             "version": "[12.3.3, )"
@@ -11568,7 +11583,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
       }
     }
   }
