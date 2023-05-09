@@ -1,13 +1,76 @@
-﻿@{
+﻿@model Orcamento
+@{
     ViewData["Title"] = "Home Page";
 }
 
+<style>
+    .card-gradient {
+        background-image: linear-gradient(to bottom, #41154A, #704070);
+        color: white;
+    }
 
-<div class="center-img" >
+        .card-gradient h5 {
+            font-size: 1.6rem;
+        }
+
+        .card-gradient p {
+            font-size: 1.2rem;
+        }
+</style>
+<div class="container-fluid">
+
+    <div class="center-img" >
     <img style="
         display: block;
         margin: 0 auto;
         text-align: center;
     }" src="~/img/logo_brvantic_349x175.2e16d0ba.fill-279x140.png" alt="Descrição da imagem">
 </div>
-<p></p>
+
+
+
+    <div class="row mt-4">
+        <div class="col-sm-4">
+            <div class="card card-gradient">
+                <div class="card-body">
+
+                    <p class="card-text">Total de orçamentos  </p>
+                    <h5 class="card-title">@ViewBag.TotalOrcamentos</h5>
+                  
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="card card-gradient">
+                <div class="card-body">
+                    <p class="card-text">Média dos Orcamentos <p>
+                    <h5 class="card-title">@string.Format("{0:C}", ViewBag.MediaPrecos)</h5> 
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="card card-gradient">
+                <div class="card-body">
+                  
+                    <p class="card-text">Média do Custo total</p>
+                    <h5 class="card-title">@string.Format("{0:C}", ViewBag.MediaCusto)</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Orçamentos ao longo do tempo</h5>
+                    <canvas id="myChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
