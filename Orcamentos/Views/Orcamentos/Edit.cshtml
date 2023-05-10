@@ -219,7 +219,11 @@
 
 <script>
 
-	 var qnt = document.getElementById("qnt");
+	 let numberWithComma = new Intl.NumberFormat('de-DE', {
+        useGrouping: false
+    });
+
+    var qnt = document.getElementById("qnt");
     var unitPrice = document.getElementById("unitPrice");
     var unitCost = document.getElementById("unitCost");
     var descTabela = document.getElementById("descTabela");
@@ -237,28 +241,35 @@
     qnt.addEventListener("keyup", cost);
     unitCost.addEventListener("keyup", cost);
     unitPrice.addEventListener("keyup", price);
+    custoTabela.addEventListener("keyup", cost);
     custoDesc1.addEventListener("keyup", price);
     custoDesc2.addEventListener("keyup", price);
     custoDesc3.addEventListener("keyup", price);
     descTabela.addEventListener("keyup", price);
     precoParcial.addEventListener("keyup", price);
 
-    function cost(){
-        if(unitCost.value != ""){
-            var q = qnt.value;
+	function cost() {
+		if (unitCost.value != "") {
+			var q = qnt.value;
+			var cuTabela = custoTabela.value;
 
-            if(q == ""){
-                q = 1;
-            }
+			if (q == "") {
+				q = 1;
+			}
 
-            custoTotal.value = parseInt(q) * unitCost.value;
-        }
+			if (cuTabela == "") {
+				cuTabela = 0;
+			}
 
-        if(custoTotal.value != "" && precoTotal.value != ""){
-            margem.value = precoTotal.value - custoTotal.value;
-            MG.value = margem.value / precoTotal.value
-        }
-    }
+			custoTotal.value = (parseInt(q) * unitCost.value) + parseInt(cuTabela);
+		}
+
+		if (custoTotal.value != "" && precoTotal.value != "") {
+			margem.value = precoTotal.value - custoTotal.value;
+			var mgValue = margem.value / precoTotal.value
+			MG.value = numberWithComma.format(mgValue * 100);
+		}
+	}
 
     function price(){
         if(unitPrice.value != ""){
@@ -292,10 +303,11 @@
 
             precoTotal.value = ((unitPrice.value - parseInt(descT)) + parseInt(precoP)) - descs;
 
-            if(custoTotal.value != "" && precoTotal.value != ""){
-                margem.value = precoTotal.value - custoTotal.value;
-                MG.value = margem.value / precoTotal.value
-            }
+			if (custoTotal.value != "" && precoTotal.value != "") {
+				margem.value = precoTotal.value - custoTotal.value;
+				var mgValue = margem.value / precoTotal.value
+				MG.value = numberWithComma.format(mgValue * 100);
+			}
         }
     }
 

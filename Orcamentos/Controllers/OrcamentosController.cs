@@ -98,7 +98,9 @@ namespace Orcamentos.Controllers
             }
             ViewData["BuManagerId"] = new SelectList(_context.buManagers, "Id", "Id", orcamento.businessUnitId);
             ViewData["ProfileId"] = new SelectList(_context.profiles, "Id", "Id", orcamento.profileId);
-        
+            ViewData["OrcamentoNomeId"] = new SelectList(_context.orcamentoNomes, "Id", "Id", orcamento.orcamentoNomeId);
+            ViewData["RevenueTypeId"] = new SelectList(_context.revenueTypes, "Id", "Id", orcamento.revenueTypeId);
+
             return View(orcamento);
         }
 

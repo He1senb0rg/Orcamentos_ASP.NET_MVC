@@ -57,9 +57,6 @@
 			<th>
 				Preço total
 			</th>
-			<th>
-				Ativo
-			</th>
 			<th></th>
 		</tr>
 	</thead>
@@ -108,9 +105,6 @@
 						</td>
 						<td id="@("TotalPrice"+i)">
 					@Html.DisplayFor(modelItem => item.TotalPrice)
-						</td>
-						<td>
-					@Html.DisplayFor(modelItem => item.Ativo)
 						</td>
 						<td>
 							 <div class="btn-group" role="group" >
@@ -379,6 +373,7 @@
 					var descTabelaCol = hot.getDataAtCol(18);
 					var totalCostCol = hot.getDataAtCol(24);
 					var precoParcialCol = hot.getDataAtCol(19);
+					var custoTabelaCol = hot.getDataAtCol(20);
 					var custoDesc1Col = hot.getDataAtCol(21);
 					var custoDesc2Col = hot.getDataAtCol(22);
 					var custoDesc3Col = hot.getDataAtCol(23);
@@ -404,15 +399,15 @@
 							var profile4 = mList3.find(function (p) { return p.text === newValue; });
 							hot.setDataAtCell(row, hot.propToCol('businessUnitId'), profile4.value);
 						}
-						if (prop === 'unitCost' || prop === 'quantidade' || prop === 'unitPrice' || prop === 'descontoTabela'|| prop === 'precoParcial'|| prop === 'custoDesc1'|| prop === 'custoDesc2'|| prop === 'custoDesc3') {
+						if (prop === 'unitCost' || prop === 'quantidade' || prop === 'unitPrice' || prop === 'descontoTabela'|| prop === 'precoParcial' || prop === 'custoTabela' || prop === 'custoDesc1' || prop === 'custoDesc2'|| prop === 'custoDesc3') {
 							var row = change[0];
 							var unitCost = unitCostCol[row];
+							var custoTabela = custoTabelaCol[row];
 							var qnt = quantidadeCol[row];
-							var totalCost = unitCost * qnt;
+							var totalCost = (unitCost * qnt) + custoTabela;
 							var unitPrice = unitPriceCol[row];
 							var descTabela = descTabelaCol[row];
 							var precoParcial = precoParcialCol[row];
-							//AINDA FALTA O CUSTO TABELA
 							var custoDescs = custoDesc1Col[row] + custoDesc2Col[row] + custoDesc3Col[row]
 							var totalPrice = ((unitPrice - descTabela) + precoParcial) - custoDescs;
 							var margin = totalPrice - totalCost
@@ -501,6 +496,36 @@
 				data[i][27] = percentagem.format(data[i][27]);
 			}
 
+			var colHeaders2 = [
+			'ID',
+			'Orçamento Nome ID',
+			'Orçamento Nome',
+			'Perfil ID',
+			'Perfil',
+			'Tipo de Rendimento ID',
+			'Tipo de Rendimento',
+			'Unidade de Negócio ID',
+			'Unidade de Negócio',
+			'Marca',
+			'Tipo de Unidade',
+			'Part Number',
+			'Modelo',
+			'Número de Série',
+			'Nome do Produto',
+			'Quantidade',
+			'Preço de Unidade Diário',
+			'Custo de Unidade Diário',
+			'Desconto Tabela',
+			'Preço Parcial',
+			'Custo Tabela',
+			'Custo Desconto 1',
+			'Custo Desconto 2',
+			'Custo Desconto 3',
+			'Custo Total',
+			'Preço Total',
+			'Margem',
+			'MG'];
+
 			var doc = new jsPDF({
 				orientation: "landscape"
 			});
@@ -512,11 +537,11 @@
 			doc.text('Tabela de Orçamentos - ' + dateString, 10, 10);
 
 			doc.autoTable({
-				margin: {left: 5, right: 5},
-				head: [colHeaders],
+				margin: {left: 2, right: 2},
+				head: [colHeaders2],
 				body: data,
 				styles: {
-					fontSize: 2 // Set font size to 14
+					fontSize: 4
 				}
 			});
 

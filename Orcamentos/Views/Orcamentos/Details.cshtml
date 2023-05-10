@@ -1,173 +1,186 @@
 ﻿@model Orcamentos.Models.Orcamento
 
 @{
-    ViewData["Title"] = "Details";
+	ViewData["Title"] = "Details";
 }
 
 <h1>Detalhes</h1>
 
 <div>
-    <h4>Orçamento</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-           Id do Perfil
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.profileId)
-        </dd>
-        <dt class="col-sm-2">
-            Nome do Perfil
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Profile.Name)
-        </dd>
-        <dt class="col-sm-2">
-           Id do Tipo de Rendimento
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.revenueTypeId)
-        </dd>
-        <dt class="col-sm-2">
-            Tipo de Rendimento
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.RevenueType.Nome)
-        </dd>
-        <dt class="col-sm-2">
-            Id da Unidade de Negocios
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.businessUnitId)
-        </dd>
-        <dt class="col-sm-2">
-            Unidade de Negocios
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.BusinessUnit.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Marca)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Marca)
-        </dd>
-        <dt class = "col-sm-2">
-            Tipo de Unidade
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TipoUni)
-        </dd>
-        <dt class = "col-sm-2">
-            Part Number
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Partnumb)
-        </dd>
-        <dt class = "col-sm-2">
-            Modelo
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.modelo)
-        </dd>
-        <dt class = "col-sm-2">
-            Numero de Serie
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SerialNumb)
-        </dd>
-        <dt class = "col-sm-2">
-            Nome do Produto
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ProductName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Ativo)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Ativo)
-        </dd>
-        <dt class = "col-sm-2">
-            Preço de Unidade
-        </dt>
-        <dd class = "col-sm-10" id="unitPrice">
-            @Html.DisplayFor(model => model.UnitPrice)
-        </dd>
-        <dt class = "col-sm-2">
-            Custo de Unidade
-        </dt>
-        <dd class = "col-sm-10" id="unitCost">
-            @Html.DisplayFor(model => model.UnitCost)
-        </dd>
-        <dt class="col-sm-2">
-           Desconto tabela
-        </dt>
-        <dd class="col-sm-10" id="DescontoTabela">
-            @Html.DisplayFor(model => model.DescontoTabela)
-        </dd>
-        <dt class="col-sm-2">
-           Preço parcial
-        </dt>
-        <dd class="col-sm-10" id="PrecoParcial">
-            @Html.DisplayFor(model => model.PrecoParcial)
-        </dd>
-        <dt class="col-sm-2">
-            Custo Tabela
-        </dt>
-        <dd class="col-sm-10" id="CustoTabela">
-            @Html.DisplayFor(model => model.CustoTabela)
-        </dd>
-        <dt class="col-sm-2">
-            Custo Desconto 1
-        </dt>
-        <dd class="col-sm-10" id="CustoDesc1">
-            @Html.DisplayFor(model => model.CustoDesc1)
-        <dt class="col-sm-2">
-            Custo Desconto 2
-        </dt>
-        <dd class="col-sm-10" id="CustoDesc2">
-         @Html.DisplayFor(model => model.CustoDesc2)
-        <dt class="col-sm-2">
-            Custo Desconto 3
-        </dt>
-        <dd class="col-sm-10" id="CustoDesc3">
-        @Html.DisplayFor(model => model.CustoDesc3)
-        <dt class="col-sm-2">
-          Custo total
-        </dt>
-        <dd class="col-sm-10" id="TotalCost">
-     @Html.DisplayFor(model => model.TotalCost)
-        <dt class="col-sm-2">
-            Preço total
-        </dt>
-        <dd class="col-sm-10" id="TotalPrice">
-       @Html.DisplayFor(model => model.TotalPrice)
-        <dt class="col-sm-2">
-          Margem
-        </dt>
-        <dd class="col-sm-10" id="Margin">
-      @Html.DisplayFor(model => model.Margin)
-        <dt class="col-sm-2">
-            MG
-        </dt>
-        <dd class="col-sm-10" id="MG">
-        @Html.DisplayFor(model => model.MG)
-           
+	<h4>Orçamento</h4>
+	<hr />
+	<div class="row">
+		<div class="col-4">
+			<div class="form-group mb-2">
+				<label asp-for="OrcamentoNome.Nome" class="control-label"></label>
+				<input asp-for="OrcamentoNome.Nome" class="form-control" readonly />
+			</div>
+			<div class="form-group mb-2">
+				<label asp-for="Profile.Name" class="control-label"></label>
+				<input asp-for="Profile.Name" class="form-control" readonly />
+			</div>
+			<div class="form-group mb-2">
+				<label asp-for="RevenueType.Nome" class="control-label"></label>
+				<input asp-for="RevenueType.Nome" class="form-control" readonly />
+			</div>
+			<div class="form-group mb-2">
+				<label asp-for="BusinessUnit.Name" class="control-label"></label>
+				<input asp-for="BusinessUnit.Name" class="form-control" readonly />
+			</div>
+			<div class="form-group mb-2">
+				<label asp-for="Marca" class="control-label"></label>
+				<input asp-for="Marca" class="form-control" readonly />
+			</div>
+			<div class="form-group mb-2">
+				<label asp-for="TipoUni" class="control-label">Tipo de Unidade</label>
+				<input asp-for="TipoUni" class="form-control" readonly />
+			</div>
+			<div class="form-group mb-2">
+				<label asp-for="Partnumb" class="control-label">Part Number</label>
+				<input asp-for="Partnumb" class="form-control" readonly />
+			</div>
+			<div class="form-group mb-2">
+				<label asp-for="modelo" class="control-label">Modelo</label>
+				<input asp-for="modelo" class="form-control" readonly />
+			</div>
+			<div class="form-group mb-2">
+				<label asp-for="SerialNumb" class="control-label">Numero de Serie</label>
+				<input asp-for="SerialNumb" class="form-control" readonly />
+			</div>
+			<div class="form-group mb-2">
+				<label asp-for="ProductName" class="control-label">Nome do Produto</label>
+				<input asp-for="ProductName" class="form-control" readonly />
+			</div>
+			<div class="form-group mb-2">
+				<label asp-for="Quantidade" class="control-label">Quantidade</label>
+				<input asp-for="Quantidade" class="form-control" id="qnt" readonly />
+			</div>
+			<div class="mb-2">
+				<label asp-for="UnitPrice" class="control-label">Preço de Unidade Diário</label>
+				<div class="input-group">
+					<input asp-for="UnitPrice" class="form-control" id="unitPrice" readonly />
+					<div class="input-group-append">
+						<span class="input-group-text">,00 €</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-4">
+			<div class="mb-2">
+				<label asp-for="UnitCost" class="control-label">Custo de Unidade Diário</label>
+				<div class="input-group">
+					<input asp-for="UnitCost" class="form-control" id="unitCost" readonly />
+					<div class="input-group-append">
+						<span class="input-group-text">,00 €</span>
+					</div>
+				</div>
+			</div>
+			<div class="mb-2">
+				<label asp-for="DescontoTabela" class="control-label">Desconto da Tabela</label>
+				<div class="input-group">
+					<input asp-for="DescontoTabela" class="form-control" id="descTabela" readonly />
+					<div class="input-group-append">
+						<span class="input-group-text">,00 €</span>
+					</div>
+				</div>
+			</div>
+			<div class="mb-2">
+				<label asp-for="PrecoParcial" class="control-label">Preço Parcial</label>
+				<div class="input-group">
+					<input asp-for="PrecoParcial" class="form-control" id="precoParcial" readonly />
+					<div class="input-group-append">
+						<span class="input-group-text">,00 €</span>
+					</div>
+				</div>
+			</div>
+			<div class="mb-2">
+				<label asp-for="CustoTabela" class="control-label">Custo da Tabela</label>
+				<div class="input-group">
+					<input asp-for="CustoTabela" class="form-control" id="custoTabela" readonly />
+					<div class="input-group-append">
+						<span class="input-group-text">,00 €</span>
+					</div>
+				</div>
+			</div>
+			<div class="mb-2">
+				<label asp-for="CustoDesc1" class="control-label">Custo do Desconto 1</label>
+				<div class="input-group">
+					<input asp-for="CustoDesc1" class="form-control" id="custoDesc1" readonly />
+					<div class="input-group-append">
+						<span class="input-group-text">,00 €</span>
+					</div>
+				</div>
+			</div>
+			<div class="mb-2">
+				<label asp-for="CustoDesc2" class="control-label">Custo do Desconto 2</label>
+				<div class="input-group">
+					<input asp-for="CustoDesc2" class="form-control" id="custoDesc2" readonly />
+					<div class="input-group-append">
+						<span class="input-group-text">,00 €</span>
+					</div>
+				</div>
+			</div>
+			<div class="mb-2">
+				<label asp-for="CustoDesc3" class="control-label">Custo do Desconto 3</label>
+				<div class="input-group">
+					<input asp-for="CustoDesc3" class="form-control" id="custoDesc3" readonly />
+					<div class="input-group-append">
+						<span class="input-group-text">,00 €</span>
+					</div>
+				</div>
+			</div>
+			<div class="mb-2">
+				<label asp-for="TotalCost" class="control-label">Custo Total</label>
+				<div class="input-group">
+					<input asp-for="TotalCost" class="form-control" id="custoTotal" readonly />
+					<div class="input-group-append">
+						<span class="input-group-text">,00 €</span>
+					</div>
+				</div>
 
-    </dl>
+			</div>
+			<div class="mb-2">
+				<label asp-for="TotalPrice" class="control-label">Preço Total</label>
+				<div class="input-group">
+					<input asp-for="TotalPrice" class="form-control" id="precoTotal" readonly />
+					<div class="input-group-append">
+						<span class="input-group-text">,00 €</span>
+					</div>
+				</div>
+			</div>
+			<div class="mb-2">
+				<label asp-for="Margin" class="control-label">Margem</label>
+				<div class="input-group">
+					<input asp-for="Margin" class="form-control" id="margem" readonly />
+					<div class="input-group-append">
+						<span class="input-group-text">,00 €</span>
+					</div>
+				</div>
+			</div>
+			<div class="mb-2">
+				<label asp-for="MG" class="control-label">MG</label>
+				<div class="input-group">
+					<input asp-for="MG" class="form-control" id="MG" readonly />
+					<div class="input-group-append">
+						<span class="input-group-text">%</span>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
 </div>
 <div>
-    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model?.Id">Editar</a>
-    <a class="btn btn-primary" asp-action="Index">Voltar para a lista</a>
+	<a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model?.Id">Editar</a>
+	<a class="btn btn-primary" asp-action="Index">Voltar para a lista</a>
 </div>
 
 <script>
 
-    let euro = new Intl.NumberFormat('pt-PT', {
-    style: 'currency',
-    currency: 'EUR',
-});
+	let euro = new Intl.NumberFormat('pt-PT', {
+		style: 'currency',
+		currency: 'EUR',
+	});
 
 	let percentagem = new Intl.NumberFormat('default', {
 		style: 'percent',
@@ -175,53 +188,53 @@
 		maximumFractionDigits: 1,
 	});
 
-    var unitPrice = document.getElementById("unitPrice")
+	var unitPrice = document.getElementById("unitPrice")
 
-    unitPrice.innerHTML = euro.format(@Html.Raw(Json.Serialize(Model.UnitPrice)));
+	unitPrice.innerHTML = euro.format(@Html.Raw(Json.Serialize(Model.UnitPrice)));
 
-     var unitCost = document.getElementById("unitCost")
+	var unitCost = document.getElementById("unitCost")
 
-    unitCost.innerHTML = euro.format(@Html.Raw(Json.Serialize(Model.UnitCost)));
+	unitCost.innerHTML = euro.format(@Html.Raw(Json.Serialize(Model.UnitCost)));
 
-    var DescontoTabela = document.getElementById("DescontoTabela")
+	var DescontoTabela = document.getElementById("DescontoTabela")
 
-    DescontoTabela.innerHTML = euro.format(@Html.Raw(Json.Serialize(Model.DescontoTabela)));
+	DescontoTabela.innerHTML = euro.format(@Html.Raw(Json.Serialize(Model.DescontoTabela)));
 
-    var PrecoParcial = document.getElementById("PrecoParcial")
+	var PrecoParcial = document.getElementById("PrecoParcial")
 
-    PrecoParcial.innerHTML = euro.format(@Html.Raw(Json.Serialize(Model.PrecoParcial)));
+	PrecoParcial.innerHTML = euro.format(@Html.Raw(Json.Serialize(Model.PrecoParcial)));
 
-    var CustoTabela = document.getElementById("CustoTabela")
+	var CustoTabela = document.getElementById("CustoTabela")
 
-    CustoTabela.innerHTML = euro.format(@Html.Raw(Json.Serialize(Model.CustoTabela)));
+	CustoTabela.innerHTML = euro.format(@Html.Raw(Json.Serialize(Model.CustoTabela)));
 
-    var CustoDesc1 = document.getElementById("CustoDesc1")
+	var CustoDesc1 = document.getElementById("CustoDesc1")
 
-    CustoDesc1.innerHTML = euro.format(@Html.Raw(Json.Serialize(Model.CustoDesc1)));
+	CustoDesc1.innerHTML = euro.format(@Html.Raw(Json.Serialize(Model.CustoDesc1)));
 
-    var CustoDesc2 = document.getElementById("CustoDesc2")
+	var CustoDesc2 = document.getElementById("CustoDesc2")
 
-    CustoDesc2.innerHTML = euro.format(@Html.Raw(Json.Serialize(Model.CustoDesc2)));
+	CustoDesc2.innerHTML = euro.format(@Html.Raw(Json.Serialize(Model.CustoDesc2)));
 
-    var CustoDesc3 = document.getElementById("CustoDesc3")
+	var CustoDesc3 = document.getElementById("CustoDesc3")
 
-    CustoDesc3.innerHTML = euro.format(@Html.Raw(Json.Serialize(Model.CustoDesc3)));
+	CustoDesc3.innerHTML = euro.format(@Html.Raw(Json.Serialize(Model.CustoDesc3)));
 
-    var TotalCost = document.getElementById("TotalCost")
+	var TotalCost = document.getElementById("TotalCost")
 
-    TotalCost.innerHTML = euro.format(@Html.Raw(Json.Serialize(Model.TotalCost)));
+	TotalCost.innerHTML = euro.format(@Html.Raw(Json.Serialize(Model.TotalCost)));
 
-    varTotalPrice = document.getElementById("TotalPrice")
+	varTotalPrice = document.getElementById("TotalPrice")
 
-    TotalPrice.innerHTML = euro.format(@Html.Raw(Json.Serialize(Model.TotalPrice)));
+	TotalPrice.innerHTML = euro.format(@Html.Raw(Json.Serialize(Model.TotalPrice)));
 
-    var Margin = document.getElementById("Margin")
+	var Margin = document.getElementById("Margin")
 
-    Margin.innerHTML = euro.format(@Html.Raw(Json.Serialize(Model.Margin)));
+	Margin.innerHTML = euro.format(@Html.Raw(Json.Serialize(Model.Margin)));
 
-    var mg = document.getElementById("MG")
+	var mg = document.getElementById("MG")
 
-    mg.innerHTML = percentagem.format(@Html.Raw(Json.Serialize(Model.MG)));
+	mg.innerHTML = percentagem.format(@Html.Raw(Json.Serialize(Model.MG)));
 
 
 
