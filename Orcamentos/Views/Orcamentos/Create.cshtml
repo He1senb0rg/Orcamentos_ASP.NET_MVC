@@ -269,7 +269,7 @@
         if (custoTotal.value != "" && precoTotal.value != "") {
             margem.value = precoTotal.value - custoTotal.value;
             var mgValue = margem.value / precoTotal.value
-            MGhidden.value = mgValue
+            MGhidden.value = numberWithComma.format(mgValue);
             MG.value = numberWithComma.format(mgValue * 100);
         }
     }
@@ -309,7 +309,7 @@
             if (custoTotal.value != "" && precoTotal.value != "") {
                 margem.value = precoTotal.value - custoTotal.value;
                 var mgValue = margem.value / precoTotal.value
-                MGhidden.value = mgValue
+                MGhidden.value = numberWithComma.format(mgValue);
                 MG.value = numberWithComma.format(mgValue * 100);
             }
         }
