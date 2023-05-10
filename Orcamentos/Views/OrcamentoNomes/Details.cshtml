@@ -298,7 +298,8 @@
 			o.TotalCost,
 			o.TotalPrice,
 			o.Margin,
-			o.MG
+			o.MG,
+			o.Ativo
 			})));
 
 		var colHeaders = [
@@ -330,6 +331,7 @@
 			'Preço Total',
 			'Margem',
 			'MG',
+			'Ativo',
             'Eliminar'];
 
 			var actionRenderer = function (instance, td, row, col, prop, value, cellProperties) {
@@ -387,6 +389,7 @@
 				{ data: 'totalPrice', type: 'numeric', numericFormat: formatEUR },
 				{ data: 'margin', type: 'numeric', numericFormat: formatEUR },
 				{ data: 'mg', type: 'numeric', numericFormat: { pattern: { output: "percent", mantissa: 1 } }, readOnly: true },
+				{ data: 'ativo', type: 'checkbox', readOnly: true },
 				{ data: 'eliminar', renderer: actionRenderer, readOnly: true }
 			],
 			afterChange: function (changes, source) {
@@ -438,6 +441,9 @@
 			},
 			language: 'pt-BR',
 			rowHeaders: true,
+			hiddenColumns: {
+				columns: [28]
+			},
 			filters: true,
 			dropdownMenu: ['filter_by_condition', 'filter_action_bar'],
 
@@ -649,9 +655,7 @@
                             '<td>' + item.productName + '</td>' +
 							'<td>' + item.quantidade + '</td>' +
                             '<td id="TotalCost'+i+'" class="totalCost">' + item.totalCost + '</td>' +
-                            '<td id="TotalPrice'+i+'">' + item.totalPrice + '</td>' +
-                            '<td>' + '<input type="checkbox" disabled ' + (item.ativo ? 'checked' : '') + '></td>' +
-                           
+                            '<td id="TotalPrice'+i+'">' + item.totalPrice + '</td>' +                       
 							'<td>' +
 							'<div class="btn-group" role="group" >' +
 							'<div>' +

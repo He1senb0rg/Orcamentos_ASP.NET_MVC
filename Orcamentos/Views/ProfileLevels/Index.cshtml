@@ -161,12 +161,14 @@
 
 			.Select(o => new {
 			o.Id,
-			o.Name
+			o.Name,
+			o.Ativo
 			})));
 
 		var colHeaders = [
 			'ID',
 			'Nome',
+			'Ativo',
 			'Eliminar'];
 
 			var actionRenderer = function (instance, td, row, col, prop, value, cellProperties) {
@@ -184,11 +186,15 @@
 			columns: [
 				{ data: 'id', readOnly: true },
 				{ data: 'name', type: 'text' },
+				{ data: 'ativo', type: 'checkbox', readOnly: true },
 				{ data: 'eliminar', renderer: actionRenderer, readOnly: true }
 			],
 
 			language: 'pt-BR',
 			rowHeaders: true,
+			hiddenColumns: {
+				columns: [2]
+			},
 			filters: true,
 			dropdownMenu: ['filter_by_condition', 'filter_action_bar'],
 			columnSorting: true,
@@ -290,8 +296,6 @@
 
 						var row = '<tr>' +
 							'<td>' + item.name + '</td>' +
-							'<td>' + '<input type="checkbox" disabled ' + (item.ativo ? 'checked' : '') + '></td>' +
-							
 							'<td>' +
 							'<div class="btn-group" role="group" >' +
 							'<div>' +
