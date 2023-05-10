@@ -11,7 +11,7 @@ using Orcamentos.Infrastructure;
 namespace Orcamentos.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230504103737_first")]
+    [Migration("20230510084307_first")]
     partial class first
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -95,7 +95,8 @@ namespace Orcamentos.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("MG")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(14, 3)
+                        .HasColumnType("decimal(14,3)");
 
                     b.Property<string>("Marca")
                         .IsRequired()

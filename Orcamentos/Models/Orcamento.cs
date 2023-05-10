@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -88,6 +89,7 @@ namespace Orcamentos.Models
         public int Margin { get; set; }
 
         [Required]
+        [Precision(14, 3)]
         public decimal MG { get; set; }
 
 

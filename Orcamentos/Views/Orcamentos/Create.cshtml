@@ -187,13 +187,14 @@
                     </div>
                 </div>
                 <div class="mb-2">
-                    <label asp-for="MG" class="control-label">MG</label>
+                    <label class="control-label">MG</label>
                     <div class="input-group">
-                        <input asp-for="MG" class="form-control" id="MG" readonly />
+                        <input class="form-control" id="MGdisplay" readonly />
                         <div class="input-group-append">
                             <span class="input-group-text">%</span>
                         </div>
                     </div>
+                    <input asp-for="MG" class="form-control d-none" id="MG" readonly />
                 </div>
 				
                 <div class="form-group form-check d-none">
@@ -219,7 +220,8 @@
 <script>
 
     let numberWithComma = new Intl.NumberFormat('de-DE', {
-        useGrouping: false
+        useGrouping: false,
+       
     });
 
     var qnt = document.getElementById("qnt");
@@ -235,7 +237,8 @@
     var custoTotal = document.getElementById("custoTotal");
     var precoTotal = document.getElementById("precoTotal");
     var margem = document.getElementById("margem");
-    var MG = document.getElementById("MG");
+    var MG = document.getElementById("MGdisplay");
+    var MGhidden = document.getElementById("MG");
 
     qnt.addEventListener("keyup", cost);
     unitCost.addEventListener("keyup", cost);
@@ -266,6 +269,7 @@
         if (custoTotal.value != "" && precoTotal.value != "") {
             margem.value = precoTotal.value - custoTotal.value;
             var mgValue = margem.value / precoTotal.value
+            MGhidden.value = mgValue
             MG.value = numberWithComma.format(mgValue * 100);
         }
     }
@@ -305,6 +309,7 @@
             if (custoTotal.value != "" && precoTotal.value != "") {
                 margem.value = precoTotal.value - custoTotal.value;
                 var mgValue = margem.value / precoTotal.value
+                MGhidden.value = mgValue
                 MG.value = numberWithComma.format(mgValue * 100);
             }
         }

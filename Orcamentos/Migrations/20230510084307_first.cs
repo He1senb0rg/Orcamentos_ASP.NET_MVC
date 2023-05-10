@@ -136,7 +136,7 @@ namespace Orcamentos.Migrations
                     TotalCost = table.Column<int>(type: "int", nullable: false),
                     TotalPrice = table.Column<int>(type: "int", nullable: false),
                     Margin = table.Column<int>(type: "int", nullable: false),
-                    MG = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    MG = table.Column<decimal>(type: "decimal(14,3)", precision: 14, scale: 3, nullable: false),
                     Ativo = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>

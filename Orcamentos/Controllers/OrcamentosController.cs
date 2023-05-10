@@ -89,8 +89,6 @@ namespace Orcamentos.Controllers
         {
             if (ModelState.IsValid)
             {
-                decimal mg = orcamento.MG / 100;
-                orcamento.MG = mg;
                 _context.Add(orcamento);
                 await _context.SaveChangesAsync();
                 _toastNotification.AddSuccessToastMessage("Orçamento criado com sucesso");

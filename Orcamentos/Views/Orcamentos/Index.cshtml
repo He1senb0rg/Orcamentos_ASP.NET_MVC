@@ -273,7 +273,8 @@
 			o.TotalCost,
 			o.TotalPrice,
 			o.Margin,
-			o.MG
+			o.MG,
+			o.Ativo
 			})));
 
 		var colHeaders = [
@@ -305,7 +306,9 @@
 			'Preço Total',
 			'Margem',
 			'MG',
-			'Eliminar'];
+			'Ativo',
+			'Eliminar'
+			];
 
 			var actionRenderer = function (instance, td, row, col, prop, value, cellProperties) {
 				var id = instance.getDataAtRowProp(row, 'id');
@@ -362,6 +365,7 @@
 				{ data: 'totalPrice', type: 'numeric', numericFormat: formatEUR, readOnly: true },
 				{ data: 'margin', type: 'numeric', numericFormat: formatEUR, readOnly: true },
 				{ data: 'mg', type: 'numeric', numericFormat: { pattern: { output: "percent", mantissa: 1 } }, readOnly: true },
+				{ data: 'ativo', type: 'checkbox' },
 				{ data: 'eliminar', renderer: actionRenderer, readOnly: true }
 			],
 
@@ -421,6 +425,9 @@
 				}
 			},
 			language: 'pt-BR',
+			hiddenColumns: {
+				columns: [28]
+			},
 			rowHeaders: true,
 			filters: true,
 			dropdownMenu: ['filter_by_condition', 'filter_action_bar'],
