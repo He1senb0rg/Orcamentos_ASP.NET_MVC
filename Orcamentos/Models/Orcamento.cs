@@ -57,36 +57,36 @@ namespace Orcamentos.Models
         public int Quantidade { get; set; }
 
         [Required]
-        public int UnitPrice { get; set; }
+        public decimal UnitPrice { get; set; }
 
         [Required]
-        public int UnitCost { get; set; }
+        public decimal UnitCost { get; set; }
 
         [Required]
-        public int DescontoTabela { get; set; }
+        public decimal DescontoTabela { get; set; }
         [Required]
-        public int PrecoParcial { get; set; }
+        public decimal PrecoParcial { get; set; }
 
         [Required]
-        public int CustoTabela { get; set; }
+        public decimal CustoTabela { get; set; }
 
         [Required]
-        public int CustoDesc1 { get; set; }
+        public decimal CustoDesc1 { get; set; }
 
         [Required]
-        public int CustoDesc2 { get; set; }
+        public decimal CustoDesc2 { get; set; }
 
         [Required]
-        public int CustoDesc3 { get; set; }
+        public decimal CustoDesc3 { get; set; }
 
         [Required]
-        public int TotalCost { get; set; }
+        public decimal TotalCost { get; set; }
 
         [Required]
-        public int TotalPrice { get; set; }
+        public decimal TotalPrice { get; set; }
 
         [Required]
-        public int Margin { get; set; }
+        public decimal Margin { get; set; }
 
         [Required]
         [Precision(14, 3)]

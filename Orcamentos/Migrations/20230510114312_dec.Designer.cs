@@ -11,8 +11,8 @@ using Orcamentos.Infrastructure;
 namespace Orcamentos.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230510084307_first")]
-    partial class first
+    [Migration("20230510114312_dec")]
+    partial class dec
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -79,20 +79,20 @@ namespace Orcamentos.Migrations
                     b.Property<bool>("Ativo")
                         .HasColumnType("bit");
 
-                    b.Property<int>("CustoDesc1")
-                        .HasColumnType("int");
+                    b.Property<decimal>("CustoDesc1")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("CustoDesc2")
-                        .HasColumnType("int");
+                    b.Property<decimal>("CustoDesc2")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("CustoDesc3")
-                        .HasColumnType("int");
+                    b.Property<decimal>("CustoDesc3")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("CustoTabela")
-                        .HasColumnType("int");
+                    b.Property<decimal>("CustoTabela")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("DescontoTabela")
-                        .HasColumnType("int");
+                    b.Property<decimal>("DescontoTabela")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("MG")
                         .HasPrecision(14, 3)
@@ -102,14 +102,14 @@ namespace Orcamentos.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Margin")
-                        .HasColumnType("int");
+                    b.Property<decimal>("Margin")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("Partnumb")
                         .HasColumnType("int");
 
-                    b.Property<int>("PrecoParcial")
-                        .HasColumnType("int");
+                    b.Property<decimal>("PrecoParcial")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("ProductName")
                         .IsRequired()
@@ -125,17 +125,17 @@ namespace Orcamentos.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TotalCost")
-                        .HasColumnType("int");
+                    b.Property<decimal>("TotalCost")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("TotalPrice")
-                        .HasColumnType("int");
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("UnitCost")
-                        .HasColumnType("int");
+                    b.Property<decimal>("UnitCost")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("UnitPrice")
-                        .HasColumnType("int");
+                    b.Property<decimal>("UnitPrice")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("businessUnitId")
                         .HasColumnType("int");

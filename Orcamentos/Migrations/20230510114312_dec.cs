@@ -4,7 +4,7 @@
 
 namespace Orcamentos.Migrations
 {
-    public partial class first : Migration
+    public partial class dec : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -125,17 +125,17 @@ namespace Orcamentos.Migrations
                     SerialNumb = table.Column<int>(type: "int", nullable: false),
                     ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Quantidade = table.Column<int>(type: "int", nullable: false),
-                    UnitPrice = table.Column<int>(type: "int", nullable: false),
-                    UnitCost = table.Column<int>(type: "int", nullable: false),
-                    DescontoTabela = table.Column<int>(type: "int", nullable: false),
-                    PrecoParcial = table.Column<int>(type: "int", nullable: false),
-                    CustoTabela = table.Column<int>(type: "int", nullable: false),
-                    CustoDesc1 = table.Column<int>(type: "int", nullable: false),
-                    CustoDesc2 = table.Column<int>(type: "int", nullable: false),
-                    CustoDesc3 = table.Column<int>(type: "int", nullable: false),
-                    TotalCost = table.Column<int>(type: "int", nullable: false),
-                    TotalPrice = table.Column<int>(type: "int", nullable: false),
-                    Margin = table.Column<int>(type: "int", nullable: false),
+                    UnitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    UnitCost = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    DescontoTabela = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    PrecoParcial = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    CustoTabela = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    CustoDesc1 = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    CustoDesc2 = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    CustoDesc3 = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    TotalCost = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Margin = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     MG = table.Column<decimal>(type: "decimal(14,3)", precision: 14, scale: 3, nullable: false),
                     Ativo = table.Column<bool>(type: "bit", nullable: false)
                 },
