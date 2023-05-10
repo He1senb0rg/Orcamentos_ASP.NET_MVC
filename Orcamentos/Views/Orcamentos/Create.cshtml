@@ -263,7 +263,7 @@
                 cuTabela = 0;
             }
 
-            custoTotal.value = (parseInt(q) * unitCost.value) + parseInt(cuTabela);
+            custoTotal.value = (parseFloat(q) * unitCost.value) + parseFloat(cuTabela);
         }
 
         if (custoTotal.value != "" && precoTotal.value != "") {
@@ -302,9 +302,9 @@
                 descT = 0;
             }
 
-            var descs = parseInt(desc1) + parseInt(desc2) + parseInt(desc3);
+            var descs = parseFloat(desc1) + parseFloat(desc2) + parseFloat(desc3);
 
-            precoTotal.value = ((unitPrice.value - parseInt(descT)) + parseInt(precoP)) - descs;
+            precoTotal.value = ((unitPrice.value - parseFloat(descT)) + parseFloat(precoP)) - descs;
 
             if (custoTotal.value != "" && precoTotal.value != "") {
                 margem.value = precoTotal.value - custoTotal.value;
