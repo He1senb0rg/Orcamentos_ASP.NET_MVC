@@ -96,7 +96,7 @@
                             <span class="input-group-text">€</span>
                         </div>
                     </div>
-                    <input asp-for="UnitPrice" class="form-control" id="unitPrice" readonly />
+                    <input asp-for="UnitPrice" class="form-control d-none" id="unitPrice" readonly />
                 </div>
             </div>
             <div class="col-4">
@@ -209,7 +209,7 @@
                             <span class="input-group-text">%</span>
                         </div>
                     </div>
-                    <input asp-for="MG" class="form-control d-none" id="MG" readonly />
+                    <input asp-for="MG" class="form-control " id="MG" readonly />
                 </div>
 					<div class="form-group form-check d-none">
 						<label class="form-check-label">
@@ -280,87 +280,87 @@
     var MGhidden = document.getElementById("MG");
 
     if(decimalSeparator == ","){
-        unitPrice.value = numberWithDot.format(unitPriceHidden.value);
+        unitPrice.value = unitPriceHidden.value.replace(",", ".");
     }
     else{
         unitPrice.value = unitPriceHidden.value;
     }
 
     if(decimalSeparator == ","){
-        unitCost.value = numberWithDot.format(unitCostHidden.value);
+        unitCost.value = unitCostHidden.value.replace(",", ".");
     }
     else{
         unitCost.value = unitCostHidden.value;
     }
 
     if(decimalSeparator == ","){
-        descTabela.value = numberWithDot.format(descTabelaHidden.value);
+        descTabela.value = descTabelaHidden.value.replace(",", ".");
     }
     else{
         descTabela.value = descTabelaHidden.value;
     }
 
     if(decimalSeparator == ","){
-        precoParcial.value = numberWithDot.format(precoParcialHidden.value);
+        precoParcial.value = precoParcialHidden.value.replace(",", ".");
     }
     else{
         precoParcial.value = precoParcialHidden.value;
     }
 
     if(decimalSeparator == ","){
-        custoTabela.value = numberWithDot.format(custoTabelaHidden.value);
+        custoTabela.value = custoTabelaHidden.value.replace(",", ".");
     }
     else{
         custoTabela.value = custoTabelaHidden.value;
     }
 
     if(decimalSeparator == ","){
-        custoDesc1.value = numberWithDot.format(custoDesc1Hidden.value);
+        custoDesc1.value = custoDesc1Hidden.value.replace(",", ".");
     }
     else{
         custoDesc1.value = custoDesc1Hidden.value;
     }
 
     if(decimalSeparator == ","){
-        custoDesc2.value = numberWithDot.format(custoDesc2Hidden.value);
+        custoDesc2.value = custoDesc2Hidden.value.replace(",", ".");
     }
     else{
         custoDesc2.value = custoDesc2Hidden.value;
     }
 
     if(decimalSeparator == ","){
-        custoDesc3.value = numberWithDot.format(custoDesc3Hidden.value);
+        custoDesc3.value = custoDesc3Hidden.value.replace(",", ".");
     }
     else{
         custoDesc3.value = custoDesc3Hidden.value;
     }
 
     if(decimalSeparator == ","){
-        custoTotal.value = numberWithDot.format(custoTotalHidden.value);
+        custoTotal.value = custoTotalHidden.value.replace(",", ".");
     }
     else{
         custoTotal.value = custoTotalHidden.value;
     }
 
     if(decimalSeparator == ","){
-        precoTotal.value = numberWithDot.format(precoTotalHidden.value);
+        precoTotal.value = precoTotalHidden.value.replace(",", ".");
     }
     else{
         precoTotal.value = precoTotalHidden.value;
     }
 
     if(decimalSeparator == ","){
-        margem.value = numberWithDot.format(margemHidden.value);
+        margem.value = margemHidden.value.replace(",", ".");
     }
     else{
         margem.value = margemHidden.value;
     }
 
     if(decimalSeparator == ","){
-        MG.value = numberWithDot.format(MGhidden.value);
+        MG.value = MGhidden.value.replace(",", ".") * 100;
     }
     else{
-        MG.value = MGhidden.value;
+        MG.value = MGhidden.value * 100;
     }
     
 
