@@ -88,109 +88,120 @@
 					<label asp-for="Quantidade" class="control-label">Quantidade</label>
 					<input asp-for="Quantidade" class="form-control" id="qnt" required/>
 				</div>
-					<div class="mb-2">
-						<label asp-for="UnitPrice" class="control-label">Preço de Unidade Diário</label>
-						<div class="input-group">
-							<input asp-for="UnitPrice" class="form-control" id="unitPrice" required/>
-							<div class="input-group-append">
-								<span class="input-group-text">€</span>
-							</div>
-						</div>	
-					</div>
-				</div>
-				<div class="col-4">
-				<div class="mb-2">
-					<label asp-for="UnitCost" class="control-label">Custo de Unidade Diário</label>
-					<div class="input-group">
-						<input asp-for="UnitCost" class="form-control" id="unitCost" required/>
-						<div class="input-group-append">
-								<span class="input-group-text">€</span>
-						</div>
-					</div>
-				</div>
-					<div class="mb-2">
-						<label asp-for="DescontoTabela" class="control-label">Desconto da Tabela</label>
-						<div class="input-group">
-							<input asp-for="DescontoTabela" class="form-control" id="descTabela" required/>
-							<div class="input-group-append">
-								<span class="input-group-text">€</span>
-							</div>
-						</div>
-					</div>
-					<div class="mb-2">
-						<label asp-for="PrecoParcial" class="control-label">Preço Parcial</label>
-						<div class="input-group">
-							<input asp-for="PrecoParcial" class="form-control" id="precoParcial" required/>
-							<div class="input-group-append">
-								<span class="input-group-text">€</span>
-							</div>
-						</div>	
-					</div>
-					<div class="mb-2">
-						<label asp-for="CustoTabela" class="control-label">Custo da Tabela</label>
-						<div class="input-group">
-							<input asp-for="CustoTabela" class="form-control" id="custoTabela" required/>
-							<div class="input-group-append">
-								<span class="input-group-text">€</span>
-							</div>
-						</div>
-					</div>
-					<div class="mb-2">
-						<label asp-for="CustoDesc1" class="control-label">Custo do Desconto 1</label>
-						<div class="input-group">
-							<input asp-for="CustoDesc1" class="form-control" id="custoDesc1" required/>
-							<div class="input-group-append">
-								<span class="input-group-text">€</span>
-							</div>
-						</div>	
-					</div>
-					<div class="mb-2">
-						<label asp-for="CustoDesc2" class="control-label">Custo do Desconto 2</label>
-						<div class="input-group">
-							<input asp-for="CustoDesc2" class="form-control" id="custoDesc2" required/>
-							<div class="input-group-append">
-								<span class="input-group-text">€</span>
-							</div>
-						</div>			
-					</div>
-					<div class="mb-2">
-						<label asp-for="CustoDesc3" class="control-label">Custo do Desconto 3</label>
-						<div class="input-group">
-							<input asp-for="CustoDesc3" class="form-control" id="custoDesc3" required/>
-							<div class="input-group-append">
-								<span class="input-group-text">€</span>
-							</div>
-						</div>	
-					</div>
-					<div class="mb-2">
-						<label asp-for="TotalCost" class="control-label">Custo Total</label>
-						<div class="input-group">
-							<input asp-for="TotalCost" class="form-control" id="custoTotal" readonly/>
-							<div class="input-group-append">
-								<span class="input-group-text">€</span>
-							</div>
-						</div>
-						
-					</div>
-					<div class="mb-2">
-						<label asp-for="TotalPrice" class="control-label">Preço Total</label>
-						<div class="input-group">
-							<input asp-for="TotalPrice" class="form-control" id="precoTotal" readonly/>
-							<div class="input-group-append">
-								<span class="input-group-text">€</span>
-							</div>
-						</div>
-					</div>
-					<div class="mb-2">
-						<label asp-for="Margin" class="control-label">Margem</label>
-						<div class="input-group">
-							<input asp-for="Margin" class="form-control" id="margem" readonly/>
-							<div class="input-group-append">
-								<span class="input-group-text">€</span>
-							</div>
-						</div>
-					</div>
-					<div class="mb-2">
+                <div class="mb-2">
+                    <label class="control-label">Preço de Unidade Diário</label>
+                    <div class="input-group ">
+                        <input class="form-control" id="unitPriceDisplay" required />
+                        <div class="input-group-append">
+                            <span class="input-group-text">€</span>
+                        </div>
+                    </div>
+                    <input asp-for="UnitPrice" class="form-control" id="unitPrice" readonly />
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="mb-2">
+                    <label class="control-label">Custo de Unidade Diário</label>
+                    <div class="input-group">
+                        <input class="form-control" id="unitCostDisplay" required />
+                        <div class="input-group-append">
+                            <span class="input-group-text">€</span>
+                        </div>
+                    </div>
+                    <input asp-for="UnitCost" class="form-control d-none" id="unitCost" readonly />
+                </div>
+
+                <div class="mb-2">
+                    <label class="control-label">Desconto da Tabela</label>
+                    <div class="input-group ">
+                        <input class="form-control" id="descTabelaDisplay" required />
+                        <div class="input-group-append">
+                            <span class="input-group-text">€</span>
+                        </div>
+                    </div>
+                    <input asp-for="DescontoTabela" class="form-control d-none" id="descTabela" readonly />
+                </div>
+                <div class="mb-2">
+                    <label class="control-label">Preço Parcial</label>
+                    <div class="input-group ">
+                        <input class="form-control" id="precoParcialDisplay" required />
+                        <div class="input-group-append">
+                            <span class="input-group-text">€</span>
+                        </div>
+                    </div>
+                    <input asp-for="PrecoParcial" class="form-control d-none" id="precoParcial" readonly />
+                </div>
+                <div class="mb-2">
+                    <label class="control-label">Custo da Tabela</label>
+                    <div class="input-group">
+                        <input class="form-control" id="custoTabelaDisplay" required />
+                        <div class="input-group-append">
+                            <span class="input-group-text">€</span>
+                        </div>
+                    </div>
+                    <input asp-for="CustoTabela" class="form-control d-none" id="custoTabela" readonly />
+                </div>
+                <div class="mb-2">
+                    <label class="control-label">Custo do Desconto 1</label>
+                    <div class="input-group">
+                        <input class="form-control" id="custoDesc1Display" required />
+                        <div class="input-group-append">
+                            <span class="input-group-text">€</span>
+                        </div>
+                    </div>
+                    <input asp-for="CustoDesc1" class="form-control d-none" id="custoDesc1" readonly />
+                </div>
+                <div class="mb-2">
+                    <label class="control-label">Custo do Desconto 2</label>
+                    <div class="input-group">
+                        <input class="form-control" id="custoDesc2Display" required />
+                        <div class="input-group-append">
+                            <span class="input-group-text">€</span>
+                        </div>
+                    </div>
+                    <input asp-for="CustoDesc2" class="form-control d-none" id="custoDesc2" readonly />
+                </div>
+                <div class="mb-2">
+                    <label class="control-label">Custo do Desconto 3</label>
+                    <div class="input-group">
+                        <input class="form-control" id="custoDesc3Display" required />
+                        <div class="input-group-append">
+                            <span class="input-group-text">€</span>
+                        </div>
+                    </div>
+                    <input asp-for="CustoDesc3" class="form-control d-none" id="custoDesc3" readonly />
+                </div>
+                <div class="mb-2">
+                    <label class="control-label">Custo Total</label>
+                    <div class="input-group">
+                        <input class="form-control" id="custoTotalDisplay" readonly />
+                        <div class="input-group-append">
+                            <span class="input-group-text">€</span>
+                        </div>
+                    </div>
+                    <input asp-for="TotalCost" class="form-control d-none" id="custoTotal" readonly />
+                </div>
+                <div class="mb-2">
+                    <label class="control-label">Preço Total</label>
+                    <div class="input-group">
+                        <input class="form-control" id="precoTotalDisplay" readonly />
+                        <div class="input-group-append">
+                            <span class="input-group-text">€</span>
+                        </div>
+                    </div>
+                    <input asp-for="TotalPrice" class="form-control d-none" id="precoTotal" readonly />
+                </div>
+                <div class="mb-2">
+                    <label class="control-label">Margem</label>
+                    <div class="input-group">
+                        <input class="form-control" id="margemDisplay" readonly />
+                        <div class="input-group-append">
+                            <span class="input-group-text">€</span>
+                        </div>
+                    </div>
+                    <input asp-for="Margin" class="form-control d-none" id="margem" readonly />
+                </div>
+                <div class="mb-2">
                     <label class="control-label">MG</label>
                     <div class="input-group">
                         <input class="form-control" id="MGdisplay" readonly />
@@ -219,28 +230,54 @@
 
 <script>
 
-	 let numberWithComma = new Intl.NumberFormat('de-DE', {
+    let numberWithComma = new Intl.NumberFormat('de-DE', {
+        useGrouping: false,
+
+    });
+
+    let numberWithDot = new Intl.NumberFormat('en-US', {
         useGrouping: false
     });
 
     var qnt = document.getElementById("qnt");
-    var unitPrice = document.getElementById("unitPrice");
-    var unitCost = document.getElementById("unitCost");
-    var descTabela = document.getElementById("descTabela");
-    var precoParcial = document.getElementById("precoParcial");
-    var custoTabela = document.getElementById("custoTabela");
-    var custoDesc1 = document.getElementById("custoDesc1");
-    var custoDesc2 = document.getElementById("custoDesc2");
-    var custoDesc3 = document.getElementById("custoDesc3");
 
-    var custoTotal = document.getElementById("custoTotal");
-    var precoTotal = document.getElementById("precoTotal");
-    var margem = document.getElementById("margem");
-	var MG = document.getElementById("MGdisplay");
+    var unitPrice = document.getElementById("unitPriceDisplay");
+    var unitPriceHidden = document.getElementById("unitPrice");
+
+    var unitCost = document.getElementById("unitCostDisplay");
+    var unitCostHidden = document.getElementById("unitCost");
+
+    var descTabela = document.getElementById("descTabelaDisplay");
+    var descTabelaHidden = document.getElementById("descTabela");
+
+    var precoParcial = document.getElementById("precoParcialDisplay");
+    var precoParcialHidden = document.getElementById("precoParcial");
+
+    var custoTabela = document.getElementById("custoTabelaDisplay");
+    var custoTabelaHidden = document.getElementById("custoTabela");
+
+    var custoDesc1 = document.getElementById("custoDesc1Display");
+    var custoDesc1Hidden = document.getElementById("custoDesc1");
+
+    var custoDesc2 = document.getElementById("custoDesc2Display");
+    var custoDesc2Hidden = document.getElementById("custoDesc2");
+
+    var custoDesc3 = document.getElementById("custoDesc3Display");
+    var custoDesc3Hidden = document.getElementById("custoDesc3");
+
+    var custoTotal = document.getElementById("custoTotalDisplay");
+    var custoTotalHidden = document.getElementById("custoTotal");
+
+    var precoTotal = document.getElementById("precoTotalDisplay");
+    var precoTotalHidden = document.getElementById("precoTotal");
+
+    var margem = document.getElementById("margemDisplay");
+    var margemHidden = document.getElementById("margem");
+
+    var MG = document.getElementById("MGdisplay");
     var MGhidden = document.getElementById("MG");
 
-	MG.value = numberWithComma.format((margem.value / precoTotal.value) * 100);
-	MGhidden.value = margem.value / precoTotal.value;
+    unitPrice.value = numberWithDot.format(unitPriceHidden.value);
 
     qnt.addEventListener("keyup", cost);
     unitCost.addEventListener("keyup", cost);
@@ -252,68 +289,109 @@
     descTabela.addEventListener("keyup", price);
     precoParcial.addEventListener("keyup", price);
 
-	function cost() {
-		if (unitCost.value != "") {
-			var q = qnt.value;
-			var cuTabela = custoTabela.value;
+    unitCost.addEventListener("keyup", (event) => {
+        unitCostHidden.value = numberWithComma.format(unitCost.value);
+    });
 
-			if (q == "") {
-				q = 1;
-			}
+    unitPrice.addEventListener("keyup", (event) => {
+        unitPriceHidden.value = numberWithComma.format(unitPrice.value);
+    });
 
-			if (cuTabela == "") {
-				cuTabela = 0;
-			}
+    custoTabela.addEventListener("keyup", (event) => {
+        custoTabelaHidden.value = numberWithComma.format(custoTabela.value);
+    });
 
-			custoTotal.value = (parseInt(q) * unitCost.value) + parseInt(cuTabela);
-		}
+    custoDesc1.addEventListener("keyup", (event) => {
+        custoDesc1Hidden.value = numberWithComma.format(custoDesc1.value);
+    });
 
-		if (custoTotal.value != "" && precoTotal.value != "") {
-			margem.value = precoTotal.value - custoTotal.value;
-                var mgValue = margem.value / precoTotal.value
-                MGhidden.value = mgValue
-                MG.value = numberWithComma.format(mgValue * 100);
-		}
-	}
+    custoDesc2.addEventListener("keyup", (event) => {
+        custoDesc2Hidden.value = numberWithComma.format(custoDesc2.value);
+    });
 
-    function price(){
-        if(unitPrice.value != ""){
+    custoDesc3.addEventListener("keyup", (event) => {
+        custoDesc3Hidden.value = numberWithComma.format(custoDesc3.value);
+    });
+
+    descTabela.addEventListener("keyup", (event) => {
+        descTabelaHidden.value = numberWithComma.format(descTabela.value);
+    });
+
+    precoParcial.addEventListener("keyup", (event) => {
+        precoParcialHidden.value = numberWithComma.format(precoParcial.value);
+    });
+
+    function cost() {
+        if (unitCost.value != "") {
+            var q = qnt.value;
+            var cuTabela = custoTabela.value;
+
+            if (q == "") {
+                q = 1;
+            }
+
+            if (cuTabela == "") {
+                cuTabela = 0;
+            }
+
+            var custoTotalValue = (parseFloat(q) * unitCost.value) + parseFloat(cuTabela)
+
+            custoTotal.value = custoTotalValue;
+            custoTotalHidden.value = numberWithComma.format(custoTotalValue);
+        }
+
+        if (custoTotal.value != "" && precoTotal.value != "") {
+            margem.value = precoTotal.value - custoTotal.value;
+            margemHidden.value = numberWithComma.format(margem.value);
+            var mgValue = margem.value / precoTotal.value
+            MGhidden.value = numberWithComma.format(mgValue);
+            MG.value = numberWithComma.format(mgValue * 100);
+        }
+    }
+
+    function price() {
+        if (unitPrice.value != "") {
             var desc1 = custoDesc1.value;
             var desc2 = custoDesc2.value;
             var desc3 = custoDesc3.value;
             var precoP = precoParcial.value;
             var descT = descTabela.value;
 
-            if(desc1 == ""){
+            if (desc1 == "") {
                 desc1 = 0;
             }
 
-            if(desc2 == ""){
+            if (desc2 == "") {
                 desc2 = 0;
             }
 
-            if(desc3 == ""){
+            if (desc3 == "") {
                 desc3 = 0;
             }
 
-            if(precoP == ""){
+            if (precoP == "") {
                 precoP = 0;
             }
 
-            if(descT == ""){
+            if (descT == "") {
                 descT = 0;
             }
 
-            var descs = parseInt(desc1) + parseInt(desc2) + parseInt(desc3);
+            var descs = parseFloat(desc1) + parseFloat(desc2) + parseFloat(desc3);
 
-            precoTotal.value = ((unitPrice.value - parseInt(descT)) + parseInt(precoP)) - descs;
+            var precoTotalValue = ((unitPrice.value - parseFloat(descT)) + parseFloat(precoP)) - descs;
 
-			if (custoTotal.value != "" && precoTotal.value != "") {
-				margem.value = precoTotal.value - custoTotal.value;
+            precoTotal.value = precoTotalValue;
+
+            precoTotalHidden.value = numberWithComma.format(precoTotalValue);
+
+            if (custoTotal.value != "" && precoTotal.value != "") {
+                margem.value = precoTotal.value - custoTotal.value;
+                margemHidden.value = numberWithComma.format(margem.value);
                 var mgValue = margem.value / precoTotal.value
-                MGhidden.value = mgValue
+                MGhidden.value = numberWithComma.format(mgValue);
                 MG.value = numberWithComma.format(mgValue * 100);
-			}
+            }
         }
     }
 
