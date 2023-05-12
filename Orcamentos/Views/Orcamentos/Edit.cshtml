@@ -239,6 +239,8 @@
         useGrouping: false
     });
 
+    var decimalSeparator = "@ViewBag.decimalSeparator";
+
     var qnt = document.getElementById("qnt");
 
     var unitPrice = document.getElementById("unitPriceDisplay");
@@ -277,7 +279,90 @@
     var MG = document.getElementById("MGdisplay");
     var MGhidden = document.getElementById("MG");
 
-    unitPrice.value = numberWithDot.format(unitPriceHidden.value);
+    if(decimalSeparator == ","){
+        unitPrice.value = numberWithDot.format(unitPriceHidden.value);
+    }
+    else{
+        unitPrice.value = unitPriceHidden.value;
+    }
+
+    if(decimalSeparator == ","){
+        unitCost.value = numberWithDot.format(unitCostHidden.value);
+    }
+    else{
+        unitCost.value = unitCostHidden.value;
+    }
+
+    if(decimalSeparator == ","){
+        descTabela.value = numberWithDot.format(descTabelaHidden.value);
+    }
+    else{
+        descTabela.value = descTabelaHidden.value;
+    }
+
+    if(decimalSeparator == ","){
+        precoParcial.value = numberWithDot.format(precoParcialHidden.value);
+    }
+    else{
+        precoParcial.value = precoParcialHidden.value;
+    }
+
+    if(decimalSeparator == ","){
+        custoTabela.value = numberWithDot.format(custoTabelaHidden.value);
+    }
+    else{
+        custoTabela.value = custoTabelaHidden.value;
+    }
+
+    if(decimalSeparator == ","){
+        custoDesc1.value = numberWithDot.format(custoDesc1Hidden.value);
+    }
+    else{
+        custoDesc1.value = custoDesc1Hidden.value;
+    }
+
+    if(decimalSeparator == ","){
+        custoDesc2.value = numberWithDot.format(custoDesc2Hidden.value);
+    }
+    else{
+        custoDesc2.value = custoDesc2Hidden.value;
+    }
+
+    if(decimalSeparator == ","){
+        custoDesc3.value = numberWithDot.format(custoDesc3Hidden.value);
+    }
+    else{
+        custoDesc3.value = custoDesc3Hidden.value;
+    }
+
+    if(decimalSeparator == ","){
+        custoTotal.value = numberWithDot.format(custoTotalHidden.value);
+    }
+    else{
+        custoTotal.value = custoTotalHidden.value;
+    }
+
+    if(decimalSeparator == ","){
+        precoTotal.value = numberWithDot.format(precoTotalHidden.value);
+    }
+    else{
+        precoTotal.value = precoTotalHidden.value;
+    }
+
+    if(decimalSeparator == ","){
+        margem.value = numberWithDot.format(margemHidden.value);
+    }
+    else{
+        margem.value = margemHidden.value;
+    }
+
+    if(decimalSeparator == ","){
+        MG.value = numberWithDot.format(MGhidden.value);
+    }
+    else{
+        MG.value = MGhidden.value;
+    }
+    
 
     qnt.addEventListener("keyup", cost);
     unitCost.addEventListener("keyup", cost);
@@ -290,43 +375,89 @@
     precoParcial.addEventListener("keyup", price);
 
     unitCost.addEventListener("keyup", (event) => {
-        unitCostHidden.value = numberWithComma.format(unitCost.value);
+        if(decimalSeparator == ","){
+            unitCostHidden.value = numberWithComma.format(unitCost.value);
+        }
+        else{
+            unitCostHidden.value = unitCost.value;
+        }
     });
 
     unitPrice.addEventListener("keyup", (event) => {
-        unitPriceHidden.value = numberWithComma.format(unitPrice.value);
+        if (decimalSeparator == ",") {
+            unitPriceHidden.value = numberWithComma.format(unitPrice.value);
+        }
+        else {
+            unitPriceHidden.value = unitPrice.value;
+        }    
     });
 
     custoTabela.addEventListener("keyup", (event) => {
-        custoTabelaHidden.value = numberWithComma.format(custoTabela.value);
+        
+        if (decimalSeparator == ",") {
+            custoTabelaHidden.value = numberWithComma.format(custoTabela.value);
+        }
+        else {
+            custoTabelaHidden.value = custoTabela.value;
+        }
     });
 
     custoDesc1.addEventListener("keyup", (event) => {
-        custoDesc1Hidden.value = numberWithComma.format(custoDesc1.value);
+        if (decimalSeparator == ",") {
+            custoDesc1Hidden.value = numberWithComma.format(custoDesc1.value);
+        }
+        else {
+            custoDesc1Hidden.value = custoDesc1.value;
+        }
+        
     });
 
     custoDesc2.addEventListener("keyup", (event) => {
-        custoDesc2Hidden.value = numberWithComma.format(custoDesc2.value);
+        if (decimalSeparator == ",") {
+            custoDesc2Hidden.value = numberWithComma.format(custoDesc2.value);
+        }
+        else {
+            custoDesc2Hidden.value = custoDesc2.value;
+        }
+        
     });
 
     custoDesc3.addEventListener("keyup", (event) => {
-        custoDesc3Hidden.value = numberWithComma.format(custoDesc3.value);
+        if (decimalSeparator == ",") {
+            custoDesc3Hidden.value = numberWithComma.format(custoDesc3.value);
+        }
+        else {
+            custoDesc3Hidden.value = custoDesc3.value;
+        }
+        
     });
 
     descTabela.addEventListener("keyup", (event) => {
-        descTabelaHidden.value = numberWithComma.format(descTabela.value);
+        if (decimalSeparator == ",") {
+            descTabelaHidden.value = numberWithComma.format(descTabela.value);
+        }
+        else {
+            descTabelaHidden.value = descTabela.value;
+        }
+        
     });
 
     precoParcial.addEventListener("keyup", (event) => {
-        precoParcialHidden.value = numberWithComma.format(precoParcial.value);
+        if (decimalSeparator == ",") {
+            precoParcialHidden.value = numberWithComma.format(precoParcial.value);
+        }
+        else {
+            precoParcialHidden.value = precoParcial.value;
+        }
+        
     });
 
-    function cost() {
-        if (unitCost.value != "") {
+    function cost(){
+        if(unitCost.value != ""){
             var q = qnt.value;
             var cuTabela = custoTabela.value;
 
-            if (q == "") {
+            if(q == ""){
                 q = 1;
             }
 
@@ -337,43 +468,70 @@
             var custoTotalValue = (parseFloat(q) * unitCost.value) + parseFloat(cuTabela)
 
             custoTotal.value = custoTotalValue;
-            custoTotalHidden.value = numberWithComma.format(custoTotalValue);
+
+            if (decimalSeparator == ",") {
+                custoTotalHidden.value = numberWithComma.format(custoTotalValue);
+            }
+            else {
+                custoTotalHidden.value = custoTotalValue;
+            }
+            
         }
 
         if (custoTotal.value != "" && precoTotal.value != "") {
+
             margem.value = precoTotal.value - custoTotal.value;
-            margemHidden.value = numberWithComma.format(margem.value);
+            if (decimalSeparator == ",") {
+                margemHidden.value = numberWithComma.format(margem.value);
+            }
+            else {
+                margemHidden.value = margem.value;
+            }
+            
             var mgValue = margem.value / precoTotal.value
-            MGhidden.value = numberWithComma.format(mgValue);
-            MG.value = numberWithComma.format(mgValue * 100);
+            
+            if (decimalSeparator == ",") {
+                MGhidden.value = numberWithComma.format(mgValue);
+            }
+            else {
+                MGhidden.value = mgValue;
+            }
+
+            if (decimalSeparator == ",") {
+                MG.value = numberWithComma.format(mgValue * 100);
+            }
+            else {
+                MG.value = mgValue * 100;
+            }
+            
         }
     }
 
-    function price() {
-        if (unitPrice.value != "") {
+    function price(){
+        if(unitPrice.value != ""){
             var desc1 = custoDesc1.value;
             var desc2 = custoDesc2.value;
             var desc3 = custoDesc3.value;
             var precoP = precoParcial.value;
             var descT = descTabela.value;
 
-            if (desc1 == "") {
+            if(desc1 == ""){
                 desc1 = 0;
             }
 
-            if (desc2 == "") {
+            if(desc2 == ""){
                 desc2 = 0;
             }
 
-            if (desc3 == "") {
+            if(desc3 == ""){
                 desc3 = 0;
             }
 
-            if (precoP == "") {
+            if(precoP == ""){
                 precoP = 0;
             }
 
-            if (descT == "") {
+            if(descT == ""){
                 descT = 0;
             }
 
@@ -383,14 +541,38 @@
 
             precoTotal.value = precoTotalValue;
 
-            precoTotalHidden.value = numberWithComma.format(precoTotalValue);
+            
+            if (decimalSeparator == ",") {
+                precoTotalHidden.value = numberWithComma.format(precoTotalValue);
+            }
+            else {
+                precoTotalHidden.value = precoTotalValue;
+            }
 
             if (custoTotal.value != "" && precoTotal.value != "") {
                 margem.value = precoTotal.value - custoTotal.value;
-                margemHidden.value = numberWithComma.format(margem.value);
+                if (decimalSeparator == ",") {
+                    margemHidden.value = numberWithComma.format(margem.value);
+                }
+                else {
+                    margemHidden.value = margem.value;
+                }
+
                 var mgValue = margem.value / precoTotal.value
-                MGhidden.value = numberWithComma.format(mgValue);
-                MG.value = numberWithComma.format(mgValue * 100);
+
+                if (decimalSeparator == ",") {
+                    MGhidden.value = numberWithComma.format(mgValue);
+                }
+                else {
+                    MGhidden.value = mgValue;
+                }
+
+                if (decimalSeparator == ",") {
+                    MG.value = numberWithComma.format(mgValue * 100);
+                }
+                else {
+                    MG.value = mgValue * 100;
+                }
             }
         }
     }
