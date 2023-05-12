@@ -235,9 +235,11 @@
 
     });
 
-    let numberWithDot = new Intl.NumberFormat('en-US', {
-        useGrouping: false
-    });
+    let percentagem = new Intl.NumberFormat('default', {
+		style: 'percent',
+		minimumFractionDigits: 1,
+		maximumFractionDigits: 1,
+	});
 
     var decimalSeparator = "@ViewBag.decimalSeparator";
 
@@ -357,10 +359,14 @@
     }
 
     if(decimalSeparator == ","){
-        MG.value = MGhidden.value.replace(",", ".") * 100;
+        var mgValue = margem.value / precoTotal.value
+        MGhidden.value = numberWithComma.format(mgValue);
+        MG.value = numberWithComma.format(mgValue * 100);
     }
     else{
-        MG.value = MGhidden.value * 100;
+        var mgValue = margem.value / precoTotal.value
+        MGhidden.value = mgValue;
+        MG.value = mgValue * 100;
     }
     
 
