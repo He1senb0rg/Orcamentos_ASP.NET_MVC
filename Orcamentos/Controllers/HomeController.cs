@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using NToastNotify;
 using Orcamentos.Infrastructure;
 using Orcamentos.Models;
+using Orcamentos.Models.ViewModels;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace Orcamentos.Controllers
@@ -23,6 +26,28 @@ namespace Orcamentos.Controllers
 
         public IActionResult Index()
         {
+
+            List<int> ocorrencias = new List<int>();
+            
+            List<BusinessUnit> listaBu = _context.businessUnits.Include(p => p.BuManager).Where(d => d.Ativo == true).ToList();
+           
+            foreach (var v in listaBu)
+            {
+                int count = 0;
+                foreach (var item in _context.orcamentos)
+                {
+                    if (v.Id == item.businessUnitId)
+                    {
+                         count = count + 1;
+                    }
+                
+                };
+
+                ocorrencias.Add(count);
+
+            };
+
+
             int totalOrcamentos = 0;
             decimal mediaPrecos = 0.0m;
             decimal mediaCustos = 0.0m;
@@ -39,8 +64,15 @@ namespace Orcamentos.Controllers
             ViewBag.TotalOrcamentos = totalOrcamentos;
             ViewBag.MediaPrecos = mediaPrecos;
             ViewBag.MediaCusto = mediaCustos;
-           
-            return View();
+
+
+            GraphicsViewModel Gvm = new GraphicsViewModel
+            {
+                ocorrencias = ocorrencias,  
+                listaBu = listaBu
+            };
+
+            return View(Gvm);
         }
 
         public IActionResult Privacy()

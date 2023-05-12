@@ -1,6 +1,9 @@
-﻿@model Orcamento
+﻿@model Orcamentos.Models.ViewModels.GraphicsViewModel
 @{
     ViewData["Title"] = "Home Page";
+
+   
+
 }
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
 
@@ -78,13 +81,19 @@
         </div>
     </div>
 <script>
+
+        var datar = @Html.Raw(Json.Serialize(Model.listaBu.Take(7)
+            .Select(o => o.Name)));
+
+        var Ocorrencias = @Html.Raw(Json.Serialize(Model.ocorrencias.Take(7)
+          ));
+
        
-        const labels = [65, 59, 80, 81, 56, 55, 40];
         const data = {
-            labels: labels,
+            labels: datar,
             datasets: [{
                 label: 'My First Dataset',
-                data: [65, 59, 80, 81, 56, 55, 40],
+                data: Ocorrencias,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(255, 159, 64, 0.2)',
