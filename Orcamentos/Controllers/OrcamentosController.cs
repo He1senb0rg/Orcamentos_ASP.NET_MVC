@@ -6,6 +6,8 @@ using Orcamentos.Infrastructure;
 using Orcamentos.Models;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using NToastNotify;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
 namespace Orcamentos.Controllers
 {
@@ -77,6 +79,10 @@ namespace Orcamentos.Controllers
             IEnumerable<SelectListItem> orcamentosNomesList = DBHelper.FillOrcamentosNomes(_context);
             ViewBag.orcamentosNomesList = orcamentosNomesList;
 
+            var culture = Thread.CurrentThread.CurrentCulture;
+            var decimalSeparator = culture.NumberFormat.NumberDecimalSeparator;
+            ViewBag.decimalSeparator = decimalSeparator;
+
             return View();
         }
 
@@ -87,6 +93,13 @@ namespace Orcamentos.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,orcamentoNomeId,profileId,revenueTypeId,businessUnitId,Marca,TipoUni,Partnumb,modelo,SerialNumb,ProductName,Quantidade,UnitPrice,UnitCost,DescontoTabela,PrecoParcial,CustoTabela,CustoDesc1,CustoDesc2,CustoDesc3,TotalCost,TotalPrice,Margin,MG,Ativo")] Orcamento orcamento)
         {
+            //decimal result;
+            //bool isDecimal = decimal.TryParse(orcamento.UnitPrice.ToString(CultureInfo.InvariantCulture),NumberStyles.Any, CultureInfo.InvariantCulture, out result);      
+            //if (!isDecimal)
+            //{
+            //    return StatusCode(500);
+            //}
+            //orcamento.UnitPrice = result;
             if (ModelState.IsValid)
             {
                 _context.Add(orcamento);
@@ -126,6 +139,10 @@ namespace Orcamentos.Controllers
 
             IEnumerable<SelectListItem> orcamentosNomesList = DBHelper.FillOrcamentosNomes(_context);
             ViewBag.orcamentosNomesList = orcamentosNomesList;
+
+            var culture = Thread.CurrentThread.CurrentCulture;
+            var decimalSeparator = culture.NumberFormat.NumberDecimalSeparator;
+            ViewBag.decimalSeparator = decimalSeparator;
 
             return View(orcamento);
         }
