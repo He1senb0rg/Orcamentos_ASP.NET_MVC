@@ -209,7 +209,7 @@
                             <span class="input-group-text">%</span>
                         </div>
                     </div>
-                    <input asp-for="MG" class="form-control " id="MG" readonly />
+                    <input asp-for="MG" class="form-control d-none" id="MG" readonly />
                 </div>
 					<div class="form-group form-check d-none">
 						<label class="form-check-label">
@@ -368,6 +368,13 @@
         MGhidden.value = mgValue;
         MG.value = mgValue * 100;
     }
+
+    var checkMG = MGhidden.value;
+
+    if(isNaN(checkMG) == true){
+        MGhidden.value = 0;
+        MG.value = 0;
+    }
     
 
     qnt.addEventListener("keyup", cost);
@@ -511,6 +518,13 @@
             }
             
         }
+
+        var checkMG = MGhidden.value;
+
+        if(isNaN(checkMG) == true){
+            MGhidden.value = 0;
+            MG.value = 0;
+        }
     }
 
     function price(){
@@ -581,7 +595,30 @@
                 }
             }
         }
+
+        var checkMG = MGhidden.value;
+
+        if(isNaN(checkMG) == true){
+            MGhidden.value = 0;
+            MG.value = 0;
+        }
     }
+
+    function restrictInput(e) {
+        const regex = /^\d*(\.\d{0,2})?$/;
+        if (!regex.test(e.target.value)) {
+            e.target.value = e.target.value.slice(0, -1);
+        }
+    }
+
+    unitCost.addEventListener("input", restrictInput);
+    unitPrice.addEventListener("input", restrictInput);
+    custoTabela.addEventListener("input", restrictInput);
+    custoDesc1.addEventListener('input', restrictInput);
+    custoDesc2.addEventListener("input", restrictInput);
+    custoDesc3.addEventListener("input", restrictInput);
+    descTabela.addEventListener("input", restrictInput);
+    precoParcial.addEventListener("input", restrictInput);
 
     (function() {
   'use strict';
