@@ -504,57 +504,75 @@
 			}
 
 			var colHeaders2 = [
-			'ID',
-			'Orçamento Nome ID',
-			'Orçamento Nome',
-			'Perfil ID',
-			'Perfil',
-			'Tipo de Rendimento ID',
-			'Tipo de Rendimento',
-			'Unidade de Negócio ID',
-			'Unidade de Negócio',
-			'Marca',
-			'Tipo de Unidade',
-			'Part Number',
-			'Modelo',
-			'Número de Série',
-			'Nome do Produto',
-			'Quantidade',
-			'Preço de Unidade Diário',
-			'Custo de Unidade Diário',
-			'Desconto Tabela',
-			'Preço Parcial',
-			'Custo Tabela',
-			'Custo Desconto 1',
-			'Custo Desconto 2',
-			'Custo Desconto 3',
-			'Custo Total',
-			'Preço Total',
-			'Margem',
-			'MG'];
-
-			var doc = new jsPDF({
-				orientation: "landscape"
-			});
+				'ID',
+				'Orçamento Nome ID',
+				'Orçamento Nome',
+				'Perfil ID',
+				'Perfil',
+				'Tipo de Rendimento ID',
+				'Tipo de Rendimento',
+				'Unidade de Negócio ID',
+				'Unidade de Negócio',
+				'Marca',
+				'Tipo de Unidade',
+				'Part Number',
+				'Modelo',
+				'Número de Série',
+				'Nome do Produto',
+				'Quantidade',
+				'Preço de Unidade Diário',
+				'Custo de Unidade Diário',
+				'Desconto Tabela',
+				'Preço Parcial',
+				'Custo Tabela',
+				'Custo Desconto 1',
+				'Custo Desconto 2',
+				'Custo Desconto 3',
+				'Custo Total',
+				'Preço Total',
+				'Margem',
+				'MG'];
+			var startY = 60;
+			var doc = new jsPDF('p', 'pt', 'a1');
 
 			var currentDate = new Date();
+			var dateString = currentDate.getDate() + '/' + (currentDate.getMonth() + 10) + '/' + currentDate.getFullYear();
 
-			var dateString = currentDate.getDate() + '/' + (currentDate.getMonth() + 1) + '/' + currentDate.getFullYear();
-
-			doc.text('Tabela de Orçamentos - ' + dateString, 10, 10);
-
+			doc.text('Tabela de Orçamentos - ' + dateString, 33, 33);
 			doc.autoTable({
-				margin: {left: 2, right: 2},
+				margin: { left: 4, right: 4 },
+				startY: startY,
 				head: [colHeaders2],
 				body: data,
 				styles: {
-					fontSize: 4
+					cellPadding: 7.5,
+					fontSize: 8
+
+				},
+				columnStyles: {
+					0: { columnWidth: 23 },
+					1: { columnWidth: 57 },
+					3: { columnWidth: 35 },
+					5: { columnWidth: 65 },
+					7: { columnWidth: 55 },
+					18: { columnWidth: 70 },
+					19: { columnWidth: 70 },
+					20: { columnWidth: 80 },
+					21: { columnWidth: 70 },
+					22: { columnWidth: 70 },
+					23: { columnWidth: 70 },
+					24: { columnWidth: 80 },
+					25: { columnWidth: 70 },
+					26: { columnWidth: 70 },
+					27: { columnWidth: 50 }
 				}
+
+
 			});
 
 			var dateString = currentDate.getDate() + '-' + (currentDate.getMonth() + 1) + '-' + currentDate.getFullYear();
 
-			doc.save('Tabela_Orçamentos_'+dateString+'.pdf');
+			doc.save('Tabela_Orçamentos_' + dateString + '.pdf');
 		});
 
 		function setEuro(){
