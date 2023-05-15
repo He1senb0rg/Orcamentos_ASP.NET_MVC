@@ -1,5 +1,0 @@
-O
-Miguel
-é
-feio
-:)
