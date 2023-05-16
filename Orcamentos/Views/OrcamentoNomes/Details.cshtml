@@ -467,9 +467,42 @@
 				data[i][27] = percentagem.format(data[i][27]);
 			}
 
+			var colHeaders2 = [
+				'ID',
+				'Orçamento Nome ID',
+				'Orçamento Nome',
+				'Perfil ID',
+				'Perfil',
+				'Tipo de Rendimento ID',
+				'Tipo de Rendimento',
+				'Unidade de Negócio ID',
+				'Unidade de Negócio',
+				'Marca',
+				'Tipo de Unidade',
+				'Part Number',
+				'Modelo',
+				'Número de Série',
+				'Nome do Produto',
+				'Quantidade',
+				'Preço de Unidade Diário',
+				'Custo de Unidade Diário',
+				'Desconto Tabela',
+				'Preço Parcial',
+				'Custo Tabela',
+				'Custo Desconto 1',
+				'Custo Desconto 2',
+				'Custo Desconto 3',
+				'Custo Total',
+				'Preço Total',
+				'Margem',
+				'MG'];
+
 		var hot2 = new Handsontable(document.getElementById('excelOrcamentos2'), {
 			data: data,
-			colHeaders: colHeaders,
+			colHeaders: colHeaders2,
+				hiddenColumns: {
+					columns: [28, 29]
+				},
 			rowHeaders: true,
 			licenseKey: 'non-commercial-and-evaluation' // for non-commercial use only
 		});
@@ -480,7 +513,7 @@
 				bom: false,
 				columnDelimiter: ',',
 				columnHeaders: true,
-				exportHiddenColumns: true,
+				exportHiddenColumns: false,
 				exportHiddenRows: true,
 				fileExtension: 'csv',
 				filename: 'Tabela_Orçamentos_'+@Html.Raw(Json.Serialize(Model.Nome))+'_[YYYY]-[MM]-[DD]',
