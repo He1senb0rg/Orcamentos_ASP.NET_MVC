@@ -109,6 +109,8 @@
 	<button class="btn btn-success" id="addRowButton">Adicionar linha</button>
 	<button class="btn btn-success" id="export-file">Guardar CSV</button>
 	<button class="btn btn-success" id="btnPDF" >Guardar PDF</button>
+	
+	<div class="d-none" id="excelProfiles2"></div>
 </div>
 
 
@@ -165,10 +167,10 @@
 
 		var data = @Html.Raw(Json.Serialize(Model
 			.Select(o => new {
-			o.Id,
-			o.Name,
-			ProfileLevelId = o.profileLevelId,
-			ProfileLevelName = o.ProfileLevel.Name
+				o.Id,
+				o.Name,
+				ProfileLevelId = o.profileLevelId,
+				ProfileLevelName = o.ProfileLevel.Name
 			})));
 
 		var colHeaders = [
@@ -231,14 +233,35 @@
 		});
 
 		var button1 = document.getElementById('export-file');
-		var exportPlugin1 = hot.getPlugin('exportFile');
+		
 
 		button1.addEventListener('click', function () {
+		
+		var data = hot.getData();
+		
+		var colHeaders2 = [
+        			'ID',
+        			'Nome',
+        			'Nivel de Perfil ID',
+        			'Nivel de Perfil'];
+        			
+        			var hot2 = new Handsontable(document.getElementById('excelProfiles2'), {
+                                                			data: data,
+                                                			colHeaders: colHeaders2,
+                                                				hiddenColumns: {
+                                                					columns: [4, 5]
+                                                				},
+                                                			rowHeaders: true,
+                                                			licenseKey: 'non-commercial-and-evaluation' // for non-commercial use only
+                                                		});        		
+        			
+        			var exportPlugin1 = hot2.getPlugin('exportFile');
+		
 			exportPlugin1.downloadFile('csv', {
 				bom: false,
 				columnDelimiter: ',',
 				columnHeaders: true,
-				exportHiddenColumns: true,
+				exportHiddenColumns: false,
 				exportHiddenRows: true,
 				fileExtension: 'csv',
 				filename: 'Tabela_Perfis_[YYYY]-[MM]-[DD]',
@@ -254,6 +277,12 @@
 
 			var data = hot.getData();
 			window.jsPDF = window.jspdf.jsPDF;
+			
+			var colHeaders2 = [
+                    			'ID',
+                    			'Nome',
+                    			'Nivel de Perfil ID',
+                    			'Nivel de Perfil'];
 
 			var doc = new jsPDF({
 				orientation: "landscape"
@@ -266,7 +295,7 @@
 			doc.text('Tabela de Perfis - ' + dateString, 10, 10);
 
 			doc.autoTable({
-				head: [colHeaders],
+				head: [colHeaders2],
 				body: data,
 				styles: {
 					fontSize: 5 // Set font size to 14
