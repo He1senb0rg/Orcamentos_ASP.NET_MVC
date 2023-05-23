@@ -91,7 +91,7 @@ namespace Orcamentos.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,orcamentoNomeId,profileId,revenueTypeId,businessUnitId,Marca,TipoUni,Partnumb,modelo,SerialNumb,ProductName,Quantidade,UnitPrice,UnitCost,DescontoTabela,PrecoParcial,CustoTabela,CustoDesc1,CustoDesc2,CustoDesc3,TotalCost,TotalPrice,Margin,MG,Ativo")] Orcamento orcamento)
+        public async Task<IActionResult> Create([Bind("Id,orcamentoNomeId,profileId,revenueTypeId,businessUnitId,Marca,TipoUni,Partnumb,modelo,SerialNumb,ProductName,Quantidade,UnitPrice,UnitCost,DescontoTabela,PrecoParcial,CustoTabela,CustoDesc1,CustoDesc2,CustoDesc3,TotalCost,TotalPrice,Margin,MG,Ativo, DelivaryDate,ExternalProvider")] Orcamento orcamento)
         {
             //decimal result;
             //bool isDecimal = decimal.TryParse(orcamento.UnitPrice.ToString(CultureInfo.InvariantCulture),NumberStyles.Any, CultureInfo.InvariantCulture, out result);      
@@ -152,7 +152,7 @@ namespace Orcamentos.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,orcamentoNomeId,profileId,revenueTypeId,businessUnitId,Marca,TipoUni,Partnumb,modelo,SerialNumb,ProductName,Quantidade,UnitPrice,UnitCost,DescontoTabela,PrecoParcial,CustoTabela,CustoDesc1,CustoDesc2,CustoDesc3,TotalCost,TotalPrice,Margin,MG,Ativo")] Orcamento orcamento)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,orcamentoNomeId,profileId,revenueTypeId,businessUnitId,Marca,TipoUni,Partnumb,modelo,SerialNumb,ProductName,Quantidade,UnitPrice,UnitCost,DescontoTabela,PrecoParcial,CustoTabela,CustoDesc1,CustoDesc2,CustoDesc3,TotalCost,TotalPrice,Margin,MG,Ativo,DelivaryDate,ExternalProvider")] Orcamento orcamento)
         {
             if (id != orcamento.Id)
             {
@@ -296,7 +296,9 @@ namespace Orcamentos.Controllers
                 o.TotalPrice,
                 o.Margin,
                 o.MG,
-                o.Ativo
+                o.Ativo,
+                o.DelivaryDate,
+                o.ExternalProvider
             }).ToList();
 
             return Json(data);
@@ -339,8 +341,10 @@ namespace Orcamentos.Controllers
                 o.TotalPrice,
                 o.Margin,
                 o.MG,
-                o.Ativo
-            }).ToList();
+                o.Ativo,
+				o.DelivaryDate,
+				o.ExternalProvider
+			}).ToList();
 
             ViewBag.countOrcamentos = linhas.Count;
 

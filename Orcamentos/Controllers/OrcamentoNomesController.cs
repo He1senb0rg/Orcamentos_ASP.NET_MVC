@@ -83,7 +83,7 @@ namespace Orcamentos.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nome,CreatedBy,Ativo")] OrcamentoNome orcamentoNome)
+        public async Task<IActionResult> Create([Bind("Id,Nome,CreatedBy,Ativo,")] OrcamentoNome orcamentoNome)
         {
             if (ModelState.IsValid)
             {
@@ -254,8 +254,10 @@ namespace Orcamentos.Controllers
                     o.TotalPrice,
                     o.Margin,
                     o.MG,
-                    o.Ativo
-                }).Where(o => o.OrcamentoNomeId == orcamentoNome.Id).ToList();
+                    o.Ativo,
+					o.DelivaryDate,
+					o.ExternalProvider
+				}).Where(o => o.OrcamentoNomeId == orcamentoNome.Id).ToList();
 
 
 
@@ -376,8 +378,10 @@ namespace Orcamentos.Controllers
                 o.TotalPrice,
                 o.Margin,
                 o.MG,
-                o.Ativo
-            }).ToList();
+                o.Ativo,
+				o.DelivaryDate,
+				o.ExternalProvider
+			}).ToList();
 
             return Ok(linhas);
         }
