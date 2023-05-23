@@ -5,7 +5,7 @@
 }
 
 <h1>Menu</h1>
-<h3>Tipos de Rendimento</h3>
+<h3>Sub Famílias</h3>
 
 <div class="mb-3">
 	<a class="btn btn-primary" asp-action="Create"><i class="bi bi-plus-lg btn-icon mr-2"></i></a>
@@ -250,7 +250,7 @@
 
 			var dateString = currentDate.getDate() + '/' + (currentDate.getMonth() + 1) + '/' + currentDate.getFullYear();
 
-			doc.text('Tabela de Tipos de Rendimentos - ' + dateString, 10, 10);
+			doc.text('Tabela de Sub Famílias - ' + dateString, 10, 10);
 
 			doc.autoTable({
 				head: [colHeaders],
@@ -262,7 +262,7 @@
 
 			var dateString = currentDate.getDate() + '-' + (currentDate.getMonth() + 1) + '-' + currentDate.getFullYear();
 
-			doc.save('Tabela_Tipos_de_Rendimentos_'+dateString+'.pdf');
+			doc.save('Tabela_Sub_Familias_'+dateString+'.pdf');
 		});
 
 		//console.log(tableData);

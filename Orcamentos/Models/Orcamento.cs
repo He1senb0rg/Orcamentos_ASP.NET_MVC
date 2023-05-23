@@ -33,7 +33,7 @@ namespace Orcamentos.Models
 
         public BusinessUnit? BusinessUnit { get; set; }
 
-
+     
 
         [Required]
         public string Marca { get; set; }
@@ -64,6 +64,7 @@ namespace Orcamentos.Models
 
         [Required]
         public decimal DescontoTabela { get; set; }
+
         [Required]
         public decimal PrecoParcial { get; set; }
 
@@ -96,8 +97,10 @@ namespace Orcamentos.Models
         [Required]
         public bool Ativo { get; set; }
 
+        [Required]
+        public DateTime DelivaryDate { get; set; }
 
-
-
+        [Required]
+        public string ExternalProvider { get; set; }
     }
 }
