@@ -19,6 +19,9 @@
 			<th>
 				@Html.DisplayNameFor(model => model.Nome)
 			</th>
+						<th>
+				Numero da Proposta
+			</th>
 			<th>
 				Criado por:
 			</th>
@@ -34,6 +37,9 @@
 			<tr>
 				<td>
 					@Html.DisplayFor(modelItem => item.Nome)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.ProposalNumber)
 				</td>
 				<td>
 					@Html.DisplayFor(modelItem => item.CreatedBy)
@@ -192,6 +198,7 @@
 			columns: [
 				{ data: 'id', readOnly: true },
 				{ data: 'nome', type: 'text' },
+				{ data: 'proposalNumber', type: 'text' },
 				{ data: 'createdBy', type: 'text' },
 				{ data: 'ativo', type: 'checkbox', readOnly: true },
 				{ data: 'eliminar', renderer: actionRenderer, readOnly: true }
@@ -256,6 +263,7 @@
 			var colHeaders2 = [
                     			'ID',
                     			'Nome',
+								'Numero da Proposta:',
                     			'Criado Por:'];
 
 			var doc = new jsPDF({
@@ -327,6 +335,7 @@
 
 						var row = '<tr>' +
 							'<td>' + item.nome + '</td>' +
+							'<td>' + item.proposalNumber + '</td>' +
 							'<td>' + item.createdBy + '</td>' +
 					
 							'<td>' +

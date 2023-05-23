@@ -48,6 +48,12 @@
 			<th>
 				Nome de produto
 			</th>
+						<th>
+				Fornecedor
+			</th>
+						<th>
+				Data de Entrega
+			</th>
 			<th>
 				Quantidade
 			</th>
@@ -96,6 +102,12 @@
 						</td>
 						<td>
 					@Html.DisplayFor(modelItem => item.ProductName)
+						</td>
+												<td>
+					@Html.DisplayFor(modelItem => item.ExternalProvider)
+						</td>
+												<td>
+					@Html.DisplayFor(modelItem => item.DelivaryDate)
 						</td>
 						<td>
 					@Html.DisplayFor(modelItem => item.Quantidade)
@@ -261,6 +273,8 @@
 			o.modelo,
 			o.SerialNumb,
 			o.ProductName,
+			o.ExternalProvider,
+			o.DelivaryDate,
 			o.Quantidade,
 			o.UnitPrice,
 			o.UnitCost,
@@ -293,6 +307,8 @@
 			'Modelo',
 			'Número de Série',
 			'Nome do Produto',
+			'Fornecedor',
+			'Data de Entrega',
 			'Quantidade',
 			'Preço de Unidade Diário',
 			'Custo de Unidade Diário',
@@ -352,6 +368,8 @@
 				{ data: 'modelo', type: 'text' },
 				{ data: 'serialNumb', type: 'numeric' },
 				{ data: 'productName', type: 'text' },
+				{ data: 'externalProvider', type: 'text' },
+				{ data: 'delivaryDate', type: 'text' },
 				{ data: 'quantidade', type: 'numeric' },
 				{ data: 'unitPrice', type: 'numeric', numericFormat: formatEUR },
 				{ data: 'unitCost', type: 'numeric', numericFormat: formatEUR },
