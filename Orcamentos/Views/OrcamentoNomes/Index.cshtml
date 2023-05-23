@@ -108,6 +108,8 @@
 	<button class="btn btn-success" id="addRowButton">Adicionar linha</button>
 	<button class="btn btn-success" id="export-file">Guardar CSV</button>
 	<button class="btn btn-success" id="btnPDF" >Guardar PDF</button>
+	
+	<div class="d-none" id="excelOrcamentoNomes2"></div>
 </div>
 
 <script>
@@ -162,10 +164,10 @@
 
 		var data = @Html.Raw(Json.Serialize(Model
 			.Select(o => new {
-			o.Id,
-			o.Nome,
-			o.CreatedBy,
-			o.Ativo
+				o.Id,
+				o.Nome,
+				o.CreatedBy,
+				o.Ativo
 			})));
 
 		var colHeaders = [
@@ -208,14 +210,33 @@
 		});
 
 		var button1 = document.getElementById('export-file');
-		var exportPlugin1 = hot.getPlugin('exportFile');
 
 		button1.addEventListener('click', function () {
+		
+		var data = hot.getData();
+		
+		var colHeaders2 = [
+        			'ID',
+        			'Nome',
+        			'Criado Por:'];
+		
+		var hot2 = new Handsontable(document.getElementById('excelOrcamentoNomes2'), {
+                                    			data: data,
+                                    			colHeaders: colHeaders2,
+                                    				hiddenColumns: {
+                                    					columns: [3, 4]
+                                    				},
+                                    			rowHeaders: true,
+                                    			licenseKey: 'non-commercial-and-evaluation' // for non-commercial use only
+                                    		});
+		
+		var exportPlugin1 = hot2.getPlugin('exportFile');
+		
 			exportPlugin1.downloadFile('csv', {
 				bom: false,
 				columnDelimiter: ',',
 				columnHeaders: true,
-				exportHiddenColumns: true,
+				exportHiddenColumns: false,
 				exportHiddenRows: true,
 				fileExtension: 'csv',
 				filename: 'Tabela_Nome_dos_Orçamentos_[YYYY]-[MM]-[DD]',
@@ -231,6 +252,11 @@
 
 			var data = hot.getData();
 			window.jsPDF = window.jspdf.jsPDF;
+			
+			var colHeaders2 = [
+                    			'ID',
+                    			'Nome',
+                    			'Criado Por:'];
 
 			var doc = new jsPDF({
 				orientation: "landscape"
@@ -243,7 +269,7 @@
 			doc.text('Tabela de Nome dos Orçamentos - ' + dateString, 10, 10);
 
 			doc.autoTable({
-				head: [colHeaders],
+				head: [colHeaders2],
 				body: data,
 				styles: {
 					fontSize: 5 // Set font size to 14
