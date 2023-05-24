@@ -92,18 +92,18 @@
                     <label asp-for="Quantidade" class="control-label">Quantidade</label>
                     <input asp-for="Quantidade" class="form-control" id="qnt" required />
                 </div>
-                <div class="mb-2">
-                    <label class="control-label">Preço de Unidade Diário</label>
-                    <div class="input-group ">
-                        <input class="form-control" id="unitPriceDisplay" required />
-                        <div class="input-group-append">
-                            <span class="input-group-text">€</span>
-                        </div>    
-                    </div>
-                    <input asp-for="UnitPrice" class="form-control d-none" id="unitPrice" readonly />
-                </div>
             </div>
             <div class="col-4">
+            <div class="mb-2">
+                                <label class="control-label">Preço de Unidade Diário</label>
+                                <div class="input-group ">
+                                    <input class="form-control" id="unitPriceDisplay" required />
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">€</span>
+                                    </div>    
+                                </div>
+                                <input asp-for="UnitPrice" class="form-control d-none" id="unitPrice" readonly />
+                            </div>
                 <div class="mb-2">
                     <label class="control-label">Custo de Unidade Diário</label>
                     <div class="input-group">

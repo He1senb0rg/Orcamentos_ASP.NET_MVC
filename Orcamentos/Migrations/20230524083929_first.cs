@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -140,7 +139,7 @@ namespace Orcamentos.Migrations
                     Margin = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     MG = table.Column<decimal>(type: "decimal(14,3)", precision: 14, scale: 3, nullable: false),
                     Ativo = table.Column<bool>(type: "bit", nullable: false),
-                    DelivaryDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DelivaryDate = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ExternalProvider = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>

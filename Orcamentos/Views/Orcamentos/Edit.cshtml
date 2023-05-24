@@ -91,144 +91,144 @@
                 <div class="form-group mb-2">
                     <label asp-for="DelivaryDate" class="control-label">Data de entrega</label>
                     <input type="date" id="deliveryDateDisplay" class="form-control" required />
-                    <input asp-for="DelivaryDate" id="deliveryDate" class="form-control" readonly />
+                    <input asp-for="DelivaryDate" id="deliveryDate" class="form-control d-none" readonly />
                 </div>
 				<div class="form-group mb-2">
 					<label asp-for="Quantidade" class="control-label">Quantidade</label>
 					<input asp-for="Quantidade" class="form-control" id="qnt" required/>
 				</div>
+                </div>
+            <div class="col-4">
                 <div class="mb-2">
                     <label class="control-label">Preço de Unidade Diário</label>
-                    <div class="input-group ">
-                        <input class="form-control" id="unitPriceDisplay" required />
-                        <div class="input-group-append">
-                            <span class="input-group-text">€</span>
-                        </div>
-                    </div>
+                        <div class="input-group ">
+                            <input class="form-control" id="unitPriceDisplay" required />
+                            <div class="input-group-append">
+                                <span class="input-group-text">€</span>
+                                </div>
+                            </div>
                     <input asp-for="UnitPrice" class="form-control d-none" id="unitPrice" readonly />
-                </div>
-            </div>
-            <div class="col-4">
+                    </div>
                 <div class="mb-2">
                     <label class="control-label">Custo de Unidade Diário</label>
                     <div class="input-group">
-                        <input class="form-control" id="unitCostDisplay" required />
+                        <input class="form-control" id="unitCostDisplay" required/>
                         <div class="input-group-append">
                             <span class="input-group-text">€</span>
                         </div>
                     </div>
-                    <input asp-for="UnitCost" class="form-control d-none" id="unitCost" readonly />
+                    <input asp-for="UnitCost" class="form-control d-none" id="unitCost" readonly/>
                 </div>
 
                 <div class="mb-2">
                     <label class="control-label">Desconto da Tabela</label>
                     <div class="input-group ">
-                        <input class="form-control" id="descTabelaDisplay" required />
+                        <input class="form-control" id="descTabelaDisplay" required/>
                         <div class="input-group-append">
                             <span class="input-group-text">€</span>
                         </div>
                     </div>
-                    <input asp-for="DescontoTabela" class="form-control d-none" id="descTabela" readonly />
+                    <input asp-for="DescontoTabela" class="form-control d-none" id="descTabela" readonly/>
                 </div>
                 <div class="mb-2">
                     <label class="control-label">Preço Parcial</label>
                     <div class="input-group ">
-                        <input class="form-control" id="precoParcialDisplay" required />
+                        <input class="form-control" id="precoParcialDisplay" required/>
                         <div class="input-group-append">
                             <span class="input-group-text">€</span>
                         </div>
                     </div>
-                    <input asp-for="PrecoParcial" class="form-control d-none" id="precoParcial" readonly />
+                    <input asp-for="PrecoParcial" class="form-control d-none" id="precoParcial" readonly/>
                 </div>
                 <div class="mb-2">
                     <label class="control-label">Custo da Tabela</label>
                     <div class="input-group">
-                        <input class="form-control" id="custoTabelaDisplay" required />
+                        <input class="form-control" id="custoTabelaDisplay" required/>
                         <div class="input-group-append">
                             <span class="input-group-text">€</span>
                         </div>
                     </div>
-                    <input asp-for="CustoTabela" class="form-control d-none" id="custoTabela" readonly />
+                    <input asp-for="CustoTabela" class="form-control d-none" id="custoTabela" readonly/>
                 </div>
                 <div class="mb-2">
                     <label class="control-label">Custo do Desconto 1</label>
                     <div class="input-group">
-                        <input class="form-control" id="custoDesc1Display" required />
+                        <input class="form-control" id="custoDesc1Display" required/>
                         <div class="input-group-append">
                             <span class="input-group-text">€</span>
                         </div>
                     </div>
-                    <input asp-for="CustoDesc1" class="form-control d-none" id="custoDesc1" readonly />
+                    <input asp-for="CustoDesc1" class="form-control d-none" id="custoDesc1" readonly/>
                 </div>
                 <div class="mb-2">
                     <label class="control-label">Custo do Desconto 2</label>
                     <div class="input-group">
-                        <input class="form-control" id="custoDesc2Display" required />
+                        <input class="form-control" id="custoDesc2Display" required/>
                         <div class="input-group-append">
                             <span class="input-group-text">€</span>
                         </div>
                     </div>
-                    <input asp-for="CustoDesc2" class="form-control d-none" id="custoDesc2" readonly />
+                    <input asp-for="CustoDesc2" class="form-control d-none" id="custoDesc2" readonly/>
                 </div>
                 <div class="mb-2">
                     <label class="control-label">Custo do Desconto 3</label>
                     <div class="input-group">
-                        <input class="form-control" id="custoDesc3Display" required />
+                        <input class="form-control" id="custoDesc3Display" required/>
                         <div class="input-group-append">
                             <span class="input-group-text">€</span>
                         </div>
                     </div>
-                    <input asp-for="CustoDesc3" class="form-control d-none" id="custoDesc3" readonly />
+                    <input asp-for="CustoDesc3" class="form-control d-none" id="custoDesc3" readonly/>
                 </div>
                 <div class="mb-2">
                     <label class="control-label">Custo Total</label>
                     <div class="input-group">
-                        <input class="form-control" id="custoTotalDisplay" readonly />
+                        <input class="form-control" id="custoTotalDisplay" readonly/>
                         <div class="input-group-append">
                             <span class="input-group-text">€</span>
                         </div>
                     </div>
-                    <input asp-for="TotalCost" class="form-control d-none" id="custoTotal" readonly />
+                    <input asp-for="TotalCost" class="form-control d-none" id="custoTotal" readonly/>
                 </div>
                 <div class="mb-2">
                     <label class="control-label">Preço Total</label>
                     <div class="input-group">
-                        <input class="form-control" id="precoTotalDisplay" readonly />
+                        <input class="form-control" id="precoTotalDisplay" readonly/>
                         <div class="input-group-append">
                             <span class="input-group-text">€</span>
                         </div>
                     </div>
-                    <input asp-for="TotalPrice" class="form-control d-none" id="precoTotal" readonly />
+                    <input asp-for="TotalPrice" class="form-control d-none" id="precoTotal" readonly/>
                 </div>
                 <div class="mb-2">
                     <label class="control-label">Margem</label>
                     <div class="input-group">
-                        <input class="form-control" id="margemDisplay" readonly />
+                        <input class="form-control" id="margemDisplay" readonly/>
                         <div class="input-group-append">
                             <span class="input-group-text">€</span>
                         </div>
                     </div>
-                    <input asp-for="Margin" class="form-control d-none" id="margem" readonly />
+                    <input asp-for="Margin" class="form-control d-none" id="margem" readonly/>
                 </div>
                 <div class="mb-2">
                     <label class="control-label">MG</label>
                     <div class="input-group">
-                        <input class="form-control" id="MGdisplay" readonly />
+                        <input class="form-control" id="MGdisplay" readonly/>
                         <div class="input-group-append">
                             <span class="input-group-text">%</span>
                         </div>
                     </div>
-                    <input asp-for="MG" class="form-control d-none" id="MG" readonly />
+                    <input asp-for="MG" class="form-control d-none" id="MG" readonly/>
                 </div>
-					<div class="form-group form-check d-none">
-						<label class="form-check-label">
-							<input class="form-check-input" asp-for="Ativo" checked /> @Html.DisplayNameFor(model => model.Ativo)
-						</label>
-					</div>
-					<div class="form-group">
-						<input type="submit" value="Guardar" class="btn btn-primary" />
-					</div>
-				</div>
+                <div class="form-group form-check d-none">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="Ativo" checked/> @Html.DisplayNameFor(model => model.Ativo)
+                    </label>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Guardar" class="btn btn-primary"/>
+                </div>
+            </div>
 			</div>
 		</form>
 
@@ -251,13 +251,22 @@
 	});
 
     var delivery = document.getElementById("deliveryDateDisplay");
-    var deliveryHidden = document.getElementById("deliveryDateDisplay").value;
+    var deliveryHidden = document.getElementById("deliveryDate");
 
-    var dates = deliveryHidden.split('/');
+    var dates = deliveryHidden.value.split('/');
 
-    var dataCorrect = dates[2] + '-' + dates[0] + '-' + dates[1]
+    var dataCorrect = dates[2] + '-' + dates[1] + '-' + dates[0]
 
     delivery.value = dataCorrect;
+    
+    delivery.addEventListener("change", (event) => {
+        
+        var dates = delivery.value.split('-');
+        
+        var dataCorrect = dates[2] + '/' + dates[1] + '/' + dates[0]
+        
+        deliveryHidden.value = dataCorrect;
+    });
 
     var decimalSeparator = "@ViewBag.decimalSeparator";
 

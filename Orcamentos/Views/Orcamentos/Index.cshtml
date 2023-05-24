@@ -246,37 +246,37 @@
 
 		var data = @Html.Raw(Json.Serialize(Model
 			.Select(o => new {
-			o.Id,
-			OrcamentoNomeId = o.orcamentoNomeId,
-			OrcamentoName = o.OrcamentoNome.Nome,
-			ProfileId = o.profileId,
-			ProfileName = o.Profile.Name,
-			RevenueTypeId = o.revenueTypeId,
-			RevenueTypeName = o.RevenueType.Nome,
-			BusinessUnitId = o.businessUnitId,
-			BusinessUnitName = o.BusinessUnit.Name,
-			o.Marca,
-			o.TipoUni,
-			o.Partnumb,
-			o.modelo,
-			o.SerialNumb,
-			o.ProductName,
-			o.ExternalProvider,
-			o.DelivaryDate,
-			o.Quantidade,
-			o.UnitPrice,
-			o.UnitCost,
-			o.DescontoTabela,
-			o.PrecoParcial,
-			o.CustoTabela,
-			o.CustoDesc1,
-			o.CustoDesc2,
-			o.CustoDesc3,
-			o.TotalCost,
-			o.TotalPrice,
-			o.Margin,
-			o.MG,
-			o.Ativo
+				o.Id,
+				OrcamentoNomeId = o.orcamentoNomeId,
+				OrcamentoName = o.OrcamentoNome.Nome,
+				ProfileId = o.profileId,
+				ProfileName = o.Profile.Name,
+				RevenueTypeId = o.revenueTypeId,
+				RevenueTypeName = o.RevenueType.Nome,
+				BusinessUnitId = o.businessUnitId,
+				BusinessUnitName = o.BusinessUnit.Name,
+				o.Marca,
+				o.TipoUni,
+				o.Partnumb,
+				o.modelo,
+				o.SerialNumb,
+				o.ProductName,
+				o.ExternalProvider,
+				o.DelivaryDate,
+				o.Quantidade,
+				o.UnitPrice,
+				o.UnitCost,
+				o.DescontoTabela,
+				o.PrecoParcial,
+				o.CustoTabela,
+				o.CustoDesc1,
+				o.CustoDesc2,
+				o.CustoDesc3,
+				o.TotalCost,
+				o.TotalPrice,
+				o.Margin,
+				o.MG,
+				o.Ativo
 			})));
 
 		var colHeaders = [
@@ -444,6 +444,7 @@
 
 		var button1 = document.getElementById('export-file');
 
+		//csv
 		button1.addEventListener('click', function() {
 
 			var data = hot.getData();
@@ -521,6 +522,8 @@
 
 		var pdfButton = document.getElementById('btnPDF');
 
+
+		//pdf
 		pdfButton.addEventListener('click', function() {
 
 			var data = hot.getData();
@@ -660,7 +663,7 @@
 					});
 				}
 				else {
-					alert("error");
+					alert("Erro, verifique se tem alguma célula inválida.");
 				}
 			})
 

@@ -98,7 +98,7 @@ namespace Orcamentos.Models
         public bool Ativo { get; set; }
 
         [Required]
-        public DateTime DelivaryDate { get; set; }
+        public string DelivaryDate { get; set; }
 
         [Required]
         public string ExternalProvider { get; set; }

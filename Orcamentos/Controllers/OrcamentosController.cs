@@ -102,6 +102,15 @@ namespace Orcamentos.Controllers
             //orcamento.UnitPrice = result;
             if (ModelState.IsValid)
             {
+                if (orcamento.DelivaryDate.Contains('-'))
+                {
+                    var dates = orcamento.DelivaryDate.Split("-");
+
+                    var dataCorrect = dates[2] + '/' + dates[1] + '/' + dates[0];
+
+                    orcamento.DelivaryDate = dataCorrect;
+                }
+                
                 _context.Add(orcamento);
                 await _context.SaveChangesAsync();
                 _toastNotification.AddSuccessToastMessage("Orçamento criado com sucesso");

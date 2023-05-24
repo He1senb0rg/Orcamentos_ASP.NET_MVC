@@ -269,35 +269,37 @@
 
 		var data = @Html.Raw(Json.Serialize(listaOrcamentos
 			.Select(o => new {
-			o.Id,
-			OrcamentoNomeId = o.orcamentoNomeId,
-			OrcamentoName = o.OrcamentoNome.Nome,
-			ProfileId = o.profileId,
-			ProfileName = o.Profile.Name,
-			RevenueTypeId = o.revenueTypeId,
-			RevenueTypeName = o.RevenueType.Nome,
-			BusinessUnitId = o.businessUnitId,
-			BusinessUnitName = o.BusinessUnit.Name,
-			o.Marca,
-			o.TipoUni,
-			o.Partnumb,
-			o.modelo,
-			o.SerialNumb,
-			o.ProductName,
-			o.Quantidade,
-			o.UnitPrice,
-			o.UnitCost,
-			o.DescontoTabela,
-			o.PrecoParcial,
-			o.CustoTabela,
-			o.CustoDesc1,
-			o.CustoDesc2,
-			o.CustoDesc3,
-			o.TotalCost,
-			o.TotalPrice,
-			o.Margin,
-			o.MG,
-			o.Ativo
+				o.Id,
+				OrcamentoNomeId = o.orcamentoNomeId,
+				OrcamentoName = o.OrcamentoNome.Nome,
+				ProfileId = o.profileId,
+				ProfileName = o.Profile.Name,
+				RevenueTypeId = o.revenueTypeId,
+				RevenueTypeName = o.RevenueType.Nome,
+				BusinessUnitId = o.businessUnitId,
+				BusinessUnitName = o.BusinessUnit.Name,
+				o.Marca,
+				o.TipoUni,
+				o.Partnumb,
+				o.modelo,
+				o.SerialNumb,
+				o.ProductName, 
+				o.ExternalProvider,
+				o.DelivaryDate,
+				o.Quantidade,
+				o.UnitPrice,
+				o.UnitCost,
+				o.DescontoTabela,
+				o.PrecoParcial,
+				o.CustoTabela,
+				o.CustoDesc1,
+				o.CustoDesc2,
+				o.CustoDesc3,
+				o.TotalCost,
+				o.TotalPrice,
+				o.Margin,
+				o.MG,
+				o.Ativo
 			})));
 
 		var colHeaders = [
@@ -316,6 +318,8 @@
 			'Modelo',
 			'Número de Série',
 			'Nome do Produto',
+			'Fornecedor',
+            			'Data de Entrega',
 			'Quantidade',
 			'Preço de Unidade Diário',
 			'Custo de Unidade Diário',
@@ -374,6 +378,8 @@
 				{ data: 'modelo', type: 'text' },
 				{ data: 'serialNumb', type: 'numeric' },
 				{ data: 'productName', type: 'text' },
+				{ data: 'externalProvider', type: 'text' },
+                				{ data: 'delivaryDate', type: 'date', dateFormat: 'DD/MM/YYYY', correctFormat: true },
 				{ data: 'quantidade', type: 'numeric' },
 				{ data: 'unitPrice', type: 'numeric', numericFormat: formatEUR },
 				{ data: 'unitCost', type: 'numeric', numericFormat: formatEUR },
@@ -391,56 +397,64 @@
 				{ data: 'eliminar', renderer: actionRenderer, readOnly: true }
 			],
 			afterChange: function (changes, source) {
-				if (source === 'edit') {
-					var unitCostCol = hot.getDataAtCol(16);
-					var unitPriceCol = hot.getDataAtCol(15);
-
-					changes.forEach(function (change) {
-						var row = change[0];
-						var prop = change[1];
-						var newValue = change[3];
-
-						if (prop === 'profileName') {
-							var profile = mList.find(function (p) { return p.text === newValue; });
-							hot.setDataAtCell(row, hot.propToCol('profileId'), profile.value);
-						}
-						if (prop === 'orcamentoName') {
-							var profile2 = mList4.find(function (p) { return p.text === newValue; });
-							hot.setDataAtCell(row, hot.propToCol('orcamentoNomeId'), profile2.value);
-						}
-						if (prop === 'revenueTypeName') {
-							var profile3 = mList2.find(function (p) { return p.text === newValue; });
-							hot.setDataAtCell(row, hot.propToCol('revenueTypeId'), profile3.value);
-						}
-						if (prop === 'businessUnitName') {
-							var profile4 = mList3.find(function (p) { return p.text === newValue; });
-							hot.setDataAtCell(row, hot.propToCol('businessUnitId'), profile4.value);
-						}
-						if (prop === 'unitCost' || prop === 'quantidade' || prop === 'unitPrice' || prop === 'descontoTabela' || prop === 'precoParcial' || prop === 'custoTabela' || prop === 'custoDesc1' || prop === 'custoDesc2' || prop === 'custoDesc3') {
-							var row = change[0];
-							var unitCost = unitCostCol[row];
-							var custoTabela = custoTabelaCol[row];
-							var qnt = quantidadeCol[row];
-							var totalCost = (unitCost * qnt) + custoTabela;
-							var unitPrice = unitPriceCol[row];
-							var descTabela = descTabelaCol[row];
-							var precoParcial = precoParcialCol[row];
-							var custoDescs = custoDesc1Col[row] + custoDesc2Col[row] + custoDesc3Col[row]
-							var totalPrice = ((unitPrice - descTabela) + precoParcial) - custoDescs;
-							var margin = totalPrice - totalCost
-							var mg = margin / totalPrice;
-							hot.setDataAtCell(row, hot.propToCol('totalCost'), totalCost);
-							hot.setDataAtCell(row, hot.propToCol('totalPrice'), totalPrice);
-							hot.setDataAtCell(row, hot.propToCol('margin'), margin);
-							hot.setDataAtCell(row, hot.propToCol('mg'), mg);
-						}
-					});
-				}
+            				if (source === 'edit') {
+            					var unitCostCol = hot.getDataAtCol(19);
+            					var unitPriceCol = hot.getDataAtCol(18);
+            					var quantidadeCol = hot.getDataAtCol(17);
+            					var descTabelaCol = hot.getDataAtCol(20);
+            					var totalCostCol = hot.getDataAtCol(26);
+            					var precoParcialCol = hot.getDataAtCol(21);
+            					var custoTabelaCol = hot.getDataAtCol(22);
+            					var custoDesc1Col = hot.getDataAtCol(23);
+            					var custoDesc2Col = hot.getDataAtCol(24);
+            					var custoDesc3Col = hot.getDataAtCol(25);
+            
+            					changes.forEach(function (change) {
+            						var row = change[0];
+            						var prop = change[1];
+            						var newValue = change[3];
+            
+            						if (prop === 'profileName') {
+            							var profile = mList.find(function (p) { return p.text === newValue; });
+            							hot.setDataAtCell(row, hot.propToCol('profileId'), profile.value);
+            						}
+            						if (prop === 'orcamentoName') {
+            							var profile2 = mList4.find(function (p) { return p.text === newValue; });
+            							hot.setDataAtCell(row, hot.propToCol('orcamentoNomeId'), profile2.value);
+            						}
+            						if (prop === 'revenueTypeName') {
+            							var profile3 = mList2.find(function (p) { return p.text === newValue; });
+            							hot.setDataAtCell(row, hot.propToCol('revenueTypeId'), profile3.value);
+            						}
+            						if (prop === 'businessUnitName') {
+            							var profile4 = mList3.find(function (p) { return p.text === newValue; });
+            							hot.setDataAtCell(row, hot.propToCol('businessUnitId'), profile4.value);
+            						}
+            						if (prop === 'unitCost' || prop === 'quantidade' || prop === 'unitPrice' || prop === 'descontoTabela'|| prop === 'precoParcial' || prop === 'custoTabela' || prop === 'custoDesc1' || prop === 'custoDesc2'|| prop === 'custoDesc3') {
+            							var row = change[0];
+            							var unitCost = unitCostCol[row];
+            							var custoTabela = custoTabelaCol[row];
+            							var qnt = quantidadeCol[row];
+            							var totalCost = (unitCost * qnt) + custoTabela;
+            							var unitPrice = unitPriceCol[row];
+            							var descTabela = descTabelaCol[row];
+            							var precoParcial = precoParcialCol[row];
+            							var custoDescs = custoDesc1Col[row] + custoDesc2Col[row] + custoDesc3Col[row]
+            							var totalPrice = ((unitPrice - descTabela) + precoParcial) - custoDescs;
+            							var margin = totalPrice - totalCost
+            							var mg = margin / totalPrice;
+            							hot.setDataAtCell(row, hot.propToCol('totalCost'), totalCost);
+            							hot.setDataAtCell(row, hot.propToCol('totalPrice'), totalPrice);
+            							hot.setDataAtCell(row, hot.propToCol('margin'), margin);
+            							hot.setDataAtCell(row, hot.propToCol('mg'), mg);
+            						}
+            					});
+            				}
 			},
 			language: 'pt-BR',
 			rowHeaders: true,
 			hiddenColumns: {
-				columns: [28]
+				columns: [30]
 			},
 			filters: true,
 			dropdownMenu: ['filter_by_condition', 'filter_action_bar'],
@@ -450,6 +464,7 @@
 			licenseKey: 'non-commercial-and-evaluation' // for non-commercial use only
 		});
 
+		//csv
 		var button1 = document.getElementById('export-file');
 
 		button1.addEventListener('click', function() {
@@ -527,6 +542,7 @@
 			});
 		});
 
+		//pdf
 		var pdfButton = document.getElementById('btnPDF');
 
 		pdfButton.addEventListener('click', function() {
@@ -535,48 +551,50 @@
 			window.jsPDF = window.jspdf.jsPDF;
 
 			for (var i = 0; i < data.length; i++) {
-				data[i][16] = euro.format(data[i][16]);
-				data[i][17] = euro.format(data[i][17]);
 				data[i][18] = euro.format(data[i][18]);
-				data[i][19] = euro.format(data[i][19]);
-				data[i][20] = euro.format(data[i][20]);
-				data[i][21] = euro.format(data[i][21]);
-				data[i][22] = euro.format(data[i][22]);
-				data[i][23] = euro.format(data[i][23]);
-				data[i][24] = euro.format(data[i][24]);
-				data[i][25] = euro.format(data[i][25]);
-				data[i][26] = euro.format(data[i][26]);
-				data[i][27] = percentagem.format(data[i][27]);
+                				data[i][19] = euro.format(data[i][19]);
+                				data[i][20] = euro.format(data[i][20]);
+                				data[i][21] = euro.format(data[i][21]);
+                				data[i][22] = euro.format(data[i][22]);
+                				data[i][23] = euro.format(data[i][23]);
+                				data[i][24] = euro.format(data[i][24]);
+                				data[i][25] = euro.format(data[i][25]);
+                				data[i][26] = euro.format(data[i][26]);
+                				data[i][27] = euro.format(data[i][27]);
+                				data[i][28] = euro.format(data[i][28]);
+                				data[i][29] = percentagem.format(data[i][29]);
 			}
 			var colHeaders2 = [
-				'ID',
-				'Propostas ID',
-				'Propostas',
-				'Perfil ID',
-				'Perfil',
-				'Sub Famílias ID',
-				'Sub Famílias',
-				'Unidade de Negócio ID',
-				'Unidade de Negócio',
-				'Marca',
-				'Tipo de Unidade',
-				'Part Number',
-				'Modelo',
-				'Número de Série',
-				'Nome do Produto',
-				'Quantidade',
-				'Preço de Unidade Diário',
-				'Custo de Unidade Diário',
-				'Desconto Tabela',
-				'Preço Parcial',
-				'Custo Tabela',
-				'Custo Desconto 1',
-				'Custo Desconto 2',
-				'Custo Desconto 3',
-				'Custo Total',
-				'Preço Total',
-				'Margem',
-				'MG'];
+            			'ID',
+            			'Orçamento Nome ID',
+            			'Orçamento Nome',
+            			'Perfil ID',
+            			'Perfil',
+            			'Tipo de Rendimento ID',
+            			'Tipo de Rendimento',
+            			'Unidade de Negócio ID',
+            			'Unidade de Negócio',
+            			'Marca',
+            			'Tipo de Unidade',
+            			'Part Number',
+            			'Modelo',
+            			'Número de Série',
+            			'Nome do Produto',
+            			'Fornecedor',
+                        'Data de Entrega',
+            			'Quantidade',
+            			'Preço de Unidade Diário',
+            			'Custo de Unidade Diário',
+            			'Desconto Tabela',
+            			'Preço Parcial',
+            			'Custo Tabela',
+            			'Custo Desconto 1',
+            			'Custo Desconto 2',
+            			'Custo Desconto 3',
+            			'Custo Total',
+            			'Preço Total',
+            			'Margem',
+            			'MG'];
 			var startY = 60;
 			var doc = new jsPDF('landscape', 'pt', 'a1');
 
@@ -595,22 +613,22 @@
 
 				},
 				columnStyles: {
-					0: { columnWidth: 23 },
-					1: { columnWidth: 57 },
-					3: { columnWidth: 35 },
-					5: { columnWidth: 65 },
-					7: { columnWidth: 55 },
-					18: { columnWidth: 70 },
-					19: { columnWidth: 70 },
-					20: { columnWidth: 80 },
-					21: { columnWidth: 70 },
-					22: { columnWidth: 70 },
-					23: { columnWidth: 70 },
-					24: { columnWidth: 80 },
-					25: { columnWidth: 70 },
-					26: { columnWidth: 70 },
-					27: { columnWidth: 50 }
-				}
+                					0: { columnWidth: 23 },
+                					1: { columnWidth: 57 },
+                					3: { columnWidth: 35 },
+                					5: { columnWidth: 65 },
+                					7: { columnWidth: 55 },
+                				    20: { columnWidth: 70 },
+                				    21: { columnWidth: 70 },
+                					22: { columnWidth: 80 },
+                					23: { columnWidth: 70 },
+                					24: { columnWidth: 70 },
+                				    25: { columnWidth: 70 },
+                					26: { columnWidth: 80 },
+                					27: { columnWidth: 70 },
+                					28: { columnWidth: 70 },
+                					29: { columnWidth: 50 }
+                				}
 
 
 			});
@@ -621,8 +639,8 @@
 		});
 
 		function setEuro(){
-		var totalCosts = hot.getDataAtCol(24);
-		var totalPrices = hot.getDataAtCol(25);
+		var totalCosts = hot.getDataAtCol(26);
+		var totalPrices = hot.getDataAtCol(27);
 		var countOrcamentos = document.getElementsByClassName('totalCost').length;
 
 			for (let i = 0; i < countOrcamentos; i++) {
@@ -764,6 +782,9 @@
 		buttonDelete.addEventListener("click", deleteOnExcel)
 
 		function addNewRow() {
+		var date = moment();
+        
+        			var currentDate = date.format('DD/MM/YYYY');
 
 			var novaLinha = {
 				orcamentoNomeId: @Html.Raw(Json.Serialize(Model.Id)),
@@ -776,6 +797,8 @@
 				modelo: "Não definido",
 				SerialNumb: 0,
 				ProductName: "Não definido",
+				DelivaryDate: currentDate,
+                				ExternalProvider: "Não definido",
 				Quantidade: 0,
 				UnitPrice: 0,
 				UnitCost: 0,
