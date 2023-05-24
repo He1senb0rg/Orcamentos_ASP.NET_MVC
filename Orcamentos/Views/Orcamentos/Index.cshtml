@@ -48,12 +48,6 @@
 			<th>
 				Nome de produto
 			</th>
-						<th>
-				Fornecedor
-			</th>
-						<th>
-				Data de Entrega
-			</th>
 			<th>
 				Quantidade
 			</th>
@@ -102,12 +96,6 @@
 						</td>
 						<td>
 					@Html.DisplayFor(modelItem => item.ProductName)
-						</td>
-												<td>
-					@Html.DisplayFor(modelItem => item.ExternalProvider)
-						</td>
-												<td>
-					@Html.DisplayFor(modelItem => item.DelivaryDate)
 						</td>
 						<td>
 					@Html.DisplayFor(modelItem => item.Quantidade)
@@ -369,7 +357,7 @@
 				{ data: 'serialNumb', type: 'numeric' },
 				{ data: 'productName', type: 'text' },
 				{ data: 'externalProvider', type: 'text' },
-				{ data: 'delivaryDate', type: 'text' },
+				{ data: 'delivaryDate', type: 'date', dateFormat: 'DD/MM/YYYY', correctFormat: true },
 				{ data: 'quantidade', type: 'numeric' },
 				{ data: 'unitPrice', type: 'numeric', numericFormat: formatEUR },
 				{ data: 'unitCost', type: 'numeric', numericFormat: formatEUR },
@@ -389,16 +377,16 @@
 
 			afterChange: function (changes, source) {
 				if (source === 'edit') {
-					var unitCostCol = hot.getDataAtCol(17);
-					var unitPriceCol = hot.getDataAtCol(16);
-					var quantidadeCol = hot.getDataAtCol(15);
-					var descTabelaCol = hot.getDataAtCol(18);
-					var totalCostCol = hot.getDataAtCol(24);
-					var precoParcialCol = hot.getDataAtCol(19);
-					var custoTabelaCol = hot.getDataAtCol(20);
-					var custoDesc1Col = hot.getDataAtCol(21);
-					var custoDesc2Col = hot.getDataAtCol(22);
-					var custoDesc3Col = hot.getDataAtCol(23);
+					var unitCostCol = hot.getDataAtCol(19);
+					var unitPriceCol = hot.getDataAtCol(18);
+					var quantidadeCol = hot.getDataAtCol(17);
+					var descTabelaCol = hot.getDataAtCol(20);
+					var totalCostCol = hot.getDataAtCol(26);
+					var precoParcialCol = hot.getDataAtCol(21);
+					var custoTabelaCol = hot.getDataAtCol(22);
+					var custoDesc1Col = hot.getDataAtCol(23);
+					var custoDesc2Col = hot.getDataAtCol(24);
+					var custoDesc3Col = hot.getDataAtCol(25);
 
 					changes.forEach(function (change) {
 						var row = change[0];
@@ -444,7 +432,7 @@
 			},
 			language: 'pt-BR',
 			hiddenColumns: {
-				columns: [28]
+				columns: [30]
 			},
 			rowHeaders: true,
 			filters: true,
@@ -540,8 +528,6 @@
 
 			for (var i = 0; i < data.length; i++) {
 
-				data[i][16] = euro.format(data[i][16]);
-				data[i][17] = euro.format(data[i][17]);
 				data[i][18] = euro.format(data[i][18]);
 				data[i][19] = euro.format(data[i][19]);
 				data[i][20] = euro.format(data[i][20]);
@@ -551,7 +537,9 @@
 				data[i][24] = euro.format(data[i][24]);
 				data[i][25] = euro.format(data[i][25]);
 				data[i][26] = euro.format(data[i][26]);
-				data[i][27] = percentagem.format(data[i][27]);
+				data[i][27] = euro.format(data[i][27]);
+				data[i][28] = euro.format(data[i][28]);
+				data[i][29] = percentagem.format(data[i][29]);
 			}
 
 			var colHeaders2 = [
@@ -570,6 +558,8 @@
 			'Modelo',
 			'Número de Série',
 			'Nome do Produto',
+			'Fornecedor',
+            'Data de Entrega',
 			'Quantidade',
 			'Preço de Unidade Diário',
 			'Custo de Unidade Diário',
@@ -606,16 +596,16 @@
 					3: { columnWidth: 35 },
 					5: { columnWidth: 65 },
 					7: { columnWidth: 55 },
-				    18: { columnWidth: 70 },
-				    19: { columnWidth: 70 },
-					20: { columnWidth: 80 },
-					21: { columnWidth: 70 },
-					22: { columnWidth: 70 },
-				    23: { columnWidth: 70 },
-					24: { columnWidth: 80 },
-					25: { columnWidth: 70 },
-					26: { columnWidth: 70 },
-					27: { columnWidth: 50 }
+				    20: { columnWidth: 70 },
+				    21: { columnWidth: 70 },
+					22: { columnWidth: 80 },
+					23: { columnWidth: 70 },
+					24: { columnWidth: 70 },
+				    25: { columnWidth: 70 },
+					26: { columnWidth: 80 },
+					27: { columnWidth: 70 },
+					28: { columnWidth: 70 },
+					29: { columnWidth: 50 }
 				}
 
 				
@@ -627,8 +617,8 @@
 		});
 
 		function setEuro(){
-		var totalCosts = hot.getDataAtCol(24);
-		var totalPrices = hot.getDataAtCol(25);
+		var totalCosts = hot.getDataAtCol(26);
+		var totalPrices = hot.getDataAtCol(27);
 		var countOrcamentos = document.getElementsByClassName('totalCost').length;
 
 		for (let i = 0; i < countOrcamentos; i++) {
@@ -653,6 +643,7 @@
 		$("#save-button").click(function () {
 			hot.validateCells((valid) => {
 				if (valid) {
+
 					$.ajax({
 						url: '/Orcamentos/UpdateOrcamentos',
 						data: JSON.stringify(hot.getSourceData()),
@@ -767,6 +758,9 @@
 		buttonDelete.addEventListener("click", deleteOnExcel)
 
 		function addNewRow() {
+			var date = moment();
+
+			var currentDate = date.format('DD/MM/YYYY');
 
 			var novaLinha = {
 				orcamentoNomeId: 1,
@@ -779,6 +773,8 @@
 				modelo: "Não definido",
 				SerialNumb: 0,
 				ProductName: "Não definido",
+				DelivaryDate: currentDate,
+				ExternalProvider: "Não definido",
 				Quantidade: 0 ,
 				UnitPrice: 0,
 				UnitCost: 0,

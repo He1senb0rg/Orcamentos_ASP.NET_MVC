@@ -23,7 +23,7 @@
 				Numero da Proposta
 			</th>
 			<th>
-				Criado por:
+				Criado por
 			</th>
 			<th></th>
 		</tr>
@@ -172,6 +172,7 @@
 			.Select(o => new {
 				o.Id,
 				o.Nome,
+				o.ProposalNumber,
 				o.CreatedBy,
 				o.Ativo
 			})));
@@ -179,7 +180,8 @@
 		var colHeaders = [
 			'ID',
 			'Nome',
-			'Criado Por:',
+			'Número da Proposta'
+			'Criado Por',
 			'Ativo',
 			'Eliminar'];
 
@@ -225,7 +227,7 @@
 		var colHeaders2 = [
         			'ID',
         			'Nome',
-        			'Criado Por:'];
+        			'Criado Por'];
 		
 		var hot2 = new Handsontable(document.getElementById('excelOrcamentoNomes2'), {
                                     			data: data,
@@ -264,7 +266,7 @@
                     			'ID',
                     			'Nome',
 								'Numero da Proposta:',
-                    			'Criado Por:'];
+                    			'Criado Por'];
 
 			var doc = new jsPDF({
 				orientation: "landscape"
