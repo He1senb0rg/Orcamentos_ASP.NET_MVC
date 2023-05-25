@@ -379,6 +379,7 @@ namespace Orcamentos.Controllers
 				o.DelivaryDate,
 				SubFamilia = o.RevenueType.Nome,
 				o.ExternalProvider,
+
 			}).ToList();
 
 
