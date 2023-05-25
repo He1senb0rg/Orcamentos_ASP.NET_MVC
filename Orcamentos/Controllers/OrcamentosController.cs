@@ -358,6 +358,36 @@ namespace Orcamentos.Controllers
             ViewBag.countOrcamentos = linhas.Count;
 
             return Json(linhas);
+
+
         }
-    }
+
+		public JsonResult getOrcamentos ()
+		{
+
+			var linhas2 = _context.orcamentos.Include(o => o.OrcamentoNome).Include(o => o.BusinessUnit).Include(o => o.Profile).Include(o => o.RevenueType).Where(d => d.Ativo == true).Select(o => new {
+
+				ProposalNumber = o.OrcamentoNome.ProposalNumber,
+				Sequencia = o.Id * 10,
+				o.Partnumb,
+				o.ProductName,
+				o.Quantidade,
+				o.DescontoTabela,
+				o.Marca,
+				o.TotalPrice,
+				o.TotalCost,
+				o.DelivaryDate,
+				SubFamilia = o.RevenueType.Nome,
+				o.ExternalProvider,
+			}).ToList();
+
+
+			return Json(linhas2);
+
+
+		}
+
+
+
+	}
 }

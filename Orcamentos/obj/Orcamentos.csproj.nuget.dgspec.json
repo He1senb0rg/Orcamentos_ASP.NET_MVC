@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\warga\\Documents\\Estagio\\Orcamentos_ASP.NET_MVC\\Orcamentos\\Orcamentos.csproj": {}
+    "C:\\Users\\warga\\Documents\\Estagio\\Nova pasta\\Orcamentos_ASP.NET_MVC\\Orcamentos\\Orcamentos.csproj": {}
   },
   "projects": {
-    "C:\\Users\\warga\\Documents\\Estagio\\Orcamentos_ASP.NET_MVC\\Orcamentos\\Orcamentos.csproj": {
+    "C:\\Users\\warga\\Documents\\Estagio\\Nova pasta\\Orcamentos_ASP.NET_MVC\\Orcamentos\\Orcamentos.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\warga\\Documents\\Estagio\\Orcamentos_ASP.NET_MVC\\Orcamentos\\Orcamentos.csproj",
+        "projectUniqueName": "C:\\Users\\warga\\Documents\\Estagio\\Nova pasta\\Orcamentos_ASP.NET_MVC\\Orcamentos\\Orcamentos.csproj",
         "projectName": "Orcamentos",
-        "projectPath": "C:\\Users\\warga\\Documents\\Estagio\\Orcamentos_ASP.NET_MVC\\Orcamentos\\Orcamentos.csproj",
+        "projectPath": "C:\\Users\\warga\\Documents\\Estagio\\Nova pasta\\Orcamentos_ASP.NET_MVC\\Orcamentos\\Orcamentos.csproj",
         "packagesPath": "C:\\Users\\warga\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\warga\\Documents\\Estagio\\Orcamentos_ASP.NET_MVC\\Orcamentos\\obj\\",
+        "outputPath": "C:\\Users\\warga\\Documents\\Estagio\\Nova pasta\\Orcamentos_ASP.NET_MVC\\Orcamentos\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\warga\\AppData\\Roaming\\NuGet\\NuGet.Config",

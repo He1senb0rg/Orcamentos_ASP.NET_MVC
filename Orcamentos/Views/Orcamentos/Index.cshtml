@@ -177,7 +177,7 @@
 	<button class="btn btn-success" id="export-file" >Guardar CSV</button>
 	<button class="btn btn-success" id="btnPDF" >Guardar PDF</button>
 
-	<div class="d-none" id="excelOrcamentos2"></div>
+	<div class="" id="excelOrcamentos2"></div>
 </div>
 
 
@@ -444,82 +444,7 @@
 
 		var button1 = document.getElementById('export-file');
 
-		//csv
-		button1.addEventListener('click', function() {
-
-			var data = hot.getData();
-
-			for (var i = 0; i < data.length; i++) {
-				data[i][16] = euro.format(data[i][16]);
-				data[i][17] = euro.format(data[i][17]);
-				data[i][18] = euro.format(data[i][18]);
-				data[i][19] = euro.format(data[i][19]);
-				data[i][20] = euro.format(data[i][20]);
-				data[i][21] = euro.format(data[i][21]);
-				data[i][22] = euro.format(data[i][22]);
-				data[i][23] = euro.format(data[i][23]);
-				data[i][24] = euro.format(data[i][24]);
-				data[i][25] = euro.format(data[i][25]);
-				data[i][26] = euro.format(data[i][26]);
-				data[i][27] = percentagem.format(data[i][27]);
-			}
-
-			var colHeaders2 = [
-				'ID',
-				'Orçamento Nome ID',
-				'Orçamento Nome',
-				'Perfil ID',
-				'Perfil',
-				'Tipo de Rendimento ID',
-				'Tipo de Rendimento',
-				'Unidade de Negócio ID',
-				'Unidade de Negócio',
-				'Marca',
-				'Tipo de Unidade',
-				'Part Number',
-				'Modelo',
-				'Número de Série',
-				'Nome do Produto',
-				'Quantidade',
-				'Preço de Unidade Diário',
-				'Custo de Unidade Diário',
-				'Desconto Tabela',
-				'Preço Parcial',
-				'Custo Tabela',
-				'Custo Desconto 1',
-				'Custo Desconto 2',
-				'Custo Desconto 3',
-				'Custo Total',
-				'Preço Total',
-				'Margem',
-				'MG'];
-
-		var hot2 = new Handsontable(document.getElementById('excelOrcamentos2'), {
-			data: data,
-			colHeaders: colHeaders2,
-				hiddenColumns: {
-					columns: [28, 29]
-				},
-			rowHeaders: true,
-			licenseKey: 'non-commercial-and-evaluation' // for non-commercial use only
-		});
-
-		var exportPlugin1 = hot2.getPlugin('exportFile');
-
-			exportPlugin1.downloadFile('csv', {
-				bom: false,
-				columnDelimiter: ',',
-				columnHeaders: true,
-				exportHiddenColumns: false,
-				exportHiddenRows: true,
-				fileExtension: 'csv',
-				filename: 'Tabela_Orçamentos_[YYYY]-[MM]-[DD]',
-				mimeType: 'text/csv',
-				rowDelimiter: '\r\n',
-				rowHeaders: false
-			});
-		});
-
+		
 		var pdfButton = document.getElementById('btnPDF');
 
 
@@ -813,6 +738,140 @@
 
 		 var buttonNewRow = document.getElementById("addRowButton")
 		 buttonNewRow.addEventListener("click", addNewRow)
+
+		//csv
+		button1.addEventListener('click', function () {
+
+			var data = hot.getData();
+
+			for (var i = 0; i < data.length; i++) {
+				data[i][16] = euro.format(data[i][16]);
+				data[i][17] = euro.format(data[i][17]);
+				data[i][18] = euro.format(data[i][18]);
+				data[i][19] = euro.format(data[i][19]);
+				data[i][20] = euro.format(data[i][20]);
+				data[i][21] = euro.format(data[i][21]);
+				data[i][22] = euro.format(data[i][22]);
+				data[i][23] = euro.format(data[i][23]);
+				data[i][24] = euro.format(data[i][24]);
+				data[i][25] = euro.format(data[i][25]);
+				data[i][26] = euro.format(data[i][26]);
+				data[i][27] = percentagem.format(data[i][27]);
+			}
+
+
+
+			var data2 = @Html.Raw(Json.Serialize(Model
+				.Select(o => new {
+
+				ProposalNumber = o.OrcamentoNome.ProposalNumber,
+				Sequencia= o.Id*10,
+				o.Partnumb,
+				o.ProductName,
+				o.Quantidade,
+				o.DescontoTabela,
+				o.Marca,
+				o.TotalPrice,
+				o.TotalCost,
+				o.DelivaryDate,
+				SubFamilia = o.RevenueType.Nome,
+				o.ExternalProvider,
+
+				})));
+
+					$.ajax({
+				type: "GET",
+				url: "/Orcamentos/getOrcamentos",
+				dataType: "json",
+				success: function (linhas2) {
+					hot.loadData(linhas2);
+					getTable();
+				},
+				error: function (xhr, status, error) {
+					console.log(error);
+				}
+			});
+
+			var colHeaders2 = [
+				'Proposta',
+				'Sequencia',
+				'Part Number',
+				'Nome do Produto',
+				'Quantidade',
+				'Desconto',
+				'Marca',
+				'Preço',
+				'Custo',
+				'Produto Composto',
+				'Produto Componente',
+				'Prazo de Entrega',
+				'SubFamilia',
+				'Serviços',
+				'Fornecedor',
+			];
+
+
+
+
+
+			//var data3 = hot2.getData();
+			var seq = 10;
+
+			for (var i = 0; i < data2.length; i++) {
+				data2[i][1] = (data[i][1]) + "0";
+				data2[i][7] = euro.format(data[i][7]);
+				data2[i][8] = euro.format(data[i][8]);
+				data2[i][5] = percentagem.format(data[i][5]);
+				data2[i][9] = "";
+				data2[i][10] = "";
+				seq += 10;
+			}
+
+
+
+
+			var hot2 = new Handsontable(document.getElementById('excelOrcamentos2'), {
+				data: data2,
+				colHeaders: colHeaders2,
+				columns: [
+
+
+					{ data: 'proposalNumber', type: 'text' },
+					{ data: 'sequencia', type: 'numeric' },
+					{ data: 'partnumb', type: 'numeric' },
+					{ data: 'productName', type: 'text' },
+					{ data: 'quantidade', type: 'numeric' },
+					{ data: 'descontoTabela', type: 'numeric', numericFormat: formatEUR },
+					{ data: 'marca', type: 'text' },
+					{ data: 'totalPrice', type: 'numeric', numericFormat: formatEUR, readOnly: true },
+					{ data: 'totalCost', type: 'numeric', numericFormat: formatEUR, readOnly: true },
+					{ data: 'produtoComposto', type: 'text' },
+					{ data: 'produtoComponente', type: 'text' },
+					{ data: 'delivaryDate', type: 'date', dateFormat: 'DD/MM/YYYY', correctFormat: true },
+					{ data: 'subFamilia', type: 'text' },
+					{ data: 'servicos', type: 'text' },
+					{ data: 'externalProvider', type: 'text' },
+				],
+				licenseKey: 'non-commercial-and-evaluation' // for non-commercial use only
+
+			});
+
+	 
+			var exportPlugin1 = hot2.getPlugin('exportFile');
+
+			exportPlugin1.downloadFile('csv', {
+				bom: false,
+				columnDelimiter: ',',
+				columnHeaders: true,
+				exportHiddenColumns: false,
+				exportHiddenRows: true,
+				fileExtension: 'csv',
+				filename: 'Tabela_Orçamentos_[YYYY]-[MM]-[DD]',
+				mimeType: 'text/csv',
+				rowDelimiter: '\r\n',
+				rowHeaders: false
+			});
+		});
 
 		//save.addEventListener('click', () => {
 		//    // save all cell's data

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "r7nFxRR2LGDDlVje17opgUgB2z54i9pJ3CDFrD/FghUrIR38C09Tbn2EUWXYvmocKkN54ZFDxtzCv9Omm/2HeA==",
+  "dgSpecHash": "JRt3dadY8LyexGARAitega23ZQL+u7nkiFOhSyFq2jkVfLI23KjDM0FF/8N9Vccay5GKhD3Jsh3EjJsNarmUjg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\warga\\Documents\\Estagio\\Orcamentos_ASP.NET_MVC\\Orcamentos\\Orcamentos.csproj",
+  "projectFilePath": "C:\\Users\\warga\\Documents\\Estagio\\Nova pasta\\Orcamentos_ASP.NET_MVC\\Orcamentos\\Orcamentos.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\warga\\.nuget\\packages\\chart.js\\3.7.1\\chart.js.3.7.1.nupkg.sha512",
     "C:\\Users\\warga\\.nuget\\packages\\handsontable\\12.3.3\\handsontable.12.3.3.nupkg.sha512",
