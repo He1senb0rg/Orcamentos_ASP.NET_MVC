@@ -4578,13 +4578,6 @@ C:\Users\warga\Documents\GitHub\Orcamentos_ASP.NET_MVC\Orcamentos\obj\Debug\net6
 C:\Users\warga\Documents\GitHub\Orcamentos_ASP.NET_MVC\Orcamentos\obj\Debug\net6.0\Orcamentos.pdb
 C:\Users\warga\Documents\GitHub\Orcamentos_ASP.NET_MVC\Orcamentos\obj\Debug\net6.0\Orcamentos.genruntimeconfig.cache
 C:\Users\warga\Documents\GitHub\Orcamentos_ASP.NET_MVC\Orcamentos\obj\Debug\net6.0\ref\Orcamentos.dll
-C:\Users\andre\Documents\GitHub\Orcamentos_ASP.NET_MVC\Orcamentos\bin\Debug\net6.0\refs\Microsoft.Extensions.DependencyInjection.dll
-C:\Users\andre\Documents\GitHub\Orcamentos_ASP.NET_MVC\Orcamentos\bin\Debug\net6.0\refs\System.Diagnostics.DiagnosticSource.dll
-C:\Users\andre\Documents\GitHub\Orcamentos_ASP.NET_MVC\Orcamentos\obj\Debug\net6.0\staticwebassets\msbuild.Orcamentos.Microsoft.AspNetCore.StaticWebAssets.props
-C:\Users\andre\Documents\GitHub\Orcamentos_ASP.NET_MVC\Orcamentos\obj\Debug\net6.0\staticwebassets\msbuild.build.Orcamentos.props
-C:\Users\andre\Documents\GitHub\Orcamentos_ASP.NET_MVC\Orcamentos\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.Orcamentos.props
-C:\Users\andre\Documents\GitHub\Orcamentos_ASP.NET_MVC\Orcamentos\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.Orcamentos.props
-C:\Users\andre\Documents\GitHub\Orcamentos_ASP.NET_MVC\Orcamentos\obj\Debug\net6.0\staticwebassets.pack.json
 C:\Users\warga\Documents\Estagio\Orcamentos_ASP.NET_MVC\Orcamentos\bin\Debug\net6.0\appsettings.Development.json
 C:\Users\warga\Documents\Estagio\Orcamentos_ASP.NET_MVC\Orcamentos\bin\Debug\net6.0\appsettings.json
 C:\Users\warga\Documents\Estagio\Orcamentos_ASP.NET_MVC\Orcamentos\bin\Debug\net6.0\libman.json
@@ -5723,3 +5716,10 @@ C:\Users\warga\Documents\Estagio\Nova pasta\Orcamentos_ASP.NET_MVC\Orcamentos\ob
 C:\Users\warga\Documents\Estagio\Nova pasta\Orcamentos_ASP.NET_MVC\Orcamentos\obj\Debug\net6.0\Orcamentos.pdb
 C:\Users\warga\Documents\Estagio\Nova pasta\Orcamentos_ASP.NET_MVC\Orcamentos\obj\Debug\net6.0\Orcamentos.genruntimeconfig.cache
 C:\Users\warga\Documents\Estagio\Nova pasta\Orcamentos_ASP.NET_MVC\Orcamentos\obj\Debug\net6.0\ref\Orcamentos.dll
+C:\Users\andre\Documents\GitHub\Orcamentos_ASP.NET_MVC\Orcamentos\bin\Debug\net6.0\refs\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\andre\Documents\GitHub\Orcamentos_ASP.NET_MVC\Orcamentos\bin\Debug\net6.0\refs\System.Diagnostics.DiagnosticSource.dll
+C:\Users\andre\Documents\GitHub\Orcamentos_ASP.NET_MVC\Orcamentos\obj\Debug\net6.0\staticwebassets\msbuild.Orcamentos.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\andre\Documents\GitHub\Orcamentos_ASP.NET_MVC\Orcamentos\obj\Debug\net6.0\staticwebassets\msbuild.build.Orcamentos.props
+C:\Users\andre\Documents\GitHub\Orcamentos_ASP.NET_MVC\Orcamentos\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.Orcamentos.props
+C:\Users\andre\Documents\GitHub\Orcamentos_ASP.NET_MVC\Orcamentos\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.Orcamentos.props
+C:\Users\andre\Documents\GitHub\Orcamentos_ASP.NET_MVC\Orcamentos\obj\Debug\net6.0\staticwebassets.pack.json

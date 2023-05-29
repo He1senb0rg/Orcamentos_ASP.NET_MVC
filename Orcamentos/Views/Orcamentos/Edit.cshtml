@@ -388,7 +388,7 @@
     if(decimalSeparator == ","){
         var mgValue = margem.value / precoTotal.value
         MGhidden.value = numberWithComma.format(mgValue);
-        MG.value = numberWithComma.format(mgValue * 100);
+        MG.value = mgValue * 100;
     }
     else{
         var mgValue = margem.value / precoTotal.value
@@ -396,7 +396,7 @@
         MG.value = mgValue * 100;
     }
 
-    var checkMG = MGhidden.value;
+    var checkMG = MG.value;
 
     if(isNaN(checkMG) == true){
         MGhidden.value = 0;
@@ -537,16 +537,13 @@
                 MGhidden.value = mgValue;
             }
 
-            if (decimalSeparator == ",") {
-                MG.value = numberWithComma.format(mgValue * 100);
-            }
-            else {
-                MG.value = mgValue * 100;
-            }
+            
+            MG.value = mgValue * 100;
+           
             
         }
 
-        var checkMG = MGhidden.value;
+        var checkMG = MG.value;
 
         if(isNaN(checkMG) == true){
             MGhidden.value = 0;
@@ -614,16 +611,13 @@
                     MGhidden.value = mgValue;
                 }
 
-                if (decimalSeparator == ",") {
-                    MG.value = numberWithComma.format(mgValue * 100);
-                }
-                else {
+                
                     MG.value = mgValue * 100;
-                }
+                
             }
         }
 
-        var checkMG = MGhidden.value;
+        var checkMG = MG.value;
 
         if(isNaN(checkMG) == true){
             MGhidden.value = 0;
