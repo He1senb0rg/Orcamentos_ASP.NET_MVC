@@ -686,53 +686,78 @@
 		buttonDelete.addEventListener("click", deleteOnExcel)
 
 		function addNewRow() {
-			var date = moment();
-
-			var currentDate = date.format('DD/MM/YYYY');
-
-			var novaLinha = {
-				orcamentoNomeId: 1,
-				profileId: 1,
-				revenueTypeId: 1,
-				businessUnitId: 1,
-				Marca: "Não definido",
-				TipoUni: "Não definido",
-				Partnumb: 0,
-				modelo: "Não definido",
-				SerialNumb: 0,
-				ProductName: "Não definido",
-				DelivaryDate: currentDate,
-				ExternalProvider: "Não definido",
-				Quantidade: 0 ,
-				UnitPrice: 0,
-				UnitCost: 0,
-				DescontoTabela: 0,
-				PrecoParcial: 0,
-				CustoTabela: 0,
-				CustoDesc1: 0,
-				CustoDesc2: 0,
-				CustoDesc3: 0,
-				TotalCost: 0,
-				TotalPrice: 0,
-				Margin: 0,
-				MG: 0.00,
-				Ativo: true
-			};
-
-
-			$.ajax({
-				type: "POST",
-				url: "/Orcamentos/AddNewRow",
-				data: novaLinha,
-				dataType: "json",
-				success: function (dataModel) {
-					hot.loadData(dataModel);
-					getTable();
-				},
-				error: function (xhr, status, error) {
-					console.log(error);
-				}
-			});
+			hot.validateCells((valid) => {
+            	if (valid) {
+                        
+                	$.ajax({
+                    	url: '/Orcamentos/UpdateOrcamentos',
+                    	data: JSON.stringify(hot.getSourceData()),
+                    	dataType: 'json',
+                    	contentType: "application/json",
+                    	type: 'POST',
+                    	success: function (result) {
+                        	var date = moment();
+                            
+                            			var currentDate = date.format('DD/MM/YYYY');
+                            
+                            			var novaLinha = {
+                            				orcamentoNomeId: 1,
+                            				profileId: 1,
+                            				revenueTypeId: 1,
+                            				businessUnitId: 1,
+                            				Marca: "Não definido",
+                            				TipoUni: "Não definido",
+                            				Partnumb: 0,
+                            				modelo: "Não definido",
+                            				SerialNumb: 0,
+                            				ProductName: "Não definido",
+                            				DelivaryDate: currentDate,
+                            				ExternalProvider: "Não definido",
+                            				Quantidade: 0 ,
+                            				UnitPrice: 0,
+                            				UnitCost: 0,
+                            				DescontoTabela: 0,
+                            				PrecoParcial: 0,
+                            				CustoTabela: 0,
+                            				CustoDesc1: 0,
+                            				CustoDesc2: 0,
+                            				CustoDesc3: 0,
+                            				TotalCost: 0,
+                            				TotalPrice: 0,
+                            				Margin: 0,
+                            				MG: 0.00,
+                            				Ativo: true
+                            			};
+                            			
+                            			
+                            
+                            
+                            			$.ajax({
+                            				type: "POST",
+                            				url: "/Orcamentos/AddNewRow",
+                            				data: novaLinha,
+                            				dataType: "json",
+                            				success: function (dataModel) {
+                            					hot.loadData(dataModel);
+                            					getTable();
+                            				},
+                            				error: function (xhr, status, error) {
+                            					console.log(error);
+                            				}
+                            			});
+							
+                        						
+                        },
+                    	error: function (xhr, status, error) {
+                        	alert("Failure: " + error);
+                    	}
+                	});
+            	}
+            	else {
+                	alert("Erro, verifique se tem alguma célula inválida.");
+            	}
+        	})
+			
 
 
 
@@ -856,21 +881,7 @@
 					var wb = XLSX.utils.book_new();
                     
                     var ws = XLSX.utils.json_to_sheet(hot2.getData());
-					XLSX.utils.sheet_add_aoa(ws, [colHeaders2], { origin: 'A1' });
-					
-					var range = ws['!ref'] ? XLSX.utils.decode_range(ws['!ref']) : { s: { r: 0, c: 0 }, e: { r: 0, c: 0 } };
-                    
-                    // Define the table range
-                    var tableRange = {
-                      s: { r: range.s.r, c: range.s.c },
-                      e: { r: range.e.r, c: range.e.c },
-                    };
-                    
-                    // Create the table
-                    var tableName = 'Tabela Orcamentos'; // Name of the table
-                    ws['!autofilter'] = tableRange;
-                    ws['!ref'] = XLSX.utils.encode_range(tableRange);
-                    ws['!tbl'] = { ref: XLSX.utils.encode_range(tableRange), name: tableName };
+					XLSX.utils.sheet_add_aoa(ws, [colHeaders2], { origin: 'A1' });			
 										
                     XLSX.utils.book_append_sheet(wb, ws, 'Folha 1');
                     
