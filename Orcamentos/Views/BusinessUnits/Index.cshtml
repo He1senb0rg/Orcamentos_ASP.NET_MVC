@@ -411,29 +411,49 @@
 		buttonDelete.addEventListener("click", deleteOnExcel)
 
 		function addNewRow() {
+			hot.validateCells((valid) => {
+				if (valid) {
+					$.ajax({
+						url: '/BusinessUnits/UpdateBusinessUnits',
+						data: JSON.stringify(hot.getSourceData()),
+						dataType: 'json',
+						contentType: "application/json",
+						type: 'POST',
+						success: function (result) {
+							var novaLinha = {
+								Name: "Não definido",
+								BuManagerId: 1,
+								BuManagerName: "Não definido",
+								Ativo: true
+							};
 
-			var novaLinha = {
-				Name: "Não definido",
-				BuManagerId: 1,
-				BuManagerName: "Não definido",
-				Ativo: true
-			};
 
+							$.ajax({
+								type: "POST",
+								url: "/BusinessUnits/AddNewRow",
+								data: novaLinha,
+								dataType: "json",
+								success: function (dataModel) {
 
-			$.ajax({
-				type: "POST",
-				url: "/BusinessUnits/AddNewRow",
-				data: novaLinha,
-				dataType: "json",
-				success: function (dataModel) {
-
-					hot.loadData(dataModel);
-					getTable();
-				},
-				error: function (xhr, status, error) {
-					console.log(error);
+									hot.loadData(dataModel);
+									getTable();
+								},
+								error: function (xhr, status, error) {
+									console.log(error);
+								}
+							});
+						},
+						error: function (xhr, status, error) {
+							alert("Failure: " + error);
+						}
+					});
 				}
-			});
+				else {
+					alert("Erro, verifique se tem alguma célula inválida.");
+				}
+			})
+
+			
 
 		}
 
