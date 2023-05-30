@@ -505,7 +505,7 @@
 			var doc = new jsPDF('landscape', 'pt', 'a1');
 
 			var currentDate = new Date();
-			var dateString = currentDate.getDate() + '/' + (currentDate.getMonth() + 10) + '/' + currentDate.getFullYear();
+			var dateString = currentDate.getDate() + '/' + (currentDate.getMonth() + 1) + '/' + currentDate.getFullYear();
 
 			doc.text('Tabela de Orçamentos - ' + dateString, 33, 33);
 			doc.autoTable({
@@ -830,8 +830,6 @@
 						data: linhas2,
 						colHeaders: colHeaders2,
 						columns: [
-
-
 							{ data: 'proposalNumber', type: 'text' },
 							{ data: 'sequencia', type: 'numeric' },
 							{ data: 'partnumb', type: 'numeric' },
@@ -852,34 +850,52 @@
 
 					});
 					
+					var currentDate = new Date();
+                    var dateString = currentDate.getDate() + '/' + (currentDate.getMonth() + 1) + '/' + currentDate.getFullYear();
+					
 					var wb = XLSX.utils.book_new();
                     
-                    					var ws = XLSX.utils.json_to_sheet(hot2.getData());
-										XLSX.utils.sheet_add_aoa(ws, [colHeaders2], { origin: 'A1' });
-                    					XLSX.utils.book_append_sheet(wb, ws, 'Folha 1');
+                    var ws = XLSX.utils.json_to_sheet(hot2.getData());
+					XLSX.utils.sheet_add_aoa(ws, [colHeaders2], { origin: 'A1' });
+					
+					var range = ws['!ref'] ? XLSX.utils.decode_range(ws['!ref']) : { s: { r: 0, c: 0 }, e: { r: 0, c: 0 } };
+                    
+                    // Define the table range
+                    var tableRange = {
+                      s: { r: range.s.r, c: range.s.c },
+                      e: { r: range.e.r, c: range.e.c },
+                    };
+                    
+                    // Create the table
+                    var tableName = 'Tabela Orcamentos'; // Name of the table
+                    ws['!autofilter'] = tableRange;
+                    ws['!ref'] = XLSX.utils.encode_range(tableRange);
+                    ws['!tbl'] = { ref: XLSX.utils.encode_range(tableRange), name: tableName };
+										
+                    XLSX.utils.book_append_sheet(wb, ws, 'Folha 1');
                     
                     				
-                    					var wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
+                    var wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
                     
-                    					function s2ab(s) {
-                    						var buf = new ArrayBuffer(s.length);
-                    						var view = new Uint8Array(buf);
-                    						for (var i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xff;
-                    						return buf;
-                    					}
+                    function s2ab(s) {
+                    	var buf = new ArrayBuffer(s.length);
+                    	var view = new Uint8Array(buf);
+                    	for (var i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xff;
+                    		return buf;
+                    	}
                     
-                    					var blob = new Blob([s2ab(wbout)], { type: 'application/octet-stream' });
+                    	var blob = new Blob([s2ab(wbout)], { type: 'application/octet-stream' });
                     
-                    					var downloadUrl = URL.createObjectURL(blob);
-                    					var a = document.createElement('a');
-                    					a.href = downloadUrl;
-                    					a.download = 'Tabela_Orçamentos.xlsx';
-                    					document.body.appendChild(a);
-                    					a.click();
-                    					setTimeout(function () {
-                    						document.body.removeChild(a);
-                    						window.URL.revokeObjectURL(downloadUrl);
-                    					}, 0);
+                    	var downloadUrl = URL.createObjectURL(blob);
+                    	var a = document.createElement('a');
+                    	a.href = downloadUrl;
+                    	a.download = 'Tabela_Orçamentos_'+dateString+'.xlsx';
+                    	document.body.appendChild(a);
+                    	a.click();
+                    	setTimeout(function () {
+                    		document.body.removeChild(a);
+                    		window.URL.revokeObjectURL(downloadUrl);
+                    	}, 0);
 
 					/*var exportPlugin1 = hot2.getPlugin('exportFile');
 
