@@ -26,7 +26,7 @@ namespace Orcamentos.Controllers
         // GET: OrcamentoNomes
         public async Task<IActionResult> Index()
         {
-            List<OrcamentoNome> listaOrcamentoNomes = _context.orcamentoNomes.Where(d => d.Ativo == true).ToList();
+            List<OrcamentoNome> listaOrcamentoNomes = _context.orcamentoNomes.Where(d => d.Ativo == true).Where(d => d.Id != 1).ToList();
 
             return View(listaOrcamentoNomes);
         }
@@ -280,7 +280,7 @@ namespace Orcamentos.Controllers
 
         public IActionResult GetTableOrcamentoNomes()
         {
-            List<OrcamentoNome> data = _context.orcamentoNomes.Where(d => d.Ativo == true).ToList();
+            List<OrcamentoNome> data = _context.orcamentoNomes.Where(d => d.Ativo == true).Where(d => d.Id != 1).ToList();
 
             return Ok(data);
         }
@@ -320,7 +320,7 @@ namespace Orcamentos.Controllers
                 _toastNotification.AddErrorToastMessage("Não é possivel eliminar este Nome de Orçamento");
             }
 
-            List<OrcamentoNome> data = _context.orcamentoNomes.Where(d => d.Ativo == true).ToList();
+            List<OrcamentoNome> data = _context.orcamentoNomes.Where(d => d.Ativo == true).Where(d => d.Id != 1).ToList();
 
             return Json(data);
         }
@@ -333,7 +333,7 @@ namespace Orcamentos.Controllers
             _context.SaveChanges();
             _toastNotification.AddSuccessToastMessage("Linha adicionada");
 
-            var linhas = _context.orcamentoNomes.Where(d => d.Ativo == true).ToList();
+            var linhas = _context.orcamentoNomes.Where(d => d.Ativo == true).Where(d => d.Id != 1).ToList();
 
             return Json(linhas);
         }
@@ -446,12 +446,16 @@ namespace Orcamentos.Controllers
         [HttpPost]
         public JsonResult AddNewRowOrcamentos(Orcamento novaLinha)
         {
+            //var id = (int)ViewBag.orcamentoNomeId;
+
+            var id = novaLinha.orcamentoNomeId;
+            
 
             _context.orcamentos.Add(novaLinha);
             _context.SaveChanges();
             _toastNotification.AddSuccessToastMessage("Linha adicionada");
 
-            var linhas = _context.orcamentos.Include(o => o.OrcamentoNome).Include(o => o.BusinessUnit).Include(o => o.Profile).Include(o => o.RevenueType).Where(d => d.Ativo == true).Select(o => new {
+            var linhas = _context.orcamentos.Include(o => o.OrcamentoNome).Include(o => o.BusinessUnit).Include(o => o.Profile).Include(o => o.RevenueType).Where(o => o.Ativo == true).Where(o => o.orcamentoNomeId == id).Select(o => new {
                 o.Id,
                 OrcamentoNomeId = o.orcamentoNomeId,
                 OrcamentoName = o.OrcamentoNome.Nome,

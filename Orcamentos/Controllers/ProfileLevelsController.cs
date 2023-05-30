@@ -20,7 +20,7 @@ namespace Orcamentos.Controllers
         // GET: ProfileLevels
         public async Task<IActionResult> Index()
         {
-            List<ProfileLevel> listaProfileLevels = _context.profileLevels.Where(d => d.Ativo == true).ToList();
+            List<ProfileLevel> listaProfileLevels = _context.profileLevels.Where(d => d.Ativo == true).Where(d => d.Id != 1).ToList();
 
             return View(listaProfileLevels);
         }
@@ -196,7 +196,7 @@ namespace Orcamentos.Controllers
 
         public IActionResult GetTableProfileLevels()
         {
-            List<ProfileLevel> data = _context.profileLevels.Where(d => d.Ativo == true).ToList();
+            List<ProfileLevel> data = _context.profileLevels.Where(d => d.Ativo == true).Where(d => d.Id != 1).ToList();
 
             return Ok(data);
         }
@@ -232,7 +232,7 @@ namespace Orcamentos.Controllers
                 _toastNotification.AddErrorToastMessage("Não é possivel eliminar este Nivel de Perfil");
             }
 
-            List<ProfileLevel> data = _context.profileLevels.Where(d => d.Ativo == true).ToList();
+            List<ProfileLevel> data = _context.profileLevels.Where(d => d.Ativo == true).Where(d => d.Id != 1).ToList();
 
             return Json(data);
         }
@@ -245,7 +245,7 @@ namespace Orcamentos.Controllers
             _context.SaveChanges();
             _toastNotification.AddSuccessToastMessage("Linha adicionada");
 
-            var linhas = _context.profileLevels.Where(d => d.Ativo == true).ToList();
+            var linhas = _context.profileLevels.Where(d => d.Ativo == true).Where(d => d.Id != 1).ToList();
 
             return Json(linhas);
         }

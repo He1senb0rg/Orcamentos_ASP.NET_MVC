@@ -89,11 +89,11 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title text-break" id="eliminarModalNomeExcel">Eliminar Tipo de Rendimento Nº</h5>
+				<h5 class="modal-title text-break" id="eliminarModalNomeExcel">Eliminar Sub Família Nº</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body text-break">
-				Tem a certeza que pretende eliminar o Tipo de Rendimento Nº<span id="eliminarModalDescExcel"></span> ? <h6>Esta ação não pode ser desfeita</h6>
+				Tem a certeza que pretende eliminar a Sub Família Nº<span id="eliminarModalDescExcel"></span> ? <h6>Esta ação não pode ser desfeita</h6>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
@@ -125,7 +125,7 @@
 		const idRevenueType = id_value.getAttribute("data-id");
 
 		document.getElementById('eliminarModalForm').setAttribute("action", "/RevenueTypes/Delete/" + idRevenueType);
-		document.getElementById('eliminarModalNome').innerHTML = "Eliminar Tipo de Rendimento Nº" + idRevenueType;
+		document.getElementById('eliminarModalNome').innerHTML = "Eliminar Sub Família Nº" + idRevenueType;
 		document.getElementById('eliminarModalDesc').innerHTML = idRevenueType;
 
 		$("#eliminarModal").modal("show");
@@ -136,7 +136,7 @@
 		var id_value = document.getElementById(id);
 		const idRevenueType = id_value.getAttribute("data-id");
 
-		document.getElementById('eliminarModalNomeExcel').innerHTML = "Eliminar Tipo de Rendimento Nº" + idRevenueType;
+		document.getElementById('eliminarModalNomeExcel').innerHTML = "Eliminar Sub Família Nº" + idRevenueType;
 		document.getElementById('eliminarModalDescExcel').innerHTML = idRevenueType;
 
 		document.getElementById('eliminarModalButtonExcel').setAttribute("data-id", idRevenueType);

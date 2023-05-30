@@ -20,7 +20,7 @@ namespace Orcamentos.Controllers
         // GET: RevenueTypes
         public async Task<IActionResult> Index()
         {
-            List<RevenueType> revenueTypes = _context.revenueTypes.Where(d => d.Ativo == true).ToList();
+            List<RevenueType> revenueTypes = _context.revenueTypes.Where(d => d.Ativo == true).Where(d => d.Id != 1).ToList();
 
            return View(revenueTypes);
         }
@@ -234,14 +234,14 @@ namespace Orcamentos.Controllers
                 _toastNotification.AddErrorToastMessage("Não é possivel eliminar este Tipo de Rendimento");
             }
 
-            List<RevenueType> data = _context.revenueTypes.Where(d => d.Ativo == true).ToList();
+            List<RevenueType> data = _context.revenueTypes.Where(d => d.Ativo == true).Where(d => d.Id != 1).ToList();
 
             return Json(data);
         }
 
         public IActionResult GetTableRevenueTypes()
         {
-            List<RevenueType> data = _context.revenueTypes.Where(d => d.Ativo == true).ToList();
+            List<RevenueType> data = _context.revenueTypes.Where(d => d.Ativo == true).Where(d => d.Id != 1).ToList();
 
             return Ok(data);
         }
@@ -254,7 +254,7 @@ namespace Orcamentos.Controllers
             _context.SaveChanges();
             _toastNotification.AddSuccessToastMessage("Linha adicionada");
 
-            var linhas = _context.revenueTypes.Where(d => d.Ativo == true).ToList();
+            var linhas = _context.revenueTypes.Where(d => d.Ativo == true).Where(d => d.Id != 1).ToList();
 
             return Json(linhas);
         }

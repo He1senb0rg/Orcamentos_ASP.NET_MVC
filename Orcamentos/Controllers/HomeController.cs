@@ -29,7 +29,7 @@ namespace Orcamentos.Controllers
 
             List<int> ocorrencias = new List<int>();
             
-            List<BusinessUnit> listaBu = _context.businessUnits.Include(p => p.BuManager).Where(d => d.Ativo == true).ToList();
+            List<BusinessUnit> listaBu = _context.businessUnits.Include(p => p.BuManager).Where(d => d.Ativo == true).Where(d => d.Id != 1).ToList();
            
             foreach (var v in listaBu)
             {

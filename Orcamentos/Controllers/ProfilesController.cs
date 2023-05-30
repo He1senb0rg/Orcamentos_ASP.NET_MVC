@@ -22,7 +22,7 @@ namespace Orcamentos.Controllers
         // GET: Profiles
         public async Task<IActionResult> Index()
         {
-            List<Profile> listaProfiles = _context.profiles.Include(o => o.ProfileLevel).Where(d => d.Ativo == true).ToList();
+            List<Profile> listaProfiles = _context.profiles.Include(o => o.ProfileLevel).Where(d => d.Ativo == true).Where(d => d.Id != 1).ToList();
 
             IEnumerable<SelectListItem> profileLevelsList = DBHelper.FillProfileLevels(_context);
             ViewBag.profileLevelsList = profileLevelsList;
@@ -218,7 +218,7 @@ namespace Orcamentos.Controllers
 
         public IActionResult GetTableProfiles()
         {
-            List<Profile> data = _context.profiles.Include(o => o.ProfileLevel).Where(d => d.Ativo == true).ToList();
+            List<Profile> data = _context.profiles.Include(o => o.ProfileLevel).Where(d => d.Ativo == true).Where(d => d.Id != 1).ToList();
 
             return Ok(data);
         }
@@ -258,7 +258,7 @@ namespace Orcamentos.Controllers
                 _toastNotification.AddErrorToastMessage("Não é possivel eliminar este Perfil");
             }
 
-            var data = _context.profiles.Where(d => d.Ativo == true).Select(o => new {
+            var data = _context.profiles.Where(d => d.Ativo == true).Where(d => d.Id != 1).Select(o => new {
                 o.Id,
                 o.Name,
                 ProfileLevelId = o.profileLevelId,
@@ -277,7 +277,7 @@ namespace Orcamentos.Controllers
             _context.SaveChanges();
             _toastNotification.AddSuccessToastMessage("Linha adicionada");
 
-            var linhas = _context.profiles.Where(d => d.Ativo == true).Select(o => new {
+            var linhas = _context.profiles.Where(d => d.Ativo == true).Where(d => d.Id != 1).Select(o => new {
                 o.Id,
                 o.Name,
                 ProfileLevelId = o.profileLevelId,

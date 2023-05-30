@@ -20,7 +20,7 @@ namespace Orcamentos.Controllers
         // GET: BuManagers
         public async Task<IActionResult> Index()
         {
-            List<BuManager> listaBuManagers = _context.buManagers.Where(d => d.Ativo == true).ToList();
+            List<BuManager> listaBuManagers = _context.buManagers.Where(d => d.Ativo == true).Where(d => d.Id != 1).ToList();
 
             return View(listaBuManagers);
         }
@@ -197,7 +197,7 @@ namespace Orcamentos.Controllers
 
         public IActionResult GetTableBuManagers()
         {
-            List<BuManager> data = _context.buManagers.Where(d => d.Ativo == true).ToList();
+            List<BuManager> data = _context.buManagers.Where(d => d.Ativo == true).Where(d => d.Id != 1).ToList();
 
             return Ok(data);
         }
@@ -214,6 +214,7 @@ namespace Orcamentos.Controllers
                 List<BusinessUnit> listaBusinessUnit =
                     _context.businessUnits
                     .Where(d => d.buManagerId == buManager.Id)
+                    .Where(d => d.Id != 1)
                     .ToList();
 
                 foreach (var business in listaBusinessUnit)
@@ -246,7 +247,7 @@ namespace Orcamentos.Controllers
             _context.SaveChanges();
             _toastNotification.AddSuccessToastMessage("Linha adicionada");
 
-            var linhas = _context.buManagers.Where(d => d.Ativo == true).ToList();
+            var linhas = _context.buManagers.Where(d => d.Ativo == true).Where(d => d.Id != 1).ToList();
 
             return Json(linhas);
         }

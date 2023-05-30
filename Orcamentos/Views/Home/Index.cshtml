@@ -91,12 +91,13 @@
         var Ocorrencias = @Html.Raw(Json.Serialize(Model.ocorrencias.Take(7)
           ));
 
-    
+    console.log(Ocorrencias);
+    console.log(datar)
 
         const data = {
             labels: datar,
             datasets: [{
-            label:'Numero de Orcamentos',
+            label:'Número de Orcamentos',
                 data: Ocorrencias,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',

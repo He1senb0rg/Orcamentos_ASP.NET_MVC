@@ -22,7 +22,7 @@ namespace Orcamentos.Controllers
         // GET: BusinessUnits
         public async Task<IActionResult> Index()
         {
-            List<BusinessUnit> listaBu = _context.businessUnits.Include(p => p.BuManager).Where(d => d.Ativo == true).ToList();
+            List<BusinessUnit> listaBu = _context.businessUnits.Include(p => p.BuManager).Where(d => d.Ativo == true).Where(d => d.Id != 1).ToList();
 
             IEnumerable<SelectListItem> buManagersList = DBHelper.FillBuManagers(_context);
             ViewBag.buManagersList = buManagersList;
@@ -218,7 +218,7 @@ namespace Orcamentos.Controllers
 
         public IActionResult GetTableBusinessUnits()
         {
-            List<BusinessUnit> data = _context.businessUnits.Include(o => o.BuManager).Where(d => d.Ativo == true).ToList();
+            List<BusinessUnit> data = _context.businessUnits.Include(o => o.BuManager).Where(d => d.Ativo == true).Where(d => d.Id != 1).ToList();
 
             return Ok(data);
         }
@@ -258,7 +258,7 @@ namespace Orcamentos.Controllers
                 _toastNotification.AddErrorToastMessage("Não é possivel eliminar esta Unidade de Negócio");
             }
 
-            var data = _context.businessUnits.Where(d => d.Ativo == true).Select(o => new {
+            var data = _context.businessUnits.Where(d => d.Ativo == true).Where(d => d.Id != 1).Select(o => new {
                 o.Id,
                 o.Name,
                 BuManagerId = o.buManagerId,
@@ -277,7 +277,7 @@ namespace Orcamentos.Controllers
             _context.SaveChanges();
             _toastNotification.AddSuccessToastMessage("Linha adicionada");
 
-            var linhas = _context.businessUnits.Where(d => d.Ativo == true).Select(o => new {
+            var linhas = _context.businessUnits.Where(d => d.Ativo == true).Where(d => d.Id != 1).Select(o => new {
                 o.Id,
                 o.Name,
                 BuManagerId = o.buManagerId,

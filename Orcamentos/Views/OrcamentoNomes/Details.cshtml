@@ -12,6 +12,7 @@
     <hr />
     <div class="row mb-2">
     <div class="col-md-4">
+    <input asp-for="Id" type="hidden" id="orcamentoNomeId" class="d-none" readonly />
             <div class="form-group mb-2">
                 <label asp-for="Nome" class="control-label"></label>
                 <input asp-for="Nome" class="form-control" readonly />
@@ -304,12 +305,12 @@
 
 		var colHeaders = [
 			'ID',
-			'Propostas ID',
-			'Propostas',
+			'Proposta ID',
+			'Proposta',
 			'Perfil ID',
 			'Perfil',
-			'Sub Famílias ID',
-			'Sub Famílias',
+			'Sub Família ID',
+			'Sub Família',
 			'Unidade de Negócio ID',
 			'Unidade de Negócio',
 			'Marca',
@@ -488,12 +489,12 @@
 
 			var colHeaders2 = [
 				'ID',
-				'Propostas ID',
-				'Propostas',
+				'Proposta ID',
+				'Proposta',
 				'Perfil ID',
 				'Perfil',
-				'Sub Famílias ID',
-				'Sub Famílias',
+				'Sub Família ID',
+				'Sub Família',
 				'Unidade de Negócio ID',
 				'Unidade de Negócio',
 				'Marca',
@@ -566,12 +567,12 @@
 			}
 			var colHeaders2 = [
             			'ID',
-            			'Orçamento Nome ID',
-            			'Orçamento Nome',
+            			'Proposta ID',
+            			'Proposta',
             			'Perfil ID',
             			'Perfil',
-            			'Tipo de Rendimento ID',
-            			'Tipo de Rendimento',
+            			'Sub Família ID',
+            			'Sub Família',
             			'Unidade de Negócio ID',
             			'Unidade de Negócio',
             			'Marca',
@@ -689,7 +690,7 @@
 
 		function getTable() {
 
-			var id = document.getElementById("orcamentoNomeId").innerHTML;
+			var id = document.getElementById("orcamentoNomeId").value;
 
 			$.ajax({
 				url: '/OrcamentoNomes/GetTableOrcamentos/',
