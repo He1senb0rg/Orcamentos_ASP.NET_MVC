@@ -269,7 +269,23 @@ namespace Orcamentos.Controllers
             return Json(data);
         }
 
-        [HttpPost]
+		public JsonResult getBusinessUnits()
+		{
+
+			var linhas2 = _context.businessUnits.Where(d => d.Ativo == true).Select(o => new {
+				o.Id,
+				o.Name,
+				BuManagerId = o.buManagerId,
+				BuManagerName = o.BuManager.Nome,
+			}).ToList();
+
+
+			return Json(linhas2);
+
+
+		}
+
+		[HttpPost]
         public JsonResult AddNewRow(BusinessUnit novaLinha)
         {
 

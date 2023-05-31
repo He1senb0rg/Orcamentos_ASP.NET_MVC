@@ -269,6 +269,23 @@ namespace Orcamentos.Controllers
             return Json(data);
         }
 
+        public JsonResult getProfiles()
+        {
+
+            var linhas2 = _context.profiles.Where(d => d.Ativo == true).Select(o => new {
+                o.Id,
+                o.Name,
+                ProfileLevelId = o.profileLevelId,
+                ProfileLevelName = o.ProfileLevel.Name,
+
+            }).ToList();
+
+
+            return Json(linhas2);
+
+
+        }
+
         [HttpPost]
         public JsonResult AddNewRow(Profile novaLinha)
         {

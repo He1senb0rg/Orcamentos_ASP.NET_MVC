@@ -246,7 +246,23 @@ namespace Orcamentos.Controllers
             return Ok(data);
         }
 
-        [HttpPost]
+		public JsonResult getSubFamilia()
+		{
+
+			var linhas2 = _context.revenueTypes.Where(d => d.Ativo == true).Select(o => new {
+				o.Id,
+				o.Nome,
+				o.Tipo,
+			}).ToList();
+
+
+			return Json(linhas2);
+
+
+		}
+
+
+		[HttpPost]
         public JsonResult AddNewRow(RevenueType novaLinha)
         {
 

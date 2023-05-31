@@ -1,456 +1,487 @@
 ﻿@model IEnumerable<Orcamentos.Models.OrcamentoNome>
 
 @{
-	ViewData["Title"] = "Nome dos Orçamentos";
+    ViewData["Title"] = "Nome dos Orçamentos";
 }
 
 <h1>Menu</h1>
 <h3>Propostas</h3>
 
 <div class="mb-3">
-	<a class="btn btn-primary" asp-action="Create"><i class="bi bi-plus-lg btn-icon mr-2"></i></a>
+    <a class="btn btn-primary" asp-action="Create"><i class="bi bi-plus-lg btn-icon mr-2"></i></a>
 
-	<button class="btn btn-success" onclick="changeTable()" id="changeTableButton">Mostrar Excel</button>
+    <button class="btn btn-success" onclick="changeTable()" id="changeTableButton">Mostrar Excel</button>
 </div>
 
 <table class="table" id="orcamentoNomesTable">
-	<thead>
-		<tr>
-			<th>
-				@Html.DisplayNameFor(model => model.Nome)
-			</th>
-						<th>
-				Numero da Proposta
-			</th>
-			<th>
-				Criado por
-			</th>
-			<th></th>
-		</tr>
-	</thead>
-	<tbody>
-		@{
-			int i = 0;
-		}
-		@foreach (var item in Model)
-		{
-			<tr>
-				<td>
-					@Html.DisplayFor(modelItem => item.Nome)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.ProposalNumber)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.CreatedBy)
-				</td>
-				<td>
-					<div class="btn-group" role="group">
-						<div>
-							<a asp-action="Details" asp-route-id="@item.Id" class="btn btn-success rounded-0 rounded-start">
-								<i class="bi bi-file-text-fill btn-icon mr-2"></i>
-							</a>
-						</div>
-						<div>
-							<a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary rounded-0">
-								<i class="bi bi-pencil-square btn-icon mr-2"></i>
-							</a>
-						</div>
-						<div>
-							<button type="button" class="btn btn-danger rounded-0 rounded-end" id="@("EliminarButton"+i)" data-id="@item.Id" onclick="showModalDelete(this.id)">
-								<i class="bi bi-trash3-fill btn-icon mr-2"></i>
-							</button>
-						</div>
-					</div>
-				</td>
-			</tr>
-			i++;
-		}
-	</tbody>
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                Numero da Proposta
+            </th>
+            <th>
+                Criado por
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int i = 0;
+        }
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProposalNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedBy)
+                </td>
+                <td>
+                    <div class="btn-group" role="group">
+                        <div>
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-success rounded-0 rounded-start">
+                                <i class="bi bi-file-text-fill btn-icon mr-2"></i>
+                            </a>
+                        </div>
+                        <div>
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary rounded-0">
+                                <i class="bi bi-pencil-square btn-icon mr-2"></i>
+                            </a>
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-danger rounded-0 rounded-end" id="@("EliminarButton"+i)" data-id="@item.Id" onclick="showModalDelete(this.id)">
+                                <i class="bi bi-trash3-fill btn-icon mr-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            i++;
+        }
+    </tbody>
 </table>
 
 <div class="modal fade" id="eliminarModal" tabindex="-1">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title text-break" id="eliminarModalNome">Eliminar Proposta Nº</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<div class="modal-body text-break">
-				Tem a certeza que pretende eliminar a Proposta Nº<span id="eliminarModalDesc"></span> ? <h6>Esta ação não pode ser desfeita</h6>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-				<form id="eliminarModalForm" method="POST">
-					<button type="submit" class="btn btn-danger">Eliminar</button>
-				</form>
-			</div>
-		</div>
-	</div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-break" id="eliminarModalNome">Eliminar Proposta Nº</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-break">
+                Tem a certeza que pretende eliminar a Proposta Nº<span id="eliminarModalDesc"></span> ? <h6>Esta ação não pode ser desfeita</h6>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                <form id="eliminarModalForm" method="POST">
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="modal fade" id="eliminarModalExcel" tabindex="-1">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title text-break" id="eliminarModalNomeExcel">Eliminar Proposta Nº</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<div class="modal-body text-break">
-				Tem a certeza que pretende eliminar a Proposta Nº<span id="eliminarModalDescExcel"></span> ? <h6>Esta ação não pode ser desfeita</h6>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-				<button type="submit" class="btn btn-danger" data-id="" id="eliminarModalButtonExcel">Eliminar</button>
-			</div>
-		</div>
-	</div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-break" id="eliminarModalNomeExcel">Eliminar Proposta Nº</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-break">
+                Tem a certeza que pretende eliminar a Proposta Nº<span id="eliminarModalDescExcel"></span> ? <h6>Esta ação não pode ser desfeita</h6>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                <button type="submit" class="btn btn-danger" data-id="" id="eliminarModalButtonExcel">Eliminar</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div id="excelTable" class="d-none">
-	<div class="mb-3" id="excelOrcamentoNomes"></div>
+    <div class="mb-3" id="excelOrcamentoNomes"></div>
 
-	<button class="btn btn-success" id="save-button">Guardar</button>
-	<button class="btn btn-success" id="addRowButton">Adicionar linha</button>
-	<button class="btn btn-success" id="export-file">Guardar CSV</button>
-	<button class="btn btn-success" id="btnPDF" >Guardar PDF</button>
-	
-	<div class="d-none" id="excelOrcamentoNomes2"></div>
+    <button class="btn btn-success" id="save-button">Guardar</button>
+    <button class="btn btn-success" id="addRowButton">Adicionar linha</button>
+    <button class="btn btn-success" id="export-file">Guardar CSV</button>
+    <button class="btn btn-success" id="btnPDF">Guardar PDF</button>
+
+    <div class="d-none" id="excelOrcamentoNomes2"></div>
 </div>
 
 <script>
 
 
-	function showModalDelete(id) {
+    function showModalDelete(id) {
 
-		var id_value = document.getElementById(id);
-		const idOrcamentoNome = id_value.getAttribute("data-id");
+        var id_value = document.getElementById(id);
+        const idOrcamentoNome = id_value.getAttribute("data-id");
 
-		document.getElementById('eliminarModalForm').setAttribute("action", "/OrcamentoNomes/Delete/" + idOrcamentoNome);
-		document.getElementById('eliminarModalNome').innerHTML = "Eliminar Nome de Orçamento Nº" + idOrcamentoNome;
-		document.getElementById('eliminarModalDesc').innerHTML = idOrcamentoNome;
+        document.getElementById('eliminarModalForm').setAttribute("action", "/OrcamentoNomes/Delete/" + idOrcamentoNome);
+        document.getElementById('eliminarModalNome').innerHTML = "Eliminar Nome de Orçamento Nº" + idOrcamentoNome;
+        document.getElementById('eliminarModalDesc').innerHTML = idOrcamentoNome;
 
-		$("#eliminarModal").modal("show");
-	}
+        $("#eliminarModal").modal("show");
+    }
 
-	function showModalDeleteExcel(id) {
+    function showModalDeleteExcel(id) {
 
-		var id_value = document.getElementById(id);
-		const idOrcamentoNome = id_value.getAttribute("data-id");
+        var id_value = document.getElementById(id);
+        const idOrcamentoNome = id_value.getAttribute("data-id");
 
-		document.getElementById('eliminarModalNomeExcel').innerHTML = "Eliminar Tipo de Rendimento Nº" + idOrcamentoNome;
-		document.getElementById('eliminarModalDescExcel').innerHTML = idOrcamentoNome;
+        document.getElementById('eliminarModalNomeExcel').innerHTML = "Eliminar Tipo de Rendimento Nº" + idOrcamentoNome;
+        document.getElementById('eliminarModalDescExcel').innerHTML = idOrcamentoNome;
 
-		document.getElementById('eliminarModalButtonExcel').setAttribute("data-id", idOrcamentoNome);
+        document.getElementById('eliminarModalButtonExcel').setAttribute("data-id", idOrcamentoNome);
 
-		$("#eliminarModalExcel").modal("show");
-	}
+        $("#eliminarModalExcel").modal("show");
+    }
 
-	var buttonTable = document.getElementById("changeTableButton")
+    var buttonTable = document.getElementById("changeTableButton")
 
-	function changeTable() {
+    function changeTable() {
 
-		var table = document.getElementById("orcamentoNomesTable");
-		var excel = document.getElementById("excelTable")
+        var table = document.getElementById("orcamentoNomesTable");
+        var excel = document.getElementById("excelTable")
 
-		if (excel.classList.contains('d-none')) {
-			table.classList.add('d-none')
-			excel.classList.remove('d-none')
-			buttonTable.innerHTML = "Mostrar Tabela"
-		}
-		else {
-			table.classList.remove('d-none')
-			excel.classList.add('d-none')
-			buttonTable.innerHTML = "Mostrar Excel"
-		}
+        if (excel.classList.contains('d-none')) {
+            table.classList.add('d-none')
+            excel.classList.remove('d-none')
+            buttonTable.innerHTML = "Mostrar Tabela"
+        }
+        else {
+            table.classList.remove('d-none')
+            excel.classList.add('d-none')
+            buttonTable.innerHTML = "Mostrar Excel"
+        }
 
-	}
+    }
 
-	document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function () {
 
-		var data = @Html.Raw(Json.Serialize(Model
-			.Select(o => new {
-				o.Id,
-				o.Nome,
-				o.ProposalNumber,
-				o.CreatedBy,
-				o.Ativo
-			})));
+        var data = @Html.Raw(Json.Serialize(Model
+            .Select(o => new {
+            o.Id,
+            o.Nome,
+            o.ProposalNumber,
+            o.CreatedBy,
+            o.Ativo
+            })));
 
-		var colHeaders = [
-			'ID',
-			'Nome',
-			'Número da Proposta',
-			'Criado Por',
-			'Ativo',
-			'Eliminar'];
+        var colHeaders = [
+            'ID',
+            'Nome',
+            'Número da Proposta',
+            'Criado Por',
+            'Ativo',
+            'Eliminar'];
 
-			var actionRenderer = function (instance, td, row, col, prop, value, cellProperties) {
-				var id = instance.getDataAtRowProp(row, 'id');
-				var $button = $('<button type="button" class="btn btn-sm btn-danger rounded-2" style="font-size: 0.8em;" id="EliminarButtonExcel'+id+'" data-id="'+id+'" onclick="showModalDeleteExcel(this.id)"></button>');
-				$button.html("Eliminar")
-				$(td).css('text-align', 'center').empty().append($button);
-			};
+        var actionRenderer = function (instance, td, row, col, prop, value, cellProperties) {
+            var id = instance.getDataAtRowProp(row, 'id');
+            var $button = $('<button type="button" class="btn btn-sm btn-danger rounded-2" style="font-size: 0.8em;" id="EliminarButtonExcel' + id + '" data-id="' + id + '" onclick="showModalDeleteExcel(this.id)"></button>');
+            $button.html("Eliminar")
+            $(td).css('text-align', 'center').empty().append($button);
+        };
 
-		var container = document.getElementById('excelOrcamentoNomes');
+        var container = document.getElementById('excelOrcamentoNomes');
 
-		var hot = new Handsontable(container, {
-			data: data,
-			colHeaders: colHeaders,
-			columns: [
-				{ data: 'id', readOnly: true },
-				{ data: 'nome', type: 'text' },
-				{ data: 'proposalNumber', type: 'text' },
-				{ data: 'createdBy', type: 'text' },
-				{ data: 'ativo', type: 'checkbox', readOnly: true },
-				{ data: 'eliminar', renderer: actionRenderer, readOnly: true }
-			],
+        var hot = new Handsontable(container, {
+            data: data,
+            colHeaders: colHeaders,
+            columns: [
+                { data: 'id', readOnly: true },
+                { data: 'nome', type: 'text' },
+                { data: 'proposalNumber', type: 'text' },
+                { data: 'createdBy', type: 'text' },
+                { data: 'ativo', type: 'checkbox', readOnly: true },
+                { data: 'eliminar', renderer: actionRenderer, readOnly: true }
+            ],
 
-			language: 'pt-BR',
-			rowHeaders: true,
-			hiddenColumns: {
-				columns: [4]
-			},
-			filters: true,
-			dropdownMenu: ['filter_by_condition', 'filter_action_bar'],
-			columnSorting: true,
-			height: '300px',
-			licenseKey: 'non-commercial-and-evaluation' // for non-commercial use only
-		});
+            language: 'pt-BR',
+            rowHeaders: true,
+            hiddenColumns: {
+                columns: [4]
+            },
+            filters: true,
+            dropdownMenu: ['filter_by_condition', 'filter_action_bar'],
+            columnSorting: true,
+            height: '300px',
+            licenseKey: 'non-commercial-and-evaluation' // for non-commercial use only
+        });
 
-		var button1 = document.getElementById('export-file');
+        var button1 = document.getElementById('export-file');
 
-		button1.addEventListener('click', function () {
-		
-		var data = hot.getData();
-		
-		var colHeaders2 = [
-        			'ID',
-        			'Nome',
-        			'Número da Proposta',
-        			'Criado Por'];
-		
-		var hot2 = new Handsontable(document.getElementById('excelOrcamentoNomes2'), {
-                                    			data: data,
-                                    			colHeaders: colHeaders2,
-                                    				hiddenColumns: {
-                                    					columns: [4, 5]
-                                    				},
-                                    			rowHeaders: true,
-                                    			licenseKey: 'non-commercial-and-evaluation' // for non-commercial use only
-                                    		});
-		
-		var exportPlugin1 = hot2.getPlugin('exportFile');
-		
-			exportPlugin1.downloadFile('csv', {
-				bom: false,
-				columnDelimiter: ',',
-				columnHeaders: true,
-				exportHiddenColumns: false,
-				exportHiddenRows: true,
-				fileExtension: 'csv',
-				filename: 'Tabela_Propostas_[YYYY]-[MM]-[DD]',
-				mimeType: 'text/csv',
-				rowDelimiter: '\r\n',
-				rowHeaders: false
-			});
-		});
+        button1.addEventListener('click', function () {
 
-		var pdfButton = document.getElementById('btnPDF');
+            var data = hot.getData();
 
-		pdfButton.addEventListener('click', function() {
-
-			var data = hot.getData();
-			window.jsPDF = window.jspdf.jsPDF;
-			
-			var colHeaders2 = [
-                    			'ID',
-                    			'Nome',
-								'Número da Proposta',
-                    			'Criado Por'];
-
-			var doc = new jsPDF({
-				orientation: "landscape"
-			});
-
-			var currentDate = new Date();
-
-			var dateString = currentDate.getDate() + '/' + (currentDate.getMonth() + 1) + '/' + currentDate.getFullYear();
-
-			doc.text('Tabela de Propostas - ' + dateString, 10, 10);
-
-			doc.autoTable({
-				head: [colHeaders2],
-				body: data,
-				styles: {
-					fontSize: 5 // Set font size to 14
-				}
-			});
-
-			var dateString = currentDate.getDate() + '-' + (currentDate.getMonth() + 1) + '-' + currentDate.getFullYear();
-
-			doc.save('Tabela_Propostas_'+dateString+'.pdf');
-		});
-
-		const save = document.querySelector('#save-button');
-
-		var tableData = JSON.stringify(hot.getSourceData());
-
-		//console.log(tableData);
-
-		$("#save-button").click(function () {
-			hot.validateCells((valid) => {
-				if (valid) {
-					$.ajax({
-						url: '/OrcamentoNomes/UpdateOrcamentoNomes',
-						data: JSON.stringify(hot.getSourceData()),
-						dataType: 'json',
-						contentType: "application/json",
-						type: 'POST',
-						success: function (result) {
-							getTable();
-							//location.reload()
-						},
-						error: function (xhr, status, error) {
-							alert("Failure: " + error);
-						}
-					});
-				}
-				else {
-					alert("error");
-				}
-			})
-
-		});
-
-		function getTable() {
-
-			$.ajax({
-				url: '/OrcamentoNomes/GetTableOrcamentoNomes',
-				dataType: 'json',
-				contentType: "application/json",
-				type: 'GET',
-				success: function (data) {
-					var i = 0;
-					var tableBody = $('#orcamentoNomesTable tbody');
-					tableBody.empty(); // clear existing rows
-					$.each(data, function (index, item) {
-
-						var row = '<tr>' +
-							'<td>' + item.nome + '</td>' +
-							'<td>' + item.proposalNumber + '</td>' +
-							'<td>' + item.createdBy + '</td>' +
-					
-							'<td>' +
-							'<div class="btn-group" role="group" >' +
-							'<div>' +
-							'<a href="/orcamentoNomes/details/' + item.id + '" class="btn btn-success rounded-0 rounded-start">' +
-							'<i class="bi bi-file-text-fill btn-icon mr-2"></i>' +
-							'</a>' +
-							'</div>' +
-							'<div>' +
-							'<a href="/orcamentoNomes/edit/' + item.id + '" class="btn btn-primary rounded-0">' +
-							'<i class="bi bi-pencil-square btn-icon mr-2"></i>' +
-							'</a>' +
-							'</div>' +
-							'<div>' +
-							'<button type="button" class="btn btn-danger rounded-0 rounded-end" id="EliminarButton' + i + '" data-id="' + item.id + '" onclick="showModalDelete(this.id)">' +
-							'<i class="bi bi-trash3-fill btn-icon mr-2"></i>' +
-							'</button>' +
-							'</div>' +
-							'</div>' +
-							'</td>' +
-
-							'</tr>';
-							i += 1
-						tableBody.append(row);
-					});
-				},
-				error: function (xhr, status, error) {
-					alert("Failure: " + error);
-				}
-			});
-
-		}
-
-		function deleteOnExcel(){
-
-		var id_value = document.getElementById("eliminarModalButtonExcel");
-		const idRevenueType = id_value.getAttribute("data-id");
-
-		$("#eliminarModalExcel").modal("hide");
-
-		$.ajax({
-				type: "POST",
-				url: "/OrcamentoNomes/deleteOnExcel",
-				data: idRevenueType,
-				contentType: "application/json; charset=utf-8;",
-				dataType: "json",
-				success: function (data) {
-
-					hot.loadData(data);
-					getTable();
-				},
-				error: function (xhr, status, error) {
-					console.log(error);
-				}
-			});
-		}
-
-		var buttonDelete = document.getElementById("eliminarModalButtonExcel")
-		buttonDelete.addEventListener("click", deleteOnExcel)
-
-		function addNewRow() {
-
-			hot.validateCells((valid) => {
-				if (valid) {
-					$.ajax({
-						url: '/OrcamentoNomes/UpdateOrcamentoNomes',
-						data: JSON.stringify(hot.getSourceData()),
-						dataType: 'json',
-						contentType: "application/json",
-						type: 'POST',
-						success: function (result) {
-							
-							var novaLinha = {
-								Nome: "Não defindo",
-								CreatedBy: "Não definido",
-								ProposalNumber: "Não definido",
-								Ativo: true
-							};
+            var colHeaders2 = [
+                'ID',
+                'Nome',
+                'Número da Proposta',
+                'Criado Por'];
 
 
-							$.ajax({
-								type: "POST",
-								url: "/OrcamentoNomes/AddNewRow",
-								data: novaLinha,
-								dataType: "json",
-								success: function (dataModel) {
-									hot.loadData(dataModel);
-									getTable();
-								},
-								error: function (xhr, status, error) {
-									console.log(error);
-								}
-							});
-						},
-						error: function (xhr, status, error) {
-							alert("Failure: " + error);
-						}
-					});
-				}
-				else {
-					alert("error");
-				}
-			})
+            $.ajax({
+                type: "GET",
+                url: "/OrcamentoNomes/getOrcamentoNomes",
+                dataType: "json",
+                success: function (linhas2) {
+                    var hot2 = new Handsontable(document.getElementById('excelOrcamentoNomes2'), {
+                        data: linhas2,
+                        colHeaders: colHeaders2,
+                      
+                        rowHeaders: true,
+                        licenseKey: 'non-commercial-and-evaluation' // for non-commercial use only
+                    });
 
-			
 
-		}
+                    var currentDate = new Date();
+                    var dateString = currentDate.getDate() + '/' + (currentDate.getMonth() + 1) + '/' + currentDate.getFullYear();
 
-		var buttonNewRow = document.getElementById("addRowButton")
-		buttonNewRow.addEventListener("click", addNewRow)
-	});
+                    var wb = XLSX.utils.book_new();
+
+                    var ws = XLSX.utils.json_to_sheet(hot2.getData());
+                    XLSX.utils.sheet_add_aoa(ws, [colHeaders2], { origin: 'A1' });
+
+                    XLSX.utils.book_append_sheet(wb, ws, 'Folha 1');
+
+
+                    var wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
+
+                    function s2ab(s) {
+                        var buf = new ArrayBuffer(s.length);
+                        var view = new Uint8Array(buf);
+                        for (var i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xff;
+                        return buf;
+                    }
+
+                    var blob = new Blob([s2ab(wbout)], { type: 'application/octet-stream' });
+
+                    var downloadUrl = URL.createObjectURL(blob);
+                    var a = document.createElement('a');
+                    a.href = downloadUrl;
+                    a.download = 'Tabela_Orçamentos_' + dateString + '.xlsx';
+                    document.body.appendChild(a);
+                    a.click();
+                    setTimeout(function () {
+                        document.body.removeChild(a);
+                        window.URL.revokeObjectURL(downloadUrl);
+                    }, 0);
+                },
+                error: function (xhr, status, error) {
+                    console.log(error);
+                }
+            });
+
+            
+
+        });
+
+        var pdfButton = document.getElementById('btnPDF');
+
+        pdfButton.addEventListener('click', function () {
+
+            var data = hot.getData();
+            window.jsPDF = window.jspdf.jsPDF;
+
+            var colHeaders2 = [
+                'ID',
+                'Nome',
+                'Número da Proposta',
+                'Criado Por'];
+
+            var doc = new jsPDF({
+                orientation: "landscape"
+            });
+
+            var currentDate = new Date();
+
+            var dateString = currentDate.getDate() + '/' + (currentDate.getMonth() + 1) + '/' + currentDate.getFullYear();
+
+            doc.text('Tabela de Propostas - ' + dateString, 10, 10);
+
+            doc.autoTable({
+                head: [colHeaders2],
+                body: data,
+                styles: {
+                    fontSize: 5 // Set font size to 14
+                }
+            });
+
+            var dateString = currentDate.getDate() + '-' + (currentDate.getMonth() + 1) + '-' + currentDate.getFullYear();
+
+            doc.save('Tabela_Propostas_' + dateString + '.pdf');
+        });
+
+        const save = document.querySelector('#save-button');
+
+        var tableData = JSON.stringify(hot.getSourceData());
+
+        //console.log(tableData);
+
+        $("#save-button").click(function () {
+            hot.validateCells((valid) => {
+                if (valid) {
+                    $.ajax({
+                        url: '/OrcamentoNomes/UpdateOrcamentoNomes',
+                        data: JSON.stringify(hot.getSourceData()),
+                        dataType: 'json',
+                        contentType: "application/json",
+                        type: 'POST',
+                        success: function (result) {
+                            getTable();
+                            //location.reload()
+                        },
+                        error: function (xhr, status, error) {
+                            alert("Failure: " + error);
+                        }
+                    });
+                }
+                else {
+                    alert("error");
+                }
+            })
+
+        });
+
+        function getTable() {
+
+            $.ajax({
+                url: '/OrcamentoNomes/GetTableOrcamentoNomes',
+                dataType: 'json',
+                contentType: "application/json",
+                type: 'GET',
+                success: function (data) {
+                    var i = 0;
+                    var tableBody = $('#orcamentoNomesTable tbody');
+                    tableBody.empty(); // clear existing rows
+                    $.each(data, function (index, item) {
+
+                        var row = '<tr>' +
+                            '<td>' + item.nome + '</td>' +
+                            '<td>' + item.proposalNumber + '</td>' +
+                            '<td>' + item.createdBy + '</td>' +
+
+                            '<td>' +
+                            '<div class="btn-group" role="group" >' +
+                            '<div>' +
+                            '<a href="/orcamentoNomes/details/' + item.id + '" class="btn btn-success rounded-0 rounded-start">' +
+                            '<i class="bi bi-file-text-fill btn-icon mr-2"></i>' +
+                            '</a>' +
+                            '</div>' +
+                            '<div>' +
+                            '<a href="/orcamentoNomes/edit/' + item.id + '" class="btn btn-primary rounded-0">' +
+                            '<i class="bi bi-pencil-square btn-icon mr-2"></i>' +
+                            '</a>' +
+                            '</div>' +
+                            '<div>' +
+                            '<button type="button" class="btn btn-danger rounded-0 rounded-end" id="EliminarButton' + i + '" data-id="' + item.id + '" onclick="showModalDelete(this.id)">' +
+                            '<i class="bi bi-trash3-fill btn-icon mr-2"></i>' +
+                            '</button>' +
+                            '</div>' +
+                            '</div>' +
+                            '</td>' +
+
+                            '</tr>';
+                        i += 1
+                        tableBody.append(row);
+                    });
+                },
+                error: function (xhr, status, error) {
+                    alert("Failure: " + error);
+                }
+            });
+
+        }
+
+        function deleteOnExcel() {
+
+            var id_value = document.getElementById("eliminarModalButtonExcel");
+            const idRevenueType = id_value.getAttribute("data-id");
+
+            $("#eliminarModalExcel").modal("hide");
+
+            $.ajax({
+                type: "POST",
+                url: "/OrcamentoNomes/deleteOnExcel",
+                data: idRevenueType,
+                contentType: "application/json; charset=utf-8;",
+                dataType: "json",
+                success: function (data) {
+
+                    hot.loadData(data);
+                    getTable();
+                },
+                error: function (xhr, status, error) {
+                    console.log(error);
+                }
+            });
+        }
+
+        var buttonDelete = document.getElementById("eliminarModalButtonExcel")
+        buttonDelete.addEventListener("click", deleteOnExcel)
+
+        function addNewRow() {
+
+            hot.validateCells((valid) => {
+                if (valid) {
+                    $.ajax({
+                        url: '/OrcamentoNomes/UpdateOrcamentoNomes',
+                        data: JSON.stringify(hot.getSourceData()),
+                        dataType: 'json',
+                        contentType: "application/json",
+                        type: 'POST',
+                        success: function (result) {
+
+                            var novaLinha = {
+                                Nome: "Não defindo",
+                                CreatedBy: "Não definido",
+                                ProposalNumber: "Não definido",
+                                Ativo: true
+                            };
+
+
+                            $.ajax({
+                                type: "POST",
+                                url: "/OrcamentoNomes/AddNewRow",
+                                data: novaLinha,
+                                dataType: "json",
+                                success: function (dataModel) {
+                                    hot.loadData(dataModel);
+                                    getTable();
+                                },
+                                error: function (xhr, status, error) {
+                                    console.log(error);
+                                }
+                            });
+                        },
+                        error: function (xhr, status, error) {
+                            alert("Failure: " + error);
+                        }
+                    });
+                }
+                else {
+                    alert("error");
+                }
+            })
+
+
+
+        }
+
+        var buttonNewRow = document.getElementById("addRowButton")
+        buttonNewRow.addEventListener("click", addNewRow)
+    });
 
 </script>
 

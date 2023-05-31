@@ -239,6 +239,21 @@ namespace Orcamentos.Controllers
             return Json(data);
         }
 
+        public JsonResult getBuManagers()
+        {
+
+            var linhas2 = _context.buManagers.Where(d => d.Ativo == true).Select(o => new {
+                o.Id,
+                o.Nome,
+
+            }).ToList();
+
+
+            return Json(linhas2);
+
+
+        }
+
         [HttpPost]
         public JsonResult AddNewRow(BuManager novaLinha)
         {

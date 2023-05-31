@@ -215,31 +215,57 @@
 			var colHeaders2 = [
                 			'ID',
                 			'Nome'];
-        
-        		var hot2 = new Handsontable(document.getElementById('excelOrcamentos2'), {
-                			data: data,
-                			colHeaders: colHeaders2,
-                				hiddenColumns: {
-                					columns: [2, 3]
-                				},
-                			rowHeaders: true,
-                			licenseKey: 'non-commercial-and-evaluation' // for non-commercial use only
-                		});
-        
-        		
-        		var exportPlugin1 = hot2.getPlugin('exportFile');
-		
-			exportPlugin1.downloadFile('csv', {
-				bom: false,
-				columnDelimiter: ',',
-				columnHeaders: true,
-				exportHiddenColumns: false,
-				exportHiddenRows: true,
-				fileExtension: 'csv',
-				filename: 'Tabela_Gestores_de_Negócio_[YYYY]-[MM]-[DD]',
-				mimeType: 'text/csv',
-				rowDelimiter: '\r\n',
-				rowHeaders: false
+
+			$.ajax({
+				type: "GET",
+				url: "/BuManagers/getBuManagers",
+				dataType: "json",
+				success: function (linhas2) {
+					var hot2 = new Handsontable(document.getElementById('excelOrcamentos2'), {
+						data: linhas2,
+						colHeaders: colHeaders2,
+
+						rowHeaders: true,
+						licenseKey: 'non-commercial-and-evaluation' // for non-commercial use only
+					});
+
+
+					var currentDate = new Date();
+					var dateString = currentDate.getDate() + '/' + (currentDate.getMonth() + 1) + '/' + currentDate.getFullYear();
+
+					var wb = XLSX.utils.book_new();
+
+					var ws = XLSX.utils.json_to_sheet(hot2.getData());
+					XLSX.utils.sheet_add_aoa(ws, [colHeaders2], { origin: 'A1' });
+
+					XLSX.utils.book_append_sheet(wb, ws, 'Folha 1');
+
+
+					var wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
+
+					function s2ab(s) {
+						var buf = new ArrayBuffer(s.length);
+						var view = new Uint8Array(buf);
+						for (var i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xff;
+						return buf;
+					}
+
+					var blob = new Blob([s2ab(wbout)], { type: 'application/octet-stream' });
+
+					var downloadUrl = URL.createObjectURL(blob);
+					var a = document.createElement('a');
+					a.href = downloadUrl;
+					a.download = 'Tabela_Gestor_de_Negocios_' + dateString + '.xlsx';
+					document.body.appendChild(a);
+					a.click();
+					setTimeout(function () {
+						document.body.removeChild(a);
+						window.URL.revokeObjectURL(downloadUrl);
+					}, 0);
+				},
+				error: function (xhr, status, error) {
+					console.log(error);
+				}
 			});
 		});
 

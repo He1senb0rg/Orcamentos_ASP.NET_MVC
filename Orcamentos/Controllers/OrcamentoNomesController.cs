@@ -491,8 +491,25 @@ namespace Orcamentos.Controllers
 
             return Json(linhas);
         }
-        
-        [HttpPost]
+
+		public JsonResult getOrcamentoNomes()
+		{
+
+			var linhas2 = _context.orcamentoNomes.Where(d => d.Ativo == true).Select(o => new {
+				o.Id,
+				o.Nome,
+				o.ProposalNumber,
+                o.CreatedBy
+			}).ToList();
+
+
+			return Json(linhas2);
+
+
+		}
+
+
+		[HttpPost]
         public JsonResult getOrcamentos ([FromBody] int id)
         {
 
