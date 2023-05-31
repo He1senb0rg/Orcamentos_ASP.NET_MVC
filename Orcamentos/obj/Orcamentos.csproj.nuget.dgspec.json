@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\warga\\Documents\\Estagio\\Nova pasta\\Orcamentos_ASP.NET_MVC\\Orcamentos\\Orcamentos.csproj": {}
+    "E:\\GitHub Projects\\Orcamentos_ASP.NET_MVC\\Orcamentos\\Orcamentos.csproj": {}
   },
   "projects": {
-    "C:\\Users\\warga\\Documents\\Estagio\\Nova pasta\\Orcamentos_ASP.NET_MVC\\Orcamentos\\Orcamentos.csproj": {
+    "E:\\GitHub Projects\\Orcamentos_ASP.NET_MVC\\Orcamentos\\Orcamentos.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\warga\\Documents\\Estagio\\Nova pasta\\Orcamentos_ASP.NET_MVC\\Orcamentos\\Orcamentos.csproj",
+        "projectUniqueName": "E:\\GitHub Projects\\Orcamentos_ASP.NET_MVC\\Orcamentos\\Orcamentos.csproj",
         "projectName": "Orcamentos",
-        "projectPath": "C:\\Users\\warga\\Documents\\Estagio\\Nova pasta\\Orcamentos_ASP.NET_MVC\\Orcamentos\\Orcamentos.csproj",
-        "packagesPath": "C:\\Users\\warga\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\warga\\Documents\\Estagio\\Nova pasta\\Orcamentos_ASP.NET_MVC\\Orcamentos\\obj\\",
+        "projectPath": "E:\\GitHub Projects\\Orcamentos_ASP.NET_MVC\\Orcamentos\\Orcamentos.csproj",
+        "packagesPath": "C:\\Users\\Big Boss\\.nuget\\packages\\",
+        "outputPath": "E:\\GitHub Projects\\Orcamentos_ASP.NET_MVC\\Orcamentos\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\warga\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Big Boss\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -78,6 +78,24 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[6.0.14, 6.0.14]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[6.0.14, 6.0.14]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[6.0.14, 6.0.14]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[6.0.14, 6.0.14]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -86,7 +104,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     }

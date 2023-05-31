@@ -60,7 +60,7 @@ namespace Orcamentos.Controllers
             {
                 _context.Add(revenueType);
                 await _context.SaveChangesAsync();
-                _toastNotification.AddSuccessToastMessage("Tipo de Rendimento criado com sucesso");
+                _toastNotification.AddSuccessToastMessage("Sub Família criada com sucesso");
                 return RedirectToAction(nameof(Index));
             }
             return View(revenueType);
@@ -100,7 +100,7 @@ namespace Orcamentos.Controllers
                 {
                     _context.Update(revenueType);
                     await _context.SaveChangesAsync();
-                    _toastNotification.AddSuccessToastMessage("Tipo de Rendimento editado com sucesso");
+                    _toastNotification.AddSuccessToastMessage("Sub Família editada com sucesso");
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -168,11 +168,11 @@ namespace Orcamentos.Controllers
                     }
 
                     _context.SaveChanges();
-                    _toastNotification.AddSuccessToastMessage("Tipo de Rendimento eliminado com sucesso");
+                    _toastNotification.AddSuccessToastMessage("Sub Família eliminada com sucesso");
                 }
                 else
                 {
-                    _toastNotification.AddErrorToastMessage("Não é possivel eliminar este Tipo de Rendimento");
+                    _toastNotification.AddErrorToastMessage("Não é possivel eliminar esta Sub Família");
                 }
             }
 
@@ -225,13 +225,13 @@ namespace Orcamentos.Controllers
                 _context.Update(revenueType);
 
                 _context.SaveChanges();
-                _toastNotification.AddSuccessToastMessage("Tipo de Rendimento eliminado com sucesso");
+                _toastNotification.AddSuccessToastMessage("Sub Família eliminada com sucesso");
 
                 
             }
             else
             {
-                _toastNotification.AddErrorToastMessage("Não é possivel eliminar este Tipo de Rendimento");
+                _toastNotification.AddErrorToastMessage("Não é possivel eliminar esta Sub Família");
             }
 
             List<RevenueType> data = _context.revenueTypes.Where(d => d.Ativo == true).Where(d => d.Id != 1).ToList();

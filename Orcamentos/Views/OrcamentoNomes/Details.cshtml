@@ -492,20 +492,20 @@
         			var data2 = @Html.Raw(Json.Serialize(listaOrcamentos
         				.Select(o => new {
         
-        				ProposalNumber = o.OrcamentoNome.ProposalNumber,
-        				Sequencia= o.Id*10,
-        				o.Partnumb,
-        				o.ProductName,
-        				o.Quantidade,
-        				o.DescontoTabela,
-        				o.Marca,
-        				o.TotalPrice,
-        				o.TotalCost,
-        				o.DelivaryDate,
-        				SubFamilia = o.RevenueType.Nome,
-        				o.ExternalProvider,
+					        ProposalNumber = o.OrcamentoNome.ProposalNumber,
+					        Sequencia= o.Id*10,
+					        o.Partnumb,
+					        o.ProductName,
+					        o.Quantidade,
+					        o.DescontoTabela,
+					        o.Marca,
+					        o.TotalPrice,
+					        o.TotalCost,
+					        o.DelivaryDate,
+					        SubFamilia = o.RevenueType.Nome,
+					        o.ExternalProvider,
         
-        				})));
+				        })));
 					
 					var id = document.getElementById("orcamentoNomeId").value;
 					
@@ -582,12 +582,20 @@
         
         					});
         					
+        					var data3 = hot2.getData();
+                            
+                                                for (var i = 0; i < data3.length; i++) {
+                                                data3[i][5] = euro.format(data3[i][5]);
+                                                data3[i][7] = euro.format(data3[i][7]);
+                                                data3[i][8] = euro.format(data3[i][8]);
+                                                }
+        					
         					var currentDate = new Date();
                             var dateString = currentDate.getDate() + '/' + (currentDate.getMonth() + 1) + '/' + currentDate.getFullYear();
         					
         					var wb = XLSX.utils.book_new();
                             
-                            var ws = XLSX.utils.json_to_sheet(hot2.getData());
+                            var ws = XLSX.utils.json_to_sheet(data3);
         					XLSX.utils.sheet_add_aoa(ws, [colHeaders2], { origin: 'A1' });			
         										
                             XLSX.utils.book_append_sheet(wb, ws, 'Folha 1');

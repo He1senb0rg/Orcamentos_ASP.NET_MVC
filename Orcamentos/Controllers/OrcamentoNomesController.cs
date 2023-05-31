@@ -129,7 +129,7 @@ namespace Orcamentos.Controllers
                 {
                     _context.Update(orcamentoNome);
                     await _context.SaveChangesAsync();
-                    _toastNotification.AddSuccessToastMessage("Nome de Orçamento editado com sucesso");
+                    _toastNotification.AddSuccessToastMessage("Proposta editada com sucesso");
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -198,11 +198,11 @@ namespace Orcamentos.Controllers
                     }
 
                     _context.SaveChanges();
-                    _toastNotification.AddSuccessToastMessage("Nome de Orçamento eliminado com sucesso");
+                    _toastNotification.AddSuccessToastMessage("Proposta eliminada com sucesso");
                 }
                 else
                 {
-                    _toastNotification.AddErrorToastMessage("Não é possivel eliminar este Nome de Orçamento");
+                    _toastNotification.AddErrorToastMessage("Não é possivel eliminar esta Proposta");
                 }         
                 //_context.orcamentoNomes.Remove(orcamentoNome);
             }
@@ -311,13 +311,13 @@ namespace Orcamentos.Controllers
                 _context.Update(orcamentoNome);
 
                 _context.SaveChanges();
-                _toastNotification.AddSuccessToastMessage("Nome de Orçamento eliminado com sucesso");
+                _toastNotification.AddSuccessToastMessage("Proposta eliminada com sucesso");
 
 
             }
             else
             {
-                _toastNotification.AddErrorToastMessage("Não é possivel eliminar este Nome de Orçamento");
+                _toastNotification.AddErrorToastMessage("Não é possivel eliminar esta Proposta");
             }
 
             List<OrcamentoNome> data = _context.orcamentoNomes.Where(d => d.Ativo == true).Where(d => d.Id != 1).ToList();
